@@ -12,18 +12,22 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
+# GeoCrazy item in the 'Extensions' admin menu
 $_menu['Plugins']->addItem(__('GeoCrazy'),'plugin.php?p=geoCrazy&settings=1','index.php?pf=geoCrazy/images/icon.png',
 		preg_match('/plugin.php\?p=geoCrazy&settings=1(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
-$core->addBehavior('adminPostFormSidebar',array('gcBehaviors','locationField'));
-$core->addBehavior('adminAfterPostUpdate',array('gcBehaviors','setLocation'));
-$core->addBehavior('adminAfterPostCreate',array('gcBehaviors','setLocation'));
-$core->addBehavior('adminPostHeaders',array('gcBehaviors','postHeaders'));
-$core->addBehavior('adminRelatedHeaders',array('gcBehaviors','postHeaders'));
+# GeoCrazy widget in the 'Widgets' admin menu
+require dirname(__FILE__).'/_widgets.php';
+
+$core->addBehavior('adminPostFormSidebar',array('gcAdminBehaviors','locationField'));
+$core->addBehavior('adminAfterPostUpdate',array('gcAdminBehaviors','setLocation'));
+$core->addBehavior('adminAfterPostCreate',array('gcAdminBehaviors','setLocation'));
+$core->addBehavior('adminPostHeaders',array('gcAdminBehaviors','postHeaders'));
+$core->addBehavior('adminRelatedHeaders',array('gcAdminBehaviors','postHeaders'));
 
 # Behaviors
-class gcBehaviors
+class gcAdminBehaviors
 {
 	/**
 	 * Declare post.js in HTML header.
@@ -44,18 +48,18 @@ class gcBehaviors
 	{
 		$gc_latlong = '';
 
-		// Display after saving post
+		# Display after saving post
 		if (!empty($_POST['gc_latlong'])) {
 			$gc_latlong = $_POST['gc_latlong'];
 		
-		// Display of the post
+		# Display of the post
 		} else if ($post) {
 			$core = $GLOBALS['core'];
 			$meta = new dcMeta($core);
 			$gc_latlong = $meta->getMetaStr($post->post_meta,'gc_latlong');
 		}
 		
-		// HTML
+		# HTML
 		echo '<h3>'.__('Location:').'</h3>
 		      <div class="p">
 		        <div id="map_canvas" style="overflow: hidden"></div>';
@@ -71,7 +75,7 @@ class gcBehaviors
 		
 		echo '</div>';
 		
-		// Coordinates in hidden input
+		# Coordinates in hidden input
 		echo form::hidden('gc_latlong',$gc_latlong);
 	}
 	

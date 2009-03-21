@@ -10,6 +10,11 @@
 #
 # -- END LICENSE BLOCK ------------------------------------
 
+if (!defined('DC_RC_PATH')) { return; }
+
+# The GeoCrazy widget can be included in template files.
+require dirname(__FILE__).'/_widgets.php';
+
 # Extend the template path
 $core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__).'/default-templates');
 
@@ -18,6 +23,9 @@ $core->url->register('feed','feed','^feed/(.+)$',array('gcUrlHandlers','feed'));
 
 # sitemap-geo url handler
 $core->url->register('sitemapGeo','sitemap-geo','^sitemap-geo[_\.]xml$',array('gcUrlHandlers','sitemapGeo'));
+
+# Add javascript in head content
+$core->addBehavior('publicHeadContent',array('gcPublicBehaviors','publicHeadContent'));
 
 /**
  * URL handlers for the GeoCrazy plugin.
@@ -141,4 +149,60 @@ class gcUrlHandlers extends dcUrlHandlers
 		exit;
 	}
 }
+
+/**
+ * Widget
+ */
+class publicGcWidget
+{
+	public static function gcWidget(&$w)
+	{
+		global $core;
+		global $_ctx;
+
+		# This widget is displayed only in a post page 
+		if ($core->url->type != 'post') {
+			return;
+		}
+
+		# Post data
+		$meta = new dcMeta($core);
+		$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
+		
+		if ($gc_latlong == '') {
+			return;
+		}
+		
+		$widget_html = '<div class="geocrazy">';
+		
+		# Title
+		if ($w->title != '') {
+			$widget_html .= '<h2>'.$w->title.'</h2>';
+		}
+		
+		# Map
+		$width = $w->width != '' ? $w->width.'px' : '100%';
+		$height = $w->height != '' ? $w->height.'px' : '200px';
+		$widget_html .= '<div id="gc_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
+
+		# Javascript
+		// TODO : possibility to override default widget settings for a post
+		$widget_html .= '<script type="text/javascript">gcMap("gc_map_canvas_'.$w->wid.'",'.$w->type.','.$w->zoom.',"'.$gc_latlong.'");</script>';
+
+		$widget_html .= '</div>';
+		
+		return $widget_html;
+	}
+}
+
+class gcPublicBehaviors
+{
+	public static function publicHeadContent(&$core)
+	{
+		$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+		echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
+					<script type="text/javascript" src="index.php?pf=geoCrazy/js/widget.js"></script>';
+	}
+}
+
 ?>
