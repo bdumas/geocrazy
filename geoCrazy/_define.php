@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
 	/* Name */          "GeoCrazy",
-	/* Description*/    "GeoRSS plugin",
+	/* Description*/    "Geolocalize your posts",
 	/* Author */        "Benjamin Dumas",
 	/* Version */       '0.1',
 	/* Permissions */   'usage,contentadmin'

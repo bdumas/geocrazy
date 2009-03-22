@@ -10,8 +10,11 @@
 #
 # -- END LICENSE BLOCK ------------------------------------
 
+# Popup to select a place on the map
 if ($_GET['popup'] == '1') {
 	include 'popup.php';
+
+# Configuration of the plugin
 } else {
 	include 'settings.php';
 }

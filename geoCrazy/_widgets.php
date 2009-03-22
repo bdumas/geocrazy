@@ -13,19 +13,31 @@
 if (!defined('DC_RC_PATH')) { return; }
  
 $core->addBehavior('initWidgets',array('gcWidgetBehaviors','initWidgets'));
- 
+
+/**
+ * GeoCrazy map widget.
+ */
 class gcWidgetBehaviors
 {
+	
+	/**
+	 * Creation and settings of the widget.
+	 * @param $w
+	 */
 	public static function initWidgets(&$w)
 	{
 		$w->create('gcWidget',__('GeoCrazy Map'),array('publicGcWidget','gcWidget'));
 	 
-		$w->gcWidget->setting('title',__('Title:'),'Location','text');
+		# Title displayed above the map
+		$w->gcWidget->setting('title',__('Title:'),__('Location'),'text');
 		
+		# Width of the map
 		$w->gcWidget->setting('width',__('Width (in pixels, empty value = 100%):'),'','text');
 		
+		# Height of the map
 		$w->gcWidget->setting('height',__('Height (in pixels):'),'200','text');
 		
+		# Zoom level on the map
 		$w->gcWidget->setting('zoom',__('Zoom (0 = far, 19 = close):'),'10','combo',
 			array('0' => 0, 
 						'1' => 1, 
@@ -48,20 +60,23 @@ class gcWidgetBehaviors
 						'18' => 18,
 						'19' => 19));
 	 	
-		$w->gcWidget->setting('type',__('Type:'),'physical','combo',
-			array('physical' => 1, 
-						'normal' => 2,
-						'satellite' => 3,
-						'hybrid' => 4));
-			
-		// TODO: checkbox to enable/disable the override of these settings for a post
-			
-		$w->gcWidget->setting('wid',__('ID (If you use several GeoCrazy Map widgets, choose a different ID for each of them):'),'0','combo',
-			array('0' => 0, 
-						'1' => 1, 
-						'2' => 2,
-						'3' => 3,
-						'4' => 4));
+		# Type of the map
+		$w->gcWidget->setting('type',__('Type:'),__('physical'),'combo',
+			array(__('physical') => 1, 
+						__('normal') => 2,
+						__('satellite') => 3,
+						__('hybrid') => 4));
+		
+		# If mode is 'advanced', the 'ID' field is useful to place the same widget more than once.
+		$mode = $GLOBALS['core']->blog->settings->get('geocrazy_mode');
+		if ($mode == 1) {	
+			$w->gcWidget->setting('wid',__('ID (If you use several GeoCrazy Map widgets, choose a different ID for each of them):'),'0','combo',
+				array('0' => 0, 
+							'1' => 1, 
+							'2' => 2,
+							'3' => 3,
+							'4' => 4));
+		}
 	}
 }
 ?>

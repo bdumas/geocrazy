@@ -1,4 +1,3 @@
-// Initialization
 function gcMap(htmlId, mapType, zoomLevel, gcLatLong) {
 	var map = new GMap2(document.getElementById(htmlId));
 	var type = G_PHYSICAL_MAP;
