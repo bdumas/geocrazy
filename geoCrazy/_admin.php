@@ -32,12 +32,12 @@ $core->addBehavior('adminRelatedHeaders',array('gcAdminBehaviors','postHeaders')
 class gcAdminBehaviors
 {
 	/**
-	 * Declare post.js in HTML header.
+	 * Declare gcpost.js in HTML header.
 	 */
 	public static function postHeaders()
 	{
 		$gmaps_api_key = $GLOBALS['core']->blog->settings->get('geocrazy_googlemapskey');
-		return '<script type="text/javascript" src="index.php?pf=geoCrazy/js/post.js"></script>
+		return '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcpost.js"></script>
 					  <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>';
 	}
 	
