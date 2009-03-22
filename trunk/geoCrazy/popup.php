@@ -16,10 +16,10 @@
     <script type="text/javascript" src="index.php?pf=geoCrazy/js/popup.js"></script>
     <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $core->blog->settings->get('geocrazy_googlemapskey'); ?>" type="text/javascript"></script>
     <script type="text/javascript">
-			var gc_geocoder_msg = '<?php echo __('was not found.') ?>';
+			var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
     </script>    
   </head>
-  <body onload="initialize()" onunload="GUnload()">
+  <body>
     <h1><?php echo __('Map your post')?></h1>
     <form id="geocoder">
       <?php echo __('Find location')?>

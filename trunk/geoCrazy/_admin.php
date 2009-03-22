@@ -13,7 +13,7 @@
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 # GeoCrazy item in the 'Extensions' admin menu
-$_menu['Plugins']->addItem(__('GeoCrazy'),'plugin.php?p=geoCrazy&settings=1','index.php?pf=geoCrazy/images/icon.png',
+$_menu['Plugins']->addItem('GeoCrazy','plugin.php?p=geoCrazy&settings=1','index.php?pf=geoCrazy/images/icon.png',
 		preg_match('/plugin.php\?p=geoCrazy&settings=1(&.*)?$/',$_SERVER['REQUEST_URI']),
 		$core->auth->check('contentadmin',$core->blog->id));
 
@@ -26,7 +26,9 @@ $core->addBehavior('adminAfterPostCreate',array('gcAdminBehaviors','setLocation'
 $core->addBehavior('adminPostHeaders',array('gcAdminBehaviors','postHeaders'));
 $core->addBehavior('adminRelatedHeaders',array('gcAdminBehaviors','postHeaders'));
 
-# Behaviors
+/**
+ * Admin behaviors for the GeoCrazy plugin.
+ */
 class gcAdminBehaviors
 {
 	/**
@@ -35,7 +37,6 @@ class gcAdminBehaviors
 	public static function postHeaders()
 	{
 		$gmaps_api_key = $GLOBALS['core']->blog->settings->get('geocrazy_googlemapskey');
-		// TODO: call the maps API on demand ?
 		return '<script type="text/javascript" src="index.php?pf=geoCrazy/js/post.js"></script>
 					  <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>';
 	}

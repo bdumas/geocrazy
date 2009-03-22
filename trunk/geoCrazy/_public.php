@@ -12,7 +12,7 @@
 
 if (!defined('DC_RC_PATH')) { return; }
 
-# The GeoCrazy widget can be included in template files.
+# Widget
 require dirname(__FILE__).'/_widgets.php';
 
 # Extend the template path
@@ -155,6 +155,11 @@ class gcUrlHandlers extends dcUrlHandlers
  */
 class publicGcWidget
 {
+	
+	/**
+	 * Returns the HTML code of the widget.
+	 * @param $w
+	 */
 	public static function gcWidget(&$w)
 	{
 		global $core;
@@ -180,7 +185,7 @@ class publicGcWidget
 			$widget_html .= '<h2>'.$w->title.'</h2>';
 		}
 		
-		# Map
+		# Map (the Widget ID enables to differentiate several maps)
 		$width = $w->width != '' ? $w->width.'px' : '100%';
 		$height = $w->height != '' ? $w->height.'px' : '200px';
 		$widget_html .= '<div id="gc_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
@@ -195,8 +200,16 @@ class publicGcWidget
 	}
 }
 
+/**
+ * Public behaviors for the GeoCrazy plugin.
+ */
 class gcPublicBehaviors
 {
+	
+	/**
+	 * Inserts javascript in HTML head content.
+	 * @param $core
+	 */
 	public static function publicHeadContent(&$core)
 	{
 		$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
