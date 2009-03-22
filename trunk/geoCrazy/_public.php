@@ -212,9 +212,23 @@ class gcPublicBehaviors
 	 */
 	public static function publicHeadContent(&$core)
 	{
-		$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-		echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
-					<script type="text/javascript" src="index.php?pf=geoCrazy/js/widget.js"></script>';
+		# Widget is displayed only in a post page 
+		if ($core->url->type != 'post') {
+			return;
+		}
+		
+		# Widget is displayed only if the post is geolocalized
+		global $_ctx;
+		$meta = new dcMeta($core);
+		$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
+
+		if ($gc_latlong != '') {
+			$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+			$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+			
+			echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
+						<script type="text/javascript" src="'.$jsUrl.'"></script>';
+		}
 	}
 }
 

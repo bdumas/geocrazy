@@ -13,7 +13,7 @@
 <html>
   <head>
     <title><?php echo __('Map your post') ?></title>
-    <script type="text/javascript" src="index.php?pf=geoCrazy/js/popup.js"></script>
+    <script type="text/javascript" src="index.php?pf=geoCrazy/js/gcpopup.js"></script>
     <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $core->blog->settings->get('geocrazy_googlemapskey'); ?>" type="text/javascript"></script>
     <script type="text/javascript">
 			var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
