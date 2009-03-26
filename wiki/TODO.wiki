@@ -1,4 +1,16 @@
-#summary One-sentence summary of this page.
+#summary List of unordered features to add to GeoCrazy.
+
+  * Use of Mapstraction to let the user choose the map provider he prefers.
+  * Get the postal address from the geographic coordinates and enable to display it with the map (must be good for geo-indexation :))
+  * The user can override the widget default settings for a post (map type, zoom level, display or not the map...)
+  * Add a function in the toolbar of the edit page of a post to add a map in the post.
+  * Use of the microformat geo for the address displayed with maps and text in posts.
+  * KML export.
+  * Default location when geolocalizing a post.
+  * Detection of the location of the author (via browser API or IP or something else...)
+  * Widget to display all geolocated posts of the blog in a map.
+  * Widget to display other GeoRSS feeds (in a map).
+  * Any idea ?
 
 = Introduction =
 
