@@ -19,16 +19,19 @@ if (version_compare($core->getVersion('geoCrazy'),$version,'>=')) {
 	return;
 }
 
-/* Creation of setting
+/* Creation of setting for first installation
 ------------------------------------------------------- */
-$settings = new dcSettings($core,null);
-$settings->setNamespace('geocrazy');
 
-# Google Maps API key
-$settings->put('geocrazy_googlemapskey','','string',__('Google Maps API key'),true,true);
-
-# Simple mode
-$settings->put('geocrazy_mode','simple','integer',__('Advanced mode'),true,true);
+if ($core->getVersion('geoCrazy') == null) {
+	$settings = new dcSettings($core,null);
+	$settings->setNamespace('geocrazy');
+	
+	# Google Maps API key
+	$settings->put('geocrazy_googlemapskey','','string',__('Google Maps API key'),true,true);
+	
+	# Simple mode
+	$settings->put('geocrazy_mode','simple','integer',__('Advanced mode'),true,true);
+}
 
 /* Database schema
 -------------------------------------------------------- */
