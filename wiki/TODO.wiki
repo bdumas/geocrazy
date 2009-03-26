@@ -11,15 +11,3 @@
   * Widget to display all geolocated posts of the blog in a map.
   * Widget to display other GeoRSS feeds (in a map).
   * Any idea ?
-
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
