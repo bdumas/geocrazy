@@ -1,13 +1,12 @@
 <?php
 # -- BEGIN LICENSE BLOCK ----------------------------------
-#
-# This file is part of GeoCrazy, a plugin for Dotclear 2.
-#
+# This file is part of GeoCrazy, a plugin for Dotclear.
+# 
 # Copyright (c) 2009 Benjamin Dumas and contributors
+# 
 # Licensed under the GPL version 2.0 license.
-# See LICENSE file or
+# A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-#
 # -- END LICENSE BLOCK ------------------------------------
 
 if (!defined('DC_RC_PATH')) { return; }
@@ -67,9 +66,9 @@ class gcWidgetBehaviors
 						__('satellite') => 3,
 						__('hybrid') => 4));
 		
-		# If mode is 'advanced', the 'ID' field is useful to place the same widget more than once.
-		$mode = $GLOBALS['core']->blog->settings->get('geocrazy_mode');
-		if ($mode == 1) {	
+		# If multiple widget is enabled, the 'ID' field is useful to place the same widget more than once.
+		$multiple_widget = $GLOBALS['core']->blog->settings->get('geocrazy_multiplewidget');
+		if ($multiple_widget == 1) {	
 			$w->gcWidget->setting('wid',__('ID (If you use several GeoCrazy Map widgets, choose a different ID for each of them):'),'0','combo',
 				array('0' => 0, 
 							'1' => 1, 

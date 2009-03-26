@@ -188,11 +188,11 @@ class publicGcWidget
 		# Map (the Widget ID enables to differentiate several maps)
 		$width = $w->width != '' ? $w->width.'px' : '100%';
 		$height = $w->height != '' ? $w->height.'px' : '200px';
-		$widget_html .= '<div id="gc_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
+		$widget_html .= '<div id="gc_post_widget_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
 
 		# Javascript
 		// TODO : possibility to override default widget settings for a post
-		$widget_html .= '<script type="text/javascript">gcMap("gc_map_canvas_'.$w->wid.'",'.$w->type.','.$w->zoom.',"'.$gc_latlong.'");</script>';
+		$widget_html .= '<script type="text/javascript">gcMap("gc_post_widget_map_canvas_'.$w->wid.'",'.$w->type.','.$w->zoom.',"'.$gc_latlong.'");</script>';
 
 		$widget_html .= '</div>';
 		
