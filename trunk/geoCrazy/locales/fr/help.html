@@ -2,24 +2,33 @@
 h2 {margin-top: 1.5em}
 h3 {margin-top: 1em}
 </style>
+
 <strong>GeoCrazy</strong> est un plugin pour Dotclear 2 qui permet de g&eacute;olocaliser les billets d'un blog, c'est-&agrave;-dire associer des coordonn&eacute;es g&eacute;ographiques &agrave; chaque billet du blog.<br/> 
 Cette g&eacute;olocalisation permet :
 <ul>
 	<li>de transformer les flux RSS et atom de votre blog en flux GeoRSS ;</li>
 	<li>d'afficher pour chaque billet une carte du lieu associ&eacute;.</li>
 </ul>
+
+
 <h2>1. Configuration</h2>
+
 <h3>1.1. Pr&eacute;requis</h3>
 Le plugin "metadata" (tags) est n&eacute;cessaire au fonctionnement du plugin GeoCrazy. Ce plugin, notamment utilis&eacute; pour le syst&egrave;me de tags, est livr&eacute; par d&eacute;faut avec Dotclear 2, donc vous devez probablement d&eacute;j&agrave; l'avoir.
+
 <h3>1.2. Cl&eacute; d'API Google Maps</h3>
 GeoCrazy utilise l'API Google Maps pour g&eacute;n&eacute;rer des cartes. Pour cela, une cl&eacute; diff&eacute;rente est n&eacute;cessaire pour chaque site. Vous pouvez demander gratuitement une cl&eacute; &agrave; Google en vous rendant &agrave; l'adresse suivante : <a href="http://code.google.com/intl/fr/apis/maps/signup.html">http://code.google.com/intl/fr/apis/maps/signup.html</a>.
 <br/>
-Lorsque vous avez r&eacute;cup&eacute;rer votre cl&eacute; Google Maps, rendez-vous dans l'onglet "Configuration", collez la cl&eacute; dans le champ texte et cliquez sur "Enregistrer".
-<h3>1.3. Modes simple et avanc&eacute;</h3>
-Vous pouvez choisir entre le mode simple et le mode avanc&eacute;.<br/>
-Avec le mode avanc&eacute;, vous pouvez utiliser plusieurs widgets GeoCrazy (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation"). 
-C'est pour le moment la seule diff&eacute;rence entre les deux modes.
+Lorsque vous avez r&eacute;cup&eacute;r&eacute; votre cl&eacute; Google Maps, rendez-vous dans l'onglet "Configuration", collez la cl&eacute; dans le champ texte et cliquez sur "Enregistrer".
+
+<h3>1.3. Param&egrave;tres avanc&eacute;s</h3>
+Pour l'instant, il n'y en a qu'un seul :
+<ul>
+	<li>Widget multiple : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
+</ul>
+
 <h2>2. G&eacute;olocalisation d'un billet</h2>
+
 <h3>2.1. Associer un lieu &agrave; un billet</h3>
 Cr&eacute;ez un nouveau billet ou modifiez un billet existant. Dans la colonne de droite de la page d'&eacute;dition, une zone "Lieu" pr&eacute;sente un lien "Ajouter un lieu".
 Cliquez sur ce lien pour ouvrir la popup de s&eacute;lection d'un lieu. 
@@ -27,14 +36,18 @@ S&eacute;lectionnez un lieu en le recherchant via le formulaire ou en cliquant s
 Lorsque le marqueur est plac&eacute; au bon endroit, cliquez sur "Enregistrer le lieu" pour valider et revenir sur l'&eacute;cran d'&eacute;dition du billet. 
 Une carte appara&icirc;t alors pour indiquer le lieu associ&eacute; au billet.
 Enregistrez le billet pour valider la localisation du billet.
+
 <h3>2.2. Modifier le lieu associ&eacute; &agrave; un billet</h3>
 Pour modifier le lieu d'un billet, il suffit de cliquer sur le lien "Modifier le lieu" situ&eacute; sous la carte sur la page d'&eacute;dition du billet et de proc&eacute;der comme &agrave; l'&eacute;tape pr&eacute;c&eacute;dente.
+
 <h3>2.3. Supprimer le lieu associ&eacute; &agrave; un billet</h3>
 Pour supprimer le lieu associ&eacute; &agrave; un billet, et ne pas le remplacer par un autre, cliquez sur le lien "Modifier le lieu" dans la page d'&eacute;dition du billet puis cliquez sur le lien "Supprimer de la carte" dans la popup. 
 Validez le changement sur la popup et enregistrez le billet.
+
 <h2>3. Le widget GeoCrazy</h2>
 Le widget GeoCrazy permet d'afficher une carte du lieu associ&eacute; &agrave; un billet. 
 Attention, cette carte ne s'affiche que sur la page d'un billet (et pas sur la page d'accueil donc).
+
 <h3>3.1. Param&eacute;trage du widget</h3>
 Dans la rubrique "Widgets de pr&eacute;sentation" de l'administration du blog, faites glisser le widget "Carte GeoCrazy" &agrave; l'emplacement d&eacute;sir&eacute;.
 En cliquant sur le signe "+", vous pouvez modifier les param&egrave;tres suivants :
@@ -44,12 +57,15 @@ En cliquant sur le signe "+", vous pouvez modifier les param&egrave;tres suivant
 	<li>Hauteur : hauteur de la carte en pixels (si aucune valeur n'est pr&eacute;cis&eacute;e, la carte aura une hauteur de 200 pixels) ;</li>
 	<li>Zoom : niveau de zoom sur la carte (0 pour afficher la Terre enti&egrave;re, 19 pour zoomer au maximum (attention, certaines zones ne sont pas affichables pour un zoom trop &eacute;lev&eacute;)) ;</li>
 	<li>Type : type de la carte (relief, plan, satellite ou mixte) ;</li>
-	<li>ID (en mode avanc&eacute; seulement) : n&eacute;cessaire si vous placez plusieurs widgets GeoCrazy sur une page (voir le paragraphe suivant).</li>
+	<li>ID (disponible seulement si le param&egrave;tre "widget multiple" est activ&eacute;) : n&eacute;cessaire si vous placez plusieurs widgets GeoCrazy sur une page (voir le paragraphe suivant).</li>
 </ul>
+
 <h3>3.2. Utilisation de plusieurs widgets</h3>
 Il est possible de placer plusieurs fois le widget GeoCrazy dans les bandeaux de navigation et d'extra du blog. 
 Par exemple si vous souhaitez afficher une carte globale et une carte rapproch&eacute;e du lieu concern&eacute;. 
-Dans ce cas, pour des raisons techniques, vous devez affecter une valeur au champ "ID" diff&eacute;rente pour chaque widget (le champ "ID" n'est pr&eacute;sent qu'en mode avanc&eacute;, voir le paragraphe 1.3).
+Dans ce cas, pour des raisons techniques, vous devez affecter une valeur au champ "ID" diff&eacute;rente pour chaque widget (le champ "ID" n'est pr&eacute;sent que si vous avez activ&eacute; le mode "widget multiple", voir le paragraphe 1.3).
+
+
 <h2>4. Flux GeoRSS et sitemap g&eacute;ographique</h2>
 <p>GeoCrazy transforme les flux de votre blog (Atom et RSS) en flux GeoRSS. <a href="http://fr.wikipedia.org/wiki/GeoRSS">GeoRSS</a> est une extension des formats de syndication qui permet d'associer des coordonn&eacute;es g&eacute;ographiques &agrave;ux entr&eacute;es du flux. Les billets non localis&eacute;s restent bien s&ucirc;r pr&eacute;sents dans les flux.</p>
 <p>En plus d'&ecirc;tre consultables dans un agr&eacute;gateur classique, les billets de votre blog peuvent maintenant &ecirc;tre affich&eacute;s dans une carte. Copiez-collez donc l'URL de votre flux RSS dans le champ "recherche" de <a href="http://maps.google.fr/">Google Maps</a> pour essayer. Vos billets g&eacute;olocalis&eacute;s s'affichent sur la carte. Sympa non ? Et cette manipulation n'est pas limit&eacute;e qu'&agrave; Google Maps, vous pouvez par exemple faire la m&ecirc;me chose avec <a href="http://maps.live.fr">Live Maps</a> (mais c'est un peu plus long, il faut passer par le menu "Collections").</p>

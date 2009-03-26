@@ -1,13 +1,12 @@
 <?php
 # -- BEGIN LICENSE BLOCK ----------------------------------
-#
-# This file is part of GeoCrazy, a plugin for Dotclear 2.
-#
+# This file is part of GeoCrazy, a plugin for Dotclear.
+# 
 # Copyright (c) 2009 Benjamin Dumas and contributors
+# 
 # Licensed under the GPL version 2.0 license.
-# See LICENSE file or
+# A copy of this license is available in LICENSE file or at
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-#
 # -- END LICENSE BLOCK ------------------------------------
 
 $gmaps_api_key = '';
@@ -20,16 +19,16 @@ if (isset($_POST['submitForm'])) {
 	$gmaps_api_key = $_POST['gmapsapikey'];
 	$settings->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true,true);
 	
-	$mode = $_POST['mode'];
-	$settings->put('geocrazy_mode',$mode,'integer',__('Advanced mode'),true,true);
+	$multiple_widget = $_POST['multiple_widget'];
+	$settings->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean','Enable multiple widget',true,true);
 	
 	# Redirect to the configuration page
-	header('Location: plugin.php?p=geoCrazy&settings=1&conf=1');
-	
-# Display the configuration
+	$redirect_url = $p_url.'&up=1';
+	$redirect_url .= $_POST['advancedParamVisible'] == 'true' ? '&ap=1' : '';
+	http::redirect($redirect_url);
+
 } else {
-	$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-	$mode = $core->blog->settings->get('geocrazy_mode');
+	$ap = !empty($_GET['ap']);
 }
 ?>
 
@@ -38,7 +37,7 @@ if (isset($_POST['submitForm'])) {
   	<title>GeoCrazy</title>
 	</head>
 	<body>
-		<?php if (!empty($_GET['conf'])) { 
+		<?php if (!empty($_GET['up'])) { 
 			echo '<p class="message">'.__('Settings have been successfully updated.').'</p>';
 		}?>
 		<h2><?php echo html::escapeHTML($core->blog->name); ?> &gt; GeoCrazy</h2>
@@ -49,15 +48,17 @@ if (isset($_POST['submitForm'])) {
 				<legend><?php echo __('Settings') ?></legend>
 				<form method="post" action="plugin.php?p=geoCrazy&settings=1">
 					<?php echo __('Google Maps API key:'); ?> 
-					<input type="text" name="gmapsapikey" size="100" maxlength="100" value="<?php echo $gmaps_api_key; ?>" />
+					<input type="text" name="gmapsapikey" size="100" maxlength="100" value="<?php echo $core->blog->settings->get('geocrazy_googlemapskey'); ?>" />
 					<a href="http://code.google.com/intl/fr/apis/maps/signup.html"><?php echo __('Get your Google Maps API key'); ?></a>
 					<br/><br/>
-					<?php echo __('Mode:'); ?>
-					<select name="mode">
-						<option value="0" <?php if ($mode == 0) { echo "selected"; } ?>><?php echo __('simple'); ?></option>
-						<option value="1" <?php if ($mode == 1) { echo "selected"; } ?>><?php echo __('advanced'); ?></option>
-					</select>
-					<?php echo __('In advanced mode, you can use several GeoCrazy widgets.'); ?>
+					<img id="showAdvancedParam" src="images/plus.png" alt="dévoiler" style="<?php if ($ap) echo 'display: none; ' ?>cursor: pointer; margin-right: 0.3em;" onclick="$('#advancedParameters').show();$(this).hide();$('#hideAdvancedParam').show();$('#advancedParamVisible').val('true');" />
+					<img id="hideAdvancedParam" src="images/minus.png" alt="cacher" style="<?php if (!$ap) echo 'display: none; ' ?>cursor: pointer; margin-right: 0.3em;" onclick="$('#advancedParameters').hide();$(this).hide();$('#showAdvancedParam').show();$('#advancedParamVisible').val('false');" />
+					<span><?php echo __('Advanced parameters') ?></span>
+					<div id="advancedParameters" <?php if (!$ap) echo 'style="display: none;"' ?>">
+						<input id="advancedParamVisible" type="hidden" name="advancedParamVisible" value="<?php if ($ap) echo 'true'; else echo 'false'; ?>" />
+						<br/>
+						<label class="classic"><?php echo form::checkbox('multiple_widget',1,$core->blog->settings->get('geocrazy_multiplewidget')).' '.__('Enable multiple widget') ?></label>
+					</div>
 					<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 					<?php echo $core->formNonce(); ?>
 				</form>
@@ -91,7 +92,7 @@ if (isset($_POST['submitForm'])) {
 		<div class="multi-part" id="about" title="<?php echo __('About'); ?>">
 			<h1><img src="index.php?pf=geoCrazy/images/icon-big.png" alt="" style="margin-right: 0.3em" />GeoCrazy 0.1</h1>
 			<?php echo __('GeoCrazy is written by Benjamin Dumas'); ?>.<br/>
-			<?php echo __('For some help, please write a comment on').' <a href="">'.__('the support page of GeoCrazy').'</a>.'; ?>
+			<?php echo __('For some help, please write a comment on').' <a href="http://www.mygarageisgood4bricolage.com/pages/GeoCrazy">'.__('the support page of GeoCrazy').'</a>.'; ?>
 		</div>
 	</body>
 </html>
