@@ -90,7 +90,7 @@ if (isset($_POST['submitForm'])) {
 		</div>
 
 		<div class="multi-part" id="about" title="<?php echo __('About'); ?>">
-			<h1><img src="index.php?pf=geoCrazy/images/icon-big.png" alt="" style="margin-right: 0.3em" />GeoCrazy 0.1</h1>
+			<h1><img src="index.php?pf=geoCrazy/images/icon-big.png" alt="" style="margin-right: 0.3em" />GeoCrazy <?php echo $core->getVersion('geoCrazy'); ?></h1>
 			<?php echo __('GeoCrazy is written by Benjamin Dumas'); ?>.<br/>
 			<?php echo __('For some help, please write a comment on').' <a href="http://www.mygarageisgood4bricolage.com/pages/GeoCrazy">'.__('the support page of GeoCrazy').'</a>.'; ?>
 		</div>
