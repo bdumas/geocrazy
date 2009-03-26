@@ -16,7 +16,7 @@ if (!defined('DC_RC_PATH')) { return; }
 require dirname(__FILE__).'/_widgets.php';
 
 # Extend the template path
-$core->tpl->setPath($core->tpl->getPath(), dirname(__FILE__).'/default-templates');
+$core->tpl->setPath($core->tpl->getPath(),dirname(__FILE__).'/default-templates');
 
 # Override the feed url handler
 $core->url->register('feed','feed','^feed/(.+)$',array('gcUrlHandlers','feed'));
@@ -79,7 +79,7 @@ class gcUrlHandlers extends dcUrlHandlers
 		elseif (preg_match('#^(?:category/(.+)/)?(atom|rss2)(/comments)?$#',$args,$m))
 		{
 			# All posts or comments feed
-			$type = $m[2].'-geo'; // name of the template file
+			$type = $m[2];
 			$comments = !empty($m[3]);
 			if (!empty($m[1])) {
 				$cat_url = $m[1];
@@ -120,6 +120,7 @@ class gcUrlHandlers extends dcUrlHandlers
 			$tpl .= '-comments';
 			$_ctx->nb_comment_per_page = $core->blog->settings->nb_comment_per_feed;
 		} else {
+			$tpl .= '-geo';
 			$_ctx->nb_entry_per_page = $core->blog->settings->nb_post_per_feed;
 			$_ctx->short_feed_items = $core->blog->settings->short_feed_items;
 		}
