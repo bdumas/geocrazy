@@ -10,4 +10,6 @@
   * Detection of the location of the author (via browser API or IP or something else...)
   * Widget to display all geolocated posts of the blog in a map.
   * Widget to display other GeoRSS feeds (in a map).
+  * Meta tags in HTML header (icbm and geo)
+  * Identification of geotagged content (http://www.geotagicons.com)
   * Any idea ?
