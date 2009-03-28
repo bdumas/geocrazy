@@ -7,18 +7,36 @@ $GLOBALS['__l10n']['Location:']='Lieu :';
 
 # _admin.php:68
 # _admin.php:72
+# settings.php:85
+# settings.php:88
 $GLOBALS['__l10n']['Add location']='Ajouter un lieu';
 
 # _admin.php:69
 # _admin.php:73
+# settings.php:86
+# settings.php:89
 $GLOBALS['__l10n']['Edit location']='Changer le lieu';
 
-# _install.php:28
+# _install.php:30
 # settings.php:20
 $GLOBALS['__l10n']['Google Maps API key']='Clé Google Maps API';
 
-# _install.php:31
-$GLOBALS['__l10n']['Advanced mode']='Mode avancé';
+# _install.php:33
+# settings.php:23
+# settings.php:75
+$GLOBALS['__l10n']['Enable multiple widget']='Mode "widget multiple" pour placer plusieurs fois le même widget';
+
+# _install.php:36
+# settings.php:26
+$GLOBALS['__l10n']['Blog position']='Localisation du blog';
+
+# _install.php:37
+# settings.php:29
+$GLOBALS['__l10n']['Blog region']='Région du blog';
+
+# _install.php:38
+# settings.php:32
+$GLOBALS['__l10n']['Blog placename']='Lieu du blog';
 
 # _widgets.php:28
 $GLOBALS['__l10n']['GeoCrazy Map']='Carte GeoCrazy';
@@ -70,56 +88,61 @@ $GLOBALS['__l10n']['Remove from map']='Supprimer de la carte';
 # popup.php:35
 $GLOBALS['__l10n']['Save location']='Enregistrer le lieu';
 
-# settings.php:46
+# settings.php:61
 $GLOBALS['__l10n']['Configuration']='Configuration';
 
-# settings.php:48
+# settings.php:64
 $GLOBALS['__l10n']['Settings']='Paramètres';
 
-# settings.php:50
+# settings.php:65
 $GLOBALS['__l10n']['Google Maps API key:']='clé Google Maps API :';
 
-# settings.php:52
+# settings.php:67
 $GLOBALS['__l10n']['Get your Google Maps API key']='Demander votre clé Google Maps API';
 
-# settings.php:56
+# settings.php:71
 $GLOBALS['__l10n']['Advanced parameters']='Paramètres avancés';
 
-# settings.php:60
-$GLOBALS['__l10n']['Enable multiple widget']='Mode "widget multiple" pour placer plusieurs fois le même widget';
+# settings.php:81
+$GLOBALS['__l10n']['Blog localization']='Localisation du blog';
 
-# settings.php:68
+# settings.php:99
 $GLOBALS['__l10n']['GeoRSS feed']='Flux GeoRSS';
 
-# settings.php:70
+# settings.php:101
 $GLOBALS['__l10n']['If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map.']='Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte.';
 
-# settings.php:73
+# settings.php:105
 $GLOBALS['__l10n']['My RSS feed:']='Mon flux RSS :';
 
-# settings.php:74
+# settings.php:106
 $GLOBALS['__l10n']['My RSS feed displayed in Google Maps:']='Mon flux RSS affiché dans Google Maps :';
 
-# settings.php:79
+# settings.php:107
+$GLOBALS['__l10n']['My RSS feed displayed in Live Maps:']='Mon flux RSS affiché dans Live Maps :';
+
+# settings.php:112
 $GLOBALS['__l10n']['Geo sitemap']='Sitemap géographique';
 
-# settings.php:81
+# settings.php:114
 $GLOBALS['__l10n']['To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap.']='Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique.';
 
-# settings.php:83
-$GLOBALS['__l10n']['My geo sitemap:']='Mon sitemap géographique';
+# settings.php:116
+$GLOBALS['__l10n']['My geo sitemap:']='Mon sitemap géographique :';
 
-# settings.php:92
+# settings.php:125
 $GLOBALS['__l10n']['About']='A propos';
 
-# settings.php:94
+# settings.php:127
 $GLOBALS['__l10n']['GeoCrazy is written by Benjamin Dumas']='GeoCrazy est écrit par Benjamin Dumas';
 
-# settings.php:95
+# settings.php:128
 $GLOBALS['__l10n']['For some help, please write a comment on']='Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur';
 
-# settings.php:95
+# settings.php:128
 $GLOBALS['__l10n']['the support page of GeoCrazy']='la page support de GeoCrazy';
+
+$GLOBALS['__l10n']['Advanced mode']='Mode avancé';
 
 $GLOBALS['__l10n']['Mode:']='Mode :';
 

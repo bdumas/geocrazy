@@ -10,22 +10,43 @@ msgstr "Lieu :"
 
 #: _admin.php:68
 #: _admin.php:72
+#: settings.php:85
+#: settings.php:88
 msgid "Add location"
 msgstr "Ajouter un lieu"
 
 #: _admin.php:69
 #: _admin.php:73
+#: settings.php:86
+#: settings.php:89
 msgid "Edit location"
 msgstr "Changer le lieu"
 
-#: _install.php:28
+#: _install.php:30
 #: settings.php:20
 msgid "Google Maps API key"
 msgstr "Clé Google Maps API"
 
-#: _install.php:31
-msgid "Advanced mode"
-msgstr "Mode avancé"
+#: _install.php:33
+#: settings.php:23
+#: settings.php:75
+msgid "Enable multiple widget"
+msgstr "Mode "widget multiple" pour placer plusieurs fois le même widget"
+
+#: _install.php:36
+#: settings.php:26
+msgid "Blog position"
+msgstr "Localisation du blog"
+
+#: _install.php:37
+#: settings.php:29
+msgid "Blog region"
+msgstr "Région du blog"
+
+#: _install.php:38
+#: settings.php:32
+msgid "Blog placename"
+msgstr "Lieu du blog"
 
 #: _widgets.php:28
 msgid "GeoCrazy Map"
@@ -93,73 +114,80 @@ msgstr "Supprimer de la carte"
 msgid "Save location"
 msgstr "Enregistrer le lieu"
 
-#: settings.php:46
+#: settings.php:61
 msgid "Configuration"
 msgstr "Configuration"
 
-#: settings.php:48
+#: settings.php:64
 msgid "Settings"
 msgstr "Paramètres"
 
-#: settings.php:50
+#: settings.php:65
 msgid "Google Maps API key:"
 msgstr "clé Google Maps API :"
 
-#: settings.php:52
+#: settings.php:67
 msgid "Get your Google Maps API key"
 msgstr "Demander votre clé Google Maps API"
 
-#: settings.php:56
+#: settings.php:71
 msgid "Advanced parameters"
 msgstr "Paramètres avancés"
 
-#: settings.php:60
-msgid "Enable multiple widget"
-msgstr "Mode "widget multiple" pour placer plusieurs fois le même widget"
+#: settings.php:81
+msgid "Blog localization"
+msgstr "Localisation du blog"
 
-#: settings.php:68
+#: settings.php:99
 msgid "GeoRSS feed"
 msgstr "Flux GeoRSS"
 
-#: settings.php:70
+#: settings.php:101
 msgid "If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map."
 msgstr "Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte."
 
-#: settings.php:73
+#: settings.php:105
 msgid "My RSS feed:"
 msgstr "Mon flux RSS :"
 
-#: settings.php:74
+#: settings.php:106
 msgid "My RSS feed displayed in Google Maps:"
 msgstr "Mon flux RSS affiché dans Google Maps :"
 
-#: settings.php:79
+#: settings.php:107
+msgid "My RSS feed displayed in Live Maps:"
+msgstr "Mon flux RSS affiché dans Live Maps :"
+
+#: settings.php:112
 msgid "Geo sitemap"
 msgstr "Sitemap géographique"
 
-#: settings.php:81
+#: settings.php:114
 msgid "To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap."
 msgstr "Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique."
 
-#: settings.php:83
+#: settings.php:116
 msgid "My geo sitemap:"
-msgstr "Mon sitemap géographique"
+msgstr "Mon sitemap géographique :"
 
-#: settings.php:92
+#: settings.php:125
 msgid "About"
 msgstr "A propos"
 
-#: settings.php:94
+#: settings.php:127
 msgid "GeoCrazy is written by Benjamin Dumas"
 msgstr "GeoCrazy est écrit par Benjamin Dumas"
 
-#: settings.php:95
+#: settings.php:128
 msgid "For some help, please write a comment on"
 msgstr "Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur"
 
-#: settings.php:95
+#: settings.php:128
 msgid "the support page of GeoCrazy"
 msgstr "la page support de GeoCrazy"
+
+msgid "Advanced mode"
+msgstr "Mode avancé"
 
 msgid "Mode:"
 msgstr "Mode :"
