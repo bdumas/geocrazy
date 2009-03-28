@@ -51,7 +51,7 @@ if (isset($_POST['submitForm'])) {
 	</head>
 	<body>
 		<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcsettings.js"></script>
-		<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='<?php echo $gmaps_api_key; ?>'" type="text/javascript"></script>
+		<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $gmaps_api_key; ?>" type="text/javascript"></script>
 		<?php if (!empty($_GET['up'])) { 
 			echo '<p class="message">'.__('Settings have been successfully updated.').'</p>';
 		}?>
