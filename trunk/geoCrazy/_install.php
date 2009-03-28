@@ -19,7 +19,7 @@ if (version_compare($core->getVersion('geoCrazy'),$version,'>=')) {
 	return;
 }
 
-/* Creation of setting for first installation
+/* Creation of settings for first installation
 ------------------------------------------------------- */
 
 if ($core->getVersion('geoCrazy') == null) {
@@ -27,10 +27,15 @@ if ($core->getVersion('geoCrazy') == null) {
 	$settings->setNamespace('geocrazy');
 	
 	# Google Maps API key
-	$settings->put('geocrazy_googlemapskey','','string',__('Google Maps API key'),true,true);
+	$settings->put('geocrazy_googlemapskey','','string',__('Google Maps API key'),false,true);
 	
-	# Simple mode
-	$settings->put('geocrazy_mode','simple','integer',__('Advanced mode'),true,true);
+	# Multiple widget mode
+	$settings->put('geocrazy_multiplewidget',false,'boolean',__('Enable multiple widget'),false,false);
+	
+	# Blog localization
+	$settings->put('geocrazy_bloglatlong','simple','integer',__('Blog position'),false,false);
+	$settings->put('geocrazy_blogregion','simple','integer',__('Blog region'),false,false);
+	$settings->put('geocrazy_blogplacename','simple','integer',__('Blog placename'),false,false);
 }
 
 /* Database schema
