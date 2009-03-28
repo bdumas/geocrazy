@@ -208,27 +208,43 @@ class gcPublicBehaviors
 {
 	
 	/**
-	 * Inserts javascript in HTML head content.
+	 * Inserts meta tags and javascript in HTML head content.
 	 * @param $core
 	 */
 	public static function publicHeadContent(&$core)
 	{
-		# Widget is displayed only in a post page 
-		if ($core->url->type != 'post') {
-			return;
-		}
-		
-		# Widget is displayed only if the post is geolocalized
-		global $_ctx;
-		$meta = new dcMeta($core);
-		$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
-
-		if ($gc_latlong != '') {
-			$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-			$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+		# Home page
+		if ($core->url->type == 'default') {
+			$blog_latlong = $core->blog->settings->get('geocrazy_bloglatlong');
 			
-			echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
-						<script type="text/javascript" src="'.$jsUrl.'"></script>';
+			if ($blog_latlong != '') {
+				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$blog_latlong).'">'."\n";
+				echo '<meta name="geo.position" content="'.str_replace(' ',';',$blog_latlong).'">'."\n";
+				//TODO : add geo.placename and geo.region
+			}
+			
+		# Post page
+		} else if ($core->url->type == 'post') {
+		
+			# Geotagged posts only
+			global $_ctx;
+			$meta = new dcMeta($core);
+			$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
+	
+			if ($gc_latlong != '') {
+				
+				# Meta tags
+				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$gc_latlong).'">'."\n";
+				echo '<meta name="geo.position" content="'.str_replace(' ',';',$gc_latlong).'">'."\n";
+				//TODO : add geo.placename and geo.region
+				
+				# Javascript
+				$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+				$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+				
+				echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
+							<script type="text/javascript" src="'.$jsUrl.'"></script>';
+			}
 		}
 	}
 }
