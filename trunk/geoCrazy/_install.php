@@ -32,10 +32,18 @@ if ($core->getVersion('geoCrazy') == null) {
 	# Multiple widget mode
 	$settings->put('geocrazy_multiplewidget',false,'boolean',__('Enable multiple widget'),false,false);
 	
+	# Save address
+	$settings->put('geocrazy_saveaddress',false,'boolean',__('Save address'),false,false);
+	
+	# Modify widget display for a post
+	$settings->put('geocrazy_overridewidgetdisplay',false,'boolean',__('Override widget display'),false,false);
+	
 	# Blog localization
 	$settings->put('geocrazy_bloglatlong','simple','integer',__('Blog position'),false,false);
+	$settings->put('geocrazy_blogcountrycode','simple','integer',__('Blog country code'),false,false);
+	$settings->put('geocrazy_blogcountryname','simple','integer',__('Blog country name'),false,false);
 	$settings->put('geocrazy_blogregion','simple','integer',__('Blog region'),false,false);
-	$settings->put('geocrazy_blogplacename','simple','integer',__('Blog placename'),false,false);
+	$settings->put('geocrazy_bloglocality','simple','integer',__('Blog locality'),false,false);
 }
 
 /* Database schema

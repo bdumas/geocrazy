@@ -13,8 +13,13 @@ var map;
 var marker;
 
 // Update the post with the location from the map
-function updateLocation(coordinates) {
+function updateLocation(coordinates, countryCode, countryName, region, locality) {
 	$('#gc_latlong').attr('value', coordinates);
+	$('#gc_countrycode').val(countryCode);
+	$('#gc_countryname').val(countryName);
+	$('#gc_region').val(region);
+	$('#gc_locality').val(locality);
+	$("#placename").html('');
 	if (coordinates == null || coordinates == '') {
 		$('#map_canvas').css({width: '0', height: '0'});
 		$('#gcEditLocationLink').hide();
@@ -24,6 +29,12 @@ function updateLocation(coordinates) {
 		$('#gcAddLocationLink').hide();
 		$('#gcEditLocationLink').show();
 		updateMap(coordinates);
+		locality = (locality != '') ? '<span class="locality">' + locality + '</span>' : '';
+		region = (region != '') ? '<span class="region">' + region + '</span>' : '';
+		countryName = (countryName != '') ? '<span class="country-name">' + countryName + '</span>' : '';
+		var sep1 = (locality != '' && region != '') ? ', ' : '';
+		var sep2 = (region != '' && countryName != '') ? ', ' : '';
+		$("#placename").html(locality + sep1 + region + sep2 + countryName);
 	}
 }
 
@@ -49,19 +60,20 @@ function updateMap(gcLatLong) {
 }
 
 // Initialization
-$(function(){
-	$(document).ready(function() {
-		var gcLatLong = $('#gc_latlong').val();
-		
-		if (gcLatLong) {
-			$('#map_canvas').css({width: '200px', height: '200px'});
-			updateMap(gcLatLong);
-		}
-		
-		// Location links open a popup
-		$('a.gcPopup').click( function() {
-	        var popup = window.open('plugin.php?p=geoCrazy&popup=1','dc_popup','alwaysRaised=yes,dependent=yes,toolbar=yes,height=670,width=660,menubar=no,resizable=yes,scrollbars=yes,status=no');
-	        return false;
-	    });
-	});
+$(document).ready(function() {
+	var gcLatLong = $('#gc_latlong').val();
+	
+	if (gcLatLong) {
+		$('#map_canvas').css({width: '200px', height: '200px'});
+		updateMap(gcLatLong);
+	}
+	
+	// Location links open a popup
+	$('a.gcPopup').click( function() {
+        var popup = window.open('plugin.php?p=geoCrazy&popup=1','dc_popup','alwaysRaised=yes,dependent=yes,toolbar=yes,height=670,width=660,menubar=no,resizable=yes,scrollbars=yes,status=no');
+        return false;
+    });
+
+	// Display of fields to override widget default display
+	$('#gcOverrideLabel').toggleWithLegend($('#gcOverrideFields'));
 });

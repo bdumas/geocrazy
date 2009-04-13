@@ -17,6 +17,8 @@
     <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $core->blog->settings->get('geocrazy_googlemapskey'); ?>" type="text/javascript"></script>
     <script type="text/javascript">
 			var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
+			var gc_save_address = "<?php echo $core->blog->settings->get('geocrazy_saveaddress'); ?>";
+			var gc_display_address = "<?php echo $core->blog->settings->get('geocrazy_displayaddress'); ?>";
     </script>    
   </head>
   <body>
