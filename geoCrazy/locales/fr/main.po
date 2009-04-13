@@ -10,15 +10,15 @@ msgstr "Lieu :"
 
 #: _admin.php:68
 #: _admin.php:72
-#: settings.php:85
-#: settings.php:88
+#: settings.php:105
+#: settings.php:108
 msgid "Add location"
 msgstr "Ajouter un lieu"
 
 #: _admin.php:69
 #: _admin.php:73
-#: settings.php:86
-#: settings.php:89
+#: settings.php:106
+#: settings.php:109
 msgid "Edit location"
 msgstr "Changer le lieu"
 
@@ -29,22 +29,31 @@ msgstr "Clé Google Maps API"
 
 #: _install.php:33
 #: settings.php:23
-#: settings.php:75
+#: settings.php:90
 msgid "Enable multiple widget"
 msgstr "Mode "widget multiple" pour placer plusieurs fois le même widget"
 
 #: _install.php:36
 #: settings.php:26
+msgid "Save address"
+msgstr "Enregistrer l'adresse"
+
+#: _install.php:39
+msgid "Display address"
+msgstr "Afficher l'adresse"
+
+#: _install.php:42
+#: settings.php:32
 msgid "Blog position"
 msgstr "Localisation du blog"
 
-#: _install.php:37
-#: settings.php:29
-msgid "Blog region"
-msgstr "Région du blog"
+#: _install.php:43
+#: settings.php:40
+msgid "Blog country"
+msgstr "Pays du blog"
 
-#: _install.php:38
-#: settings.php:32
+#: _install.php:44
+#: settings.php:43
 msgid "Blog placename"
 msgstr "Lieu du blog"
 
@@ -90,7 +99,7 @@ msgid "ID (If you use several GeoCrazy Map widgets, choose a different ID for ea
 msgstr "ID (Si vous placez plusieurs widgets GeoCrazy, choisissez un ID différent pour chacun) :"
 
 #: popup.php:15
-#: popup.php:23
+#: popup.php:25
 msgid "Map your post"
 msgstr "Placez votre billet sur la carte"
 
@@ -98,93 +107,105 @@ msgstr "Placez votre billet sur la carte"
 msgid "was not found."
 msgstr "ne peut pas être localisé."
 
-#: popup.php:25
+#: popup.php:27
 msgid "Find location"
 msgstr "Rechercher un lieu"
 
-#: popup.php:27
+#: popup.php:29
 msgid "Go"
 msgstr "OK"
 
-#: popup.php:31
+#: popup.php:33
 msgid "Remove from map"
 msgstr "Supprimer de la carte"
 
-#: popup.php:35
+#: popup.php:37
 msgid "Save location"
 msgstr "Enregistrer le lieu"
 
-#: settings.php:61
+#: settings.php:29
+#: settings.php:94
+msgid "Display address under the map"
+msgstr "Afficher l'adresse sous la carte"
+
+#: settings.php:76
 msgid "Configuration"
 msgstr "Configuration"
 
-#: settings.php:64
+#: settings.php:79
 msgid "Settings"
 msgstr "Paramètres"
 
-#: settings.php:65
+#: settings.php:80
 msgid "Google Maps API key:"
 msgstr "clé Google Maps API :"
 
-#: settings.php:67
+#: settings.php:82
 msgid "Get your Google Maps API key"
 msgstr "Demander votre clé Google Maps API"
 
-#: settings.php:71
+#: settings.php:86
 msgid "Advanced parameters"
 msgstr "Paramètres avancés"
 
-#: settings.php:81
+#: settings.php:92
+msgid "Try to save the address of the location (region and locality)"
+msgstr "Enregistrer l'adresse du lieu"
+
+#: settings.php:100
 msgid "Blog localization"
 msgstr "Localisation du blog"
 
-#: settings.php:99
+#: settings.php:121
 msgid "GeoRSS feed"
 msgstr "Flux GeoRSS"
 
-#: settings.php:101
+#: settings.php:123
 msgid "If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map."
 msgstr "Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte."
 
-#: settings.php:105
+#: settings.php:127
 msgid "My RSS feed:"
 msgstr "Mon flux RSS :"
 
-#: settings.php:106
+#: settings.php:128
 msgid "My RSS feed displayed in Google Maps:"
 msgstr "Mon flux RSS affiché dans Google Maps :"
 
-#: settings.php:107
+#: settings.php:129
 msgid "My RSS feed displayed in Live Maps:"
 msgstr "Mon flux RSS affiché dans Live Maps :"
 
-#: settings.php:112
+#: settings.php:134
 msgid "Geo sitemap"
 msgstr "Sitemap géographique"
 
-#: settings.php:114
+#: settings.php:136
 msgid "To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap."
 msgstr "Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique."
 
-#: settings.php:116
+#: settings.php:138
 msgid "My geo sitemap:"
 msgstr "Mon sitemap géographique :"
 
-#: settings.php:125
+#: settings.php:147
 msgid "About"
 msgstr "A propos"
 
-#: settings.php:127
+#: settings.php:149
 msgid "GeoCrazy is written by Benjamin Dumas"
 msgstr "GeoCrazy est écrit par Benjamin Dumas"
 
-#: settings.php:128
+#: settings.php:150
 msgid "For some help, please write a comment on"
 msgstr "Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur"
 
-#: settings.php:128
+#: settings.php:150
 msgid "the support page of GeoCrazy"
 msgstr "la page support de GeoCrazy"
+
+msgid "Blog region"
+msgstr "Région du blog"
 
 msgid "Advanced mode"
 msgstr "Mode avancé"

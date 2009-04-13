@@ -13,6 +13,10 @@ $(document).ready(function() {
 
 	// Geographic coordinates
 	var gcLatLong = window.opener.$('#gc_latlong').attr('value');
+	var gcCountryCode = window.opener.$('#gc_countrycode').attr('value');
+	var gcCountryName = window.opener.$('#gc_countryname').attr('value');
+	var gcRegion = window.opener.$('#gc_region').attr('value');
+	var gcLocality = window.opener.$('#gc_locality').attr('value');
 
 	// The cancel link closes the popup.
 	$('#cancel').click(function() {
@@ -21,7 +25,7 @@ $(document).ready(function() {
 
 	// The save link updates the post location and closes the popup.
 	$('#save').click(function() {
-		window.opener.updateLocation(gcLatLong);
+		window.opener.updateLocation(gcLatLong, gcCountryCode, gcCountryName, gcRegion, gcLocality);
 		window.close();
 	});
 
@@ -46,6 +50,40 @@ $(document).ready(function() {
 
 	    // Marker
 	    var marker;
+	    
+	    // Geocoder
+	    var geocoder = new GClientGeocoder();
+	    
+	    // Update locality, region and country.
+	    function updateAddress(gLatLng) {
+	    	gcCountryCode = '';
+			gcRegion = '';
+			gcLocality = '';
+			gcCountryName = '';
+
+    		// Retrieve the structured address, and store it.
+    		if (gc_save_address == '1') {
+	    		geocoder.getLocations(gLatLng, function(response) {
+	    			if (response && response.Status.code == 200) {
+	    				var place = response.Placemark[0].AddressDetails.Country;
+	    				gcCountryCode = place.CountryNameCode;
+	    				gcCountryName = place.CountryName;
+	    				if (place.AdministrativeArea) {
+	    					var administrativeArea = place.AdministrativeArea;
+	    					gcRegion = administrativeArea.AdministrativeAreaName;
+	    					if (administrativeArea.Locality) {
+	    						gcLocality = administrativeArea.Locality.LocalityName;
+	    					} else if (administrativeArea.SubAdministrativeArea) {
+	    						var subAdministrativeArea = administrativeArea.SubAdministrativeArea;
+	    						if (subAdministrativeArea.Locality) {
+	    							gcLocality = subAdministrativeArea.Locality.LocalityName;
+	    						}
+	    					}
+	    				}
+	    			}
+	    		});
+    		}
+	    }
 
 	    // Places the marker at the coordinates and updates gcLatLong.
 	    function placeMarker(gLatLng, updateGcLatLong, centerMap) {
@@ -53,12 +91,7 @@ $(document).ready(function() {
 	    	if (marker) {
     	    	map.removeOverlay(marker);
     	    }
-
-	    	if (updateGcLatLong) {
-	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
-	    		// TODO: retrieve the structured address, and store it.
-	    	}
-
+	    	
 	    	if (centerMap) {
 	    		map.setCenter(gLatLng, 8);
 	    	}
@@ -66,10 +99,16 @@ $(document).ready(function() {
 	    	marker = new GMarker(gLatLng, {draggable: true});
 	    	map.addOverlay(marker);
 
+	    	if (updateGcLatLong) {
+	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
+	    		updateAddress(gLatLng);
+	    	}
+
 	    	// The marker is draggable
 	    	GEvent.addListener(marker, "dragend", function(overlay, latlng) {
 	    		var gLatLng = marker.getLatLng();
 	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
+	    		updateAddress(gLatLng);
 	    	});
 	    }
 
@@ -113,6 +152,10 @@ $(document).ready(function() {
 		// The remove from map link removes the marker and reset gcLatLong.
 		$('#remove').click(function() {
 			gcLatLong = '';
+			gcCountryCode = '';
+			gcCountryName = '';
+			gcRegion = '';
+			gcLocality = '';
 			map.removeOverlay(marker);
 		});
 	}

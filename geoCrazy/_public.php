@@ -165,35 +165,123 @@ class publicGcWidget
 	{
 		global $core;
 		global $_ctx;
-
-		# This widget is displayed only in a post page 
-		if ($core->url->type != 'post') {
-			return;
-		}
-
-		# Post data
-		$meta = new dcMeta($core);
-		$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
 		
-		if ($gc_latlong == '') {
-			return;
+		$gc_country_name;
+		
+		# Post localization
+		if ($w->object == 1) {
+			
+			# This widget is displayed only in a post page 
+			if ($core->url->type != 'post' && $core->url->type != 'preview') {
+				return;
+			}
+			
+			# Post data
+			$meta = new dcMeta($core);
+			$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
+			
+			if ($gc_latlong == '') {
+				return;
+			}
+			
+			# Locality, region, country
+			if ($w->address == 1) {
+				$gc_country_name = $meta->getMetaStr($_ctx->posts->post_meta,'gc_countryname');
+				$gc_region = $meta->getMetaStr($_ctx->posts->post_meta,'gc_region');
+				$gc_locality = $meta->getMetaStr($_ctx->posts->post_meta,'gc_locality');
+			}
+			
+		# Blog localization
+		} else {
+			
+			# Home page only
+			if ($w->object == 2 && $core->url->type != 'default') {
+				return;
+			}
+			
+			$gc_latlong = $core->blog->settings->get('geocrazy_bloglatlong'); 
+			
+			if ($gc_latlong == '') {
+				return;
+			}
+			
+			# Locality, region, country
+			if ($w->address == 1) {
+				$gc_country_name = $core->blog->settings->get('geocrazy_blogcountryname');
+				$gc_region = $core->blog->settings->get('geocrazy_blogregion');
+				$gc_locality = $core->blog->settings->get('geocrazy_bloglocality');
+			}
 		}
 		
 		$widget_html = '<div class="geocrazy">';
 		
+		# Display parameters
+		$widget_title = $w->title;
+		$widget_width = $w->width;
+		$widget_height = $w->height;
+		$widget_zoom = $w->zoom;
+		$widget_type = $w->type;
+		$widget_address = $w->address;
+		
+		if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettitle') != '') {
+				$widget_title = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettitle');
+			}
+			
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetwidth') != '') {
+				$widget_width = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetwidth');
+			}
+			
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetheight') != '') {
+				$widget_height = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetheight');
+			}
+			
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetzoom') != '') {
+				$widget_zoom = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetzoom');
+			}
+			
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettype') != '') {
+				$widget_type = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettype');
+			}
+			
+			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetaddress') != '') {
+				$widget_address = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgetaddress');
+			}
+		}
+		
 		# Title
 		if ($w->title != '') {
-			$widget_html .= '<h2>'.$w->title.'</h2>';
+			$widget_html .= '<h2>'.$widget_title.'</h2>';
 		}
 		
 		# Map (the Widget ID enables to differentiate several maps)
-		$width = $w->width != '' ? $w->width.'px' : '100%';
-		$height = $w->height != '' ? $w->height.'px' : '200px';
+		$width = $widget_width != '' ? $widget_width.'px' : '100%';
+		$height = $widget_height != '' ? $widget_height.'px' : '200px';
 		$widget_html .= '<div id="gc_post_widget_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
 
+		# Locality, region, country
+		if ($widget_address == 1) {
+			$widget_html .= '<div class="adr">';
+			if ($gc_locality != '') {
+				$widget_html .= '<span class="locality">'.$gc_locality.'</span>';
+			}
+			if ($gc_locality != '' && $gc_region != '') {
+				$widget_html .= ', ';
+			}
+			if ($gc_region != '') {
+				$widget_html .= '<span class="region">'.$gc_region.'</span>';
+			}
+			if ($gc_region != '' && $gc_country_name != '') {
+				$widget_html .= ', ';
+			}
+			if ($gc_country_name != '') {
+				$widget_html .= '<span class="country-name">'.$gc_country_name.'</span>';
+			}
+			$widget_html .= '</div>';
+		}
+		
 		# Javascript
-		// TODO : possibility to override default widget settings for a post
-		$widget_html .= '<script type="text/javascript">gcMap("gc_post_widget_map_canvas_'.$w->wid.'",'.$w->type.','.$w->zoom.',"'.$gc_latlong.'");</script>';
+		$widget_html .= '<script type="text/javascript">gcMap("gc_post_widget_map_canvas_'.$w->wid.'",'.$widget_type.','.$widget_zoom.',"'.$gc_latlong.'");</script>';
 
 		$widget_html .= '</div>';
 		
@@ -213,18 +301,34 @@ class gcPublicBehaviors
 	 */
 	public static function publicHeadContent(&$core)
 	{
+		$insert_js = false;
+		
 		# Home page
 		if ($core->url->type == 'default') {
 			$blog_latlong = $core->blog->settings->get('geocrazy_bloglatlong');
 			
 			if ($blog_latlong != '') {
-				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$blog_latlong).'">'."\n";
-				echo '<meta name="geo.position" content="'.str_replace(' ',';',$blog_latlong).'">'."\n";
-				//TODO : add geo.placename and geo.region
+				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$blog_latlong).'" />'."\n";
+				echo '<meta name="geo.position" content="'.str_replace(' ',';',$blog_latlong).'" />'."\n";
+				
+				$blog_country_code = $core->blog->settings->get('geocrazy_blogcountrycode');
+				if ($blog_country_code != '') {
+					echo '<meta name="geo.country" content="'.$blog_country_code.'" />'."\n";
+				}
+				
+				$blog_region = $core->blog->settings->get('geocrazy_blogregion');
+				$blog_locality = $core->blog->settings->get('geocrazy_bloglocality');
+				$blog_placename = $blog_locality;
+				$blog_placename .= ($blog_locality != '') ? ', '.$blog_region : $blog_region;
+				if ($blog_placename != '') {
+					echo '<meta name="geo.placename" content="'.$blog_placename.'" />'."\n";
+				}
+				
+				$insert_js = true;
 			}
 			
 		# Post page
-		} else if ($core->url->type == 'post') {
+		} else if ($core->url->type == 'post' || $core->url->type == 'preview') {
 		
 			# Geotagged posts only
 			global $_ctx;
@@ -234,17 +338,33 @@ class gcPublicBehaviors
 			if ($gc_latlong != '') {
 				
 				# Meta tags
-				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$gc_latlong).'">'."\n";
-				echo '<meta name="geo.position" content="'.str_replace(' ',';',$gc_latlong).'">'."\n";
-				//TODO : add geo.placename and geo.region
+				echo '<meta name="ICBM" content="'.str_replace(' ',', ',$gc_latlong).'" />'."\n";
+				echo '<meta name="geo.position" content="'.str_replace(' ',';',$gc_latlong).'" />'."\n";
 				
-				# Javascript
-				$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-				$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+				$gc_country_code = $meta->getMetaStr($_ctx->posts->post_meta,'gc_countrycode');
+				if ($gc_country_code != '') {
+					echo '<meta name="geo.country" content="'.$gc_country_code.'" />'."\n";
+				}
 				
-				echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
-							<script type="text/javascript" src="'.$jsUrl.'"></script>';
+				$gc_region = $meta->getMetaStr($_ctx->posts->post_meta,'gc_region');
+				$gc_locality = $meta->getMetaStr($_ctx->posts->post_meta,'gc_locality');
+				$gc_placename = $gc_locality;
+				$gc_placename .= ($gc_locality != '') ? ', '.$gc_region : $gc_region;
+				if ($gc_placename != '') {
+					echo '<meta name="geo.placename" content="'.$gc_placename.'" />'."\n";
+				}
+				
+				$insert_js = true;
 			}
+		}
+		
+		# Javascript
+		if ($insert_js) {
+			$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+			$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+			
+			echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
+						<script type="text/javascript" src="'.$jsUrl.'"></script>';
 		}
 	}
 }
