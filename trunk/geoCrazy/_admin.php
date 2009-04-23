@@ -47,12 +47,21 @@ class gcAdminBehaviors
 	public static function locationField(&$post)
 	{
 		$core = $GLOBALS['core'];
-		$meta = new dcMeta($core);
-		$gc_latlong = $meta->getMetaStr($post->post_meta,'gc_latlong');
-		$gc_country_code = $meta->getMetaStr($post->post_meta,'gc_countrycode');
-		$gc_country_name = $meta->getMetaStr($post->post_meta,'gc_countryname');
-		$gc_region = $meta->getMetaStr($post->post_meta,'gc_region');
-		$gc_locality = $meta->getMetaStr($post->post_meta,'gc_locality');
+		
+		$gc_latlong = '';
+		$gc_country_code = '';
+		$gc_country_name = '';
+		$gc_region = '';
+		$gc_locality = '';
+		
+		if ($post) {
+			$meta = new dcMeta($core);
+			$gc_latlong = $meta->getMetaStr($post->post_meta,'gc_latlong');
+			$gc_country_code = $meta->getMetaStr($post->post_meta,'gc_countrycode');
+			$gc_country_name = $meta->getMetaStr($post->post_meta,'gc_countryname');
+			$gc_region = $meta->getMetaStr($post->post_meta,'gc_region');
+			$gc_locality = $meta->getMetaStr($post->post_meta,'gc_locality');
+		}
 
 		# HTML
 		echo '<h3>'.__('Location:').'</h3>
@@ -95,14 +104,28 @@ class gcAdminBehaviors
 
 		# Widget display override
 		if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
-			$gc_widget_title = $meta->getMetaStr($post->post_meta,'gc_widgettitle');
-			$gc_widget_width = $meta->getMetaStr($post->post_meta,'gc_widgetwidth');
-			$gc_widget_height = $meta->getMetaStr($post->post_meta,'gc_widgetheight');
-			$gc_widget_zoom = $meta->getMetaStr($post->post_meta,'gc_widgetzoom');
-			$gc_widget_type = $meta->getMetaStr($post->post_meta,'gc_widgettype');
+			$gc_widget_title = '';
+			$gc_widget_width = '';
+			$gc_widget_height = '';
+			$gc_widget_zoom = '';
+			$gc_widget_type = '';
 			
-			echo '<p style="margin-top: 1em">
-				<label id="gcOverrideLabel">'
+			if ($post) {
+				$gc_widget_title = $meta->getMetaStr($post->post_meta,'gc_widgettitle');
+				$gc_widget_width = $meta->getMetaStr($post->post_meta,'gc_widgetwidth');
+				$gc_widget_height = $meta->getMetaStr($post->post_meta,'gc_widgetheight');
+				$gc_widget_zoom = $meta->getMetaStr($post->post_meta,'gc_widgetzoom');
+				$gc_widget_type = $meta->getMetaStr($post->post_meta,'gc_widgettype');
+			}
+			
+			if ($gc_latlong != '') {
+				echo '<p id="gcOverrideDiv" style="margin-top: 1em">';
+				
+			} else {
+				echo '<p id="gcOverrideDiv" style="margin-top: 1em; display: none">';
+			}
+			
+			echo '<label id="gcOverrideLabel">'
 					.__('Override default display')
 				.'</label>
 				<div id="gcOverrideFields"><label>'
@@ -148,9 +171,14 @@ class gcAdminBehaviors
 					.'</label>';
 			
 			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
-				$gc_widget_address = $meta->getMetaStr($post->post_meta,'gc_widgetaddress');
+				$gc_widget_address = '';
+				
+				if ($post) {
+					$gc_widget_address = $meta->getMetaStr($post->post_meta,'gc_widgetaddress');
+				}
+				
 				echo '<label>'.__('Display address:').form::combo('gc_widgetaddress',array('' => '',
-							__('don\'t display') => 2,			
+							__('do not display') => 2,			
 							__('display') => 1),
 							$gc_widget_address)
 					.'</label>';

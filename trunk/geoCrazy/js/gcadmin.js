@@ -22,12 +22,14 @@ function updateLocation(coordinates, countryCode, countryName, region, locality)
 	$("#placename").html('');
 	if (coordinates == null || coordinates == '') {
 		$('#map_canvas').css({width: '0', height: '0'});
+		$('#gcOverrideDiv').hide();
 		$('#gcEditLocationLink').hide();
 		$('#gcAddLocationLink').show();
 	} else {
 		$('#map_canvas').css({width: '200px', height: '200px'});
 		$('#gcAddLocationLink').hide();
 		$('#gcEditLocationLink').show();
+		$('#gcOverrideDiv').show();
 		updateMap(coordinates);
 		locality = (locality != '') ? '<span class="locality">' + locality + '</span>' : '';
 		region = (region != '') ? '<span class="region">' + region + '</span>' : '';
@@ -39,15 +41,33 @@ function updateLocation(coordinates, countryCode, countryName, region, locality)
 }
 
 // Update the map
-function updateMap(gcLatLong) {
+function updateMap(gcLatLong, type, zoom) {
 	if (!map) {
 		map = new GMap2(document.getElementById("map_canvas"));
-		map.setMapType(G_PHYSICAL_MAP);
 	}
+	
+	var gcType = G_PHYSICAL_MAP;
+	if (type) {
+		switch(parseInt(type, 10)) {
+		case 1:
+			gcType = G_PHYSICAL_MAP;
+			break;
+		case 2:
+			gcType = G_NORMAL_MAP;
+			break;
+		case 3:
+			gcType = G_SATELLITE_MAP;
+			break;
+		case 4:
+			gcType = G_HYBRID_MAP;
+			break;
+		}
+	}
+	map.setMapType(gcType);
 	
 	var gcLatLng = gcLatLong.split(' ');
 	var gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
-	map.setCenter(gPoint, 10);
+	map.setCenter(gPoint, zoom ? parseInt(zoom, 10) : 10);
 	
 	map.addControl(new GSmallZoomControl3D());
 	
@@ -62,18 +82,31 @@ function updateMap(gcLatLong) {
 // Initialization
 $(document).ready(function() {
 	var gcLatLong = $('#gc_latlong').val();
+	var gcType = $('#gc_widgettype').val();
+	var gcZoom = $('#gc_widgetzoom').val();
 	
 	if (gcLatLong) {
 		$('#map_canvas').css({width: '200px', height: '200px'});
-		updateMap(gcLatLong);
+		updateMap(gcLatLong, gcType, gcZoom);
 	}
 	
 	// Location links open a popup
-	$('a.gcPopup').click( function() {
+	$('a.gcPopup').click(function() {
         var popup = window.open('plugin.php?p=geoCrazy&popup=1','dc_popup','alwaysRaised=yes,dependent=yes,toolbar=yes,height=670,width=660,menubar=no,resizable=yes,scrollbars=yes,status=no');
         return false;
     });
 
 	// Display of fields to override widget default display
 	$('#gcOverrideLabel').toggleWithLegend($('#gcOverrideFields'));
+	
+	// Update of the map on type or zoom override
+	$('#gc_widgetzoom, #gc_widgettype').change(function() {
+		var gcNewLatLong = $('#gc_latlong').val();
+		var gcNewType = $('#gc_widgettype').val();
+		var gcNewZoom = $('#gc_widgetzoom').val();
+		if (gcNewLatLong) {
+			updateMap(gcNewLatLong, gcNewType, gcNewZoom);
+		}
+		return false;
+	});
 });

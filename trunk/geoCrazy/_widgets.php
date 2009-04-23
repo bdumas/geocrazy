@@ -28,10 +28,10 @@ class gcWidgetBehaviors
 		$w->create('gcWidget',__('GeoCrazy Map'),array('publicGcWidget','gcWidget'));
 	 
 		# Object of the map
-		$w->gcWidget->setting('object',__('Object of the map:'),__('post'),'combo',
-			array(__('post') => 1, 
-						__('bloghomeonly') => 2,
-						__('blog') => 3));
+		$w->gcWidget->setting('object',__('Object of the map:'),__('post location'),'combo',
+			array(__('post location') => 1, 
+						__('blog location (home only)') => 2,
+						__('blog location (all pages)') => 3));
 		
 		# Title displayed above the map
 		$w->gcWidget->setting('title',__('Title:'),__('Location'),'text');
@@ -74,7 +74,7 @@ class gcWidgetBehaviors
 						
 		# If the save address option is enabled, display the name of the location under the map
 		if ($GLOBALS['core']->blog->settings->get('geocrazy_saveaddress') == 1) {
-			$w->gcWidget->setting('address',__('Display address:'),0,'check');
+			$w->gcWidget->setting('address',__('Display address'),0,'check');
 		}
 		
 		# If multiple widget is enabled, the 'ID' field is useful to place the same widget more than once.
