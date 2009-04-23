@@ -167,6 +167,7 @@ class publicGcWidget
 		global $_ctx;
 		
 		$gc_country_name;
+		$meta = new dcMeta($core);
 		
 		# Post localization
 		if ($w->object == 1) {
@@ -177,7 +178,6 @@ class publicGcWidget
 			}
 			
 			# Post data
-			$meta = new dcMeta($core);
 			$gc_latlong = $meta->getMetaStr($_ctx->posts->post_meta,'gc_latlong');
 			
 			if ($gc_latlong == '') {
@@ -223,7 +223,8 @@ class publicGcWidget
 		$widget_type = $w->type;
 		$widget_address = $w->address;
 		
-		if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+		# Display parameters override
+		if ($w->object == 1 && $core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
 			if ($meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettitle') != '') {
 				$widget_title = $meta->getMetaStr($_ctx->posts->post_meta,'gc_widgettitle');
 			}
