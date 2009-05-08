@@ -9,14 +9,5 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
-
-if (!defined('DC_RC_PATH')) { return; }
-
-$this->registerModule(
-	/* Name */          "GeoCrazy",
-	/* Description*/    "Geolocalize your posts",
-	/* Author */        "Benjamin Dumas",
-	/* Version */       '0.2.1',
-	/* Permissions */   'usage,contentadmin'
-);
+$GLOBALS['__autoload']['gcLocation'] = dirname(__FILE__).'/class.gc.location.php';
 ?>

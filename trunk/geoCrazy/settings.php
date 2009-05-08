@@ -10,14 +10,15 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 $gmaps_api_key = '';
+$blog_location = new gcLocation($core,'blog');
 
 # Save the configuration
 if (isset($_POST['submitForm'])) {
-	$settings = new dcSettings($core,null);
+	$settings =& $core->blog->settings;
 	$settings->setNamespace('geocrazy');
 	
 	$gmaps_api_key = $_POST['gmapsapikey'];
-	$settings->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true);
+	$settings->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true,true);
 	
 	$multiple_widget = $_POST['multiple_widget'];
 	$settings->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean',__('Enable multiple widget'),true);
@@ -28,27 +29,13 @@ if (isset($_POST['submitForm'])) {
 	$overrid_widget_display = $_POST['override_widget_display'];
 	$settings->put('geocrazy_overridewidgetdisplay',!empty($overrid_widget_display),'boolean',__('Override widget display'),true);
 	
-	$blog_latlong = $_POST['blog_latlong'];
-	$settings->put('geocrazy_bloglatlong',$blog_latlong,'string',__('Blog position'),true);
-	
-	$settings->drop('geocrazy_blogcountrycode');
-	$settings->drop('geocrazy_blogcountryname');
-	$settings->drop('geocrazy_blogregion');
-	$settings->drop('geocrazy_bloglocality');
-		
-	if (!empty($save_address)) {
-		$blog_countrycode = $_POST['blog_countrycode'];
-		$settings->put('geocrazy_blogcountrycode',$blog_countrycode,'string',__('Blog country code'),true);
-		
-		$blog_countryname = $_POST['blog_countryname'];
-		$settings->put('geocrazy_blogcountryname',$blog_countryname,'string',__('Blog country'),true);
-
-		$blog_region = $_POST['blog_region'];
-		$settings->put('geocrazy_blogregion',$blog_region,'string',__('Blog region'),true);
-
-		$blog_locality = $_POST['blog_locality'];
-		$settings->put('geocrazy_bloglocality',$blog_locality,'string',__('Blog locality'),true);
-	}
+	# Blog location
+	$blog_location->setLatLong($_POST['blog_latlong']);
+	$blog_location->setCountryCode($_POST['blog_countrycode']);
+	$blog_location->setCountryName($_POST['blog_countryname']);
+	$blog_location->setRegion($_POST['blog_region']);
+	$blog_location->setLocality($_POST['blog_locality']);
+	$blog_location->save($core);
 	
 	# Redirect to the configuration page
 	$redirect_url = $p_url.'&up=1';
@@ -59,11 +46,6 @@ if (isset($_POST['submitForm'])) {
 } else {
 	$ap = !empty($_GET['ap']);
 	$bl = !empty($_GET['bl']);
-	$blog_latlong = $core->blog->settings->get('geocrazy_bloglatlong');
-	$blog_countrycode = $core->blog->settings->get('geocrazy_blogcountrycode');
-	$blog_countryname = $core->blog->settings->get('geocrazy_blogcountryname');
-	$blog_region = $core->blog->settings->get('geocrazy_blogregion');
-	$blog_locality = $core->blog->settings->get('geocrazy_bloglocality');
 	$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
 }
 ?>
@@ -107,27 +89,10 @@ if (isset($_POST['submitForm'])) {
 				<fieldset>
 					<legend><?php echo __('Blog localization') ?></legend>
 						<div id="map_canvas" style="overflow: hidden"></div>
-						<div id="placename" class="adr">
 						<?php 
-							if ($blog_locality != '') {
-								echo '<span class="locality">'.$blog_locality.'</span>';
-							}
-							if ($blog_locality != '' && $blog_region != '') {
-								echo ', ';
-							}
-							if ($blog_region != '') {
-								echo '<span class="region">'.$blog_region.'</span>';
-							}
-							if ($blog_region != '' && $blog_countryname != '') {
-								echo ', ';
-							}
-							if ($blog_countryname != '') {
-								echo '<span class="country-name">'.$blog_countryname.'</span>';
-							}
-						?>
-						</div>
-						<?php 
-							if ($blog_latlong != '') {
+							echo $blog_location->getMicroformatAdr();
+
+							if ($blog_location->getLatLong() != '') {
 								echo '<a id="gcAddLocationLink" href="#" class="gcPopup" style="display: none">'.__('Add location').'</a>
 					            <a id="gcEditLocationLink" href="#" class="gcPopup">'.__('Edit location').'</a>';
 							} else {
@@ -135,11 +100,11 @@ if (isset($_POST['submitForm'])) {
 					            <a id="gcEditLocationLink" href="#" class="gcPopup" style="display: none">'.__('Edit location').'</a>';
 							}
 						?>
-						<input id="gc_latlong" type="hidden" name="blog_latlong" value="<?php echo $blog_latlong; ?>" />
-						<input id="gc_countrycode" type="hidden" name="blog_countrycode" value="<?php echo $blog_countrycode; ?>" />
-						<input id="gc_countryname" type="hidden" name="blog_countryname" value="<?php echo $blog_countryname; ?>" />
-						<input id="gc_region" type="hidden" name="blog_region" value="<?php echo $blog_region; ?>" />
-						<input id="gc_locality" type="hidden" name="blog_locality" value="<?php echo $blog_locality; ?>" />
+						<input id="gc_latlong" type="hidden" name="blog_latlong" value="<?php echo $blog_location->getLatLong(); ?>" />
+						<input id="gc_countrycode" type="hidden" name="blog_countrycode" value="<?php echo $blog_location->getCountryCode(); ?>" />
+						<input id="gc_countryname" type="hidden" name="blog_countryname" value="<?php echo $blog_location->getCountryName(); ?>" />
+						<input id="gc_region" type="hidden" name="blog_region" value="<?php echo $blog_location->getRegion(); ?>" />
+						<input id="gc_locality" type="hidden" name="blog_locality" value="<?php echo $blog_location->getLocality(); ?>" />
 						<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 				</fieldset>
 				<?php echo $core->formNonce(); ?>

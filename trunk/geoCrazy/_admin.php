@@ -47,46 +47,16 @@ class gcAdminBehaviors
 	public static function locationField(&$post)
 	{
 		$core = $GLOBALS['core'];
-		
-		$gc_latlong = '';
-		$gc_country_code = '';
-		$gc_country_name = '';
-		$gc_region = '';
-		$gc_locality = '';
-		
-		if ($post) {
-			$meta = new dcMeta($core);
-			$gc_latlong = $meta->getMetaStr($post->post_meta,'gc_latlong');
-			$gc_country_code = $meta->getMetaStr($post->post_meta,'gc_countrycode');
-			$gc_country_name = $meta->getMetaStr($post->post_meta,'gc_countryname');
-			$gc_region = $meta->getMetaStr($post->post_meta,'gc_region');
-			$gc_locality = $meta->getMetaStr($post->post_meta,'gc_locality');
-		}
+		$location = new gcLocation($core,'post',($post) ? $post->post_meta : null);
 
 		# HTML
 		echo '<h3>'.__('Location:').'</h3>
 		      <div class="p">
-		        <div id="map_canvas" style="overflow: hidden"></div>
-						<div id="placename" class="adr">';
-
-		if ($gc_locality != '') {
-			echo '<span class="locality">'.$gc_locality.'</span>';
-		}
-		if ($gc_locality != '' && $gc_region != '') {
-			echo ', ';
-		}
-		if ($gc_region != '') {
-			echo '<span class="region">'.$gc_region.'</span>';
-		}
-		if ($gc_region != '' && $gc_country_name != '') {
-			echo ', ';
-		}
-		if ($gc_country_name != '') {
-			echo '<span class="country-name">'.$gc_country_name.'</span>';
-		}
-		echo '</div>';
+		        <div id="map_canvas" style="overflow: hidden"></div>';
 		
-		if ($gc_latlong != '') {
+		echo $location->getMicroformatAdr();
+		
+		if ($location->getLatLong() != '') {
 			echo '<a id="gcAddLocationLink" href="#" class="gcPopup" style="display: none">'.__('Add location').'</a>
             <a id="gcEditLocationLink" href="#" class="gcPopup">'.__('Edit location').'</a>';
 			
@@ -96,29 +66,16 @@ class gcAdminBehaviors
 		}
 		
 		# Data in hidden input
-		echo form::hidden('gc_latlong',$gc_latlong)
-				.form::hidden('gc_countrycode',$gc_country_code)
-				.form::hidden('gc_countryname',$gc_country_name)
-				.form::hidden('gc_region',$gc_region)
-				.form::hidden('gc_locality',$gc_locality);
+		echo form::hidden('gc_latlong',$location->getLatLong())
+				.form::hidden('gc_countrycode',$location->getCountryCode())
+				.form::hidden('gc_countryname',$location->getCountryName())
+				.form::hidden('gc_region',$location->getRegion())
+				.form::hidden('gc_locality',$location->getLocality());
 
 		# Widget display override
 		if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
-			$gc_widget_title = '';
-			$gc_widget_width = '';
-			$gc_widget_height = '';
-			$gc_widget_zoom = '';
-			$gc_widget_type = '';
 			
-			if ($post) {
-				$gc_widget_title = $meta->getMetaStr($post->post_meta,'gc_widgettitle');
-				$gc_widget_width = $meta->getMetaStr($post->post_meta,'gc_widgetwidth');
-				$gc_widget_height = $meta->getMetaStr($post->post_meta,'gc_widgetheight');
-				$gc_widget_zoom = $meta->getMetaStr($post->post_meta,'gc_widgetzoom');
-				$gc_widget_type = $meta->getMetaStr($post->post_meta,'gc_widgettype');
-			}
-			
-			if ($gc_latlong != '') {
+			if ($location->getLatLong() != '') {
 				echo '<p id="gcOverrideDiv" style="margin-top: 1em">';
 				
 			} else {
@@ -130,13 +87,13 @@ class gcAdminBehaviors
 				.'</label>
 				<div id="gcOverrideFields"><label>'
 						.__('Title:')
-						.form::field('gc_widgettitle',20,255,$gc_widget_title)
+						.form::field('gc_widgettitle',20,255,$location->getTitle())
 					.'</label><label>'
 						.__('Width:')
-						.form::field('gc_widgetwidth',20,20,$gc_widget_width)
+						.form::field('gc_widgetwidth',20,20,$location->getWidth())
 					.'</label><label>'
 						.__('Height:')
-						.form::field('gc_widgetheight',20,20,$gc_widget_height)
+						.form::field('gc_widgetheight',20,20,$location->getHeight())
 					.'</label><label>'
 						.__('Zoom:')
 						.form::combo('gc_widgetzoom',array('' => '',
@@ -159,7 +116,7 @@ class gcAdminBehaviors
 							'17' => 17,
 							'18' => 18,
 							'19' => 19),
-						  $gc_widget_zoom)
+						  $location->getZoom())
 					.'</label><label>'
 						.__('Type:')
 						.form::combo('gc_widgettype',array('' => '',
@@ -167,20 +124,15 @@ class gcAdminBehaviors
 							__('normal') => 2,
 							__('satellite') => 3,
 							__('hybrid') => 4),
-							$gc_widget_type)
+							$location->getType())
 					.'</label>';
 			
 			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
-				$gc_widget_address = '';
-				
-				if ($post) {
-					$gc_widget_address = $meta->getMetaStr($post->post_meta,'gc_widgetaddress');
-				}
-				
+
 				echo '<label>'.__('Display address:').form::combo('gc_widgetaddress',array('' => '',
 							__('do not display') => 2,			
 							__('display') => 1),
-							$gc_widget_address)
+							$location->getDisplayAddress())
 					.'</label>';
 			}
 			echo '</div></p>';
@@ -196,42 +148,34 @@ class gcAdminBehaviors
 	 */
 	public static function setLocation(&$cur,&$post_id)
 	{
+		$core = $GLOBALS['core'];
+		
 		# Reset the location into the post metadata 
-		$meta = new dcMeta($GLOBALS['core']);
-		$meta->delPostMeta($post_id,'gc_latlong');
-		$meta->delPostMeta($post_id,'gc_countrycode');
-		$meta->delPostMeta($post_id,'gc_countryname');
-		$meta->delPostMeta($post_id,'gc_region');
-		$meta->delPostMeta($post_id,'gc_locality');
+		$location = new gcLocation($core,'post');
 
 		# Save the location if not empty
 		if (!empty($_POST['gc_latlong'])) {
-			$meta->setPostMeta($post_id,'gc_latlong',$_POST['gc_latlong']);
+			$location->setLatLong($_POST['gc_latlong']);
 			
-			if ($GLOBALS['core']->blog->settings->get('geocrazy_saveaddress') == 1) {
-				$meta->setPostMeta($post_id,'gc_countrycode',$_POST['gc_countrycode']);
-				$meta->setPostMeta($post_id,'gc_countryname',$_POST['gc_countryname']);
-				$meta->setPostMeta($post_id,'gc_region',$_POST['gc_region']);
-				$meta->setPostMeta($post_id,'gc_locality',$_POST['gc_locality']);
+			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
+				$location->setCountryCode($_POST['gc_countrycode']);
+				$location->setCountryName($_POST['gc_countryname']);
+				$location->setRegion($_POST['gc_region']);
+				$location->setLocality($_POST['gc_locality']);
 			}
 			
 			# Save the post specific display parameters
-			if ($GLOBALS['core']->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
-				$meta->delPostMeta($post_id,'gc_widgettitle');
-				$meta->delPostMeta($post_id,'gc_widgetwidth');
-				$meta->delPostMeta($post_id,'gc_widgetheight');
-				$meta->delPostMeta($post_id,'gc_widgetzoom');
-				$meta->delPostMeta($post_id,'gc_widgettype');
-				$meta->delPostMeta($post_id,'gc_widgetaddress');
-				
-				$meta->setPostMeta($post_id,'gc_widgettitle',$_POST['gc_widgettitle']);
-				$meta->setPostMeta($post_id,'gc_widgetwidth',$_POST['gc_widgetwidth']);
-				$meta->setPostMeta($post_id,'gc_widgetheight',$_POST['gc_widgetheight']);
-				$meta->setPostMeta($post_id,'gc_widgetzoom',$_POST['gc_widgetzoom']);
-				$meta->setPostMeta($post_id,'gc_widgettype',$_POST['gc_widgettype']);
-				$meta->setPostMeta($post_id,'gc_widgetaddress',$_POST['gc_widgetaddress']);
+			if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+				$location->setTitle($_POST['gc_widgettitle']);
+				$location->setWidth($_POST['gc_widgetwidth']);
+				$location->setHeight($_POST['gc_widgetheight']);
+				$location->setZoom($_POST['gc_widgetzoom']);
+				$location->setType($_POST['gc_widgettype']);
+				$location->setDisplayAddress($_POST['gc_widgetaddress']);
 			}
 		}
+		
+		$location->save($core,$post_id);
 	}
 }
 
