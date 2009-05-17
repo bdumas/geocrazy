@@ -31,28 +31,52 @@ $(document).ready(function() {
 
 	// Map
 	if (GBrowserIsCompatible()) {
-		var map = new GMap2(document.getElementById("map_canvas"));
-		map.setMapType(G_PHYSICAL_MAP);
+		
+		// Places the marker at the coordinates and updates gcLatLong.
+	    function placeMarker(gLatLng, updateGcLatLong, centerMap) {
+	    	$('#message').html('');
 
-		// Centers the map on the post location or the default location.
-		var gcLatLng = gcLatLong.split(' ');
-		var gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
-		if (gcLatLng[1]) {
-			map.setCenter(gPoint, 2);
-		} else if (false) {
-			// TODO: default place or user's current place
-		} else {
-			map.setCenter(new GLatLng(0, 0), 2);
-		}
+	    	if (marker) {
+    	    	map.removeOverlay(marker);
+    	    }
+	    	
+	    	if (centerMap) {
+	    		map.setCenter(gLatLng, 8);
+	    	}
 
-		// Map controls
-	    map.setUIToDefault();
+	    	marker = new GMarker(gLatLng, {draggable: true});
+	    	map.addOverlay(marker);
 
-	    // Marker
-	    var marker;
+	    	if (updateGcLatLong) {
+	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
+	    		updateAddress(gLatLng);
+	    	}
+
+	    	// The marker is draggable
+	    	GEvent.addListener(marker, "dragend", function(overlay, latlng) {
+	    		var gLatLng = marker.getLatLng();
+	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
+	    		updateAddress(gLatLng);
+	    	});
+	    }
 	    
-	    // Geocoder
-	    var geocoder = new GClientGeocoder();
+	    // Places the marker at the position and updates gcLatLong.
+	    function placeMarkerFromPosition(position) {
+	    	$('#loading').css('visibility', 'hidden');
+	    	var gPosition = new GLatLng(position.coords.latitude, position.coords.longitude);
+	    	placeMarker(gPosition, true, true);
+	    	initMap();
+	    }
+	    
+	    // Displays error message if geolocation hasn't succeeded.
+	    function geolocationHandleError(error) {
+	    	if (!marker) { // if the location is found in the cache, an error is triggered although it shouldn't be!
+	    		$('#loading').css('visibility', 'hidden');
+	    		$('#message').html(gc_geolocation_msg);
+	    		map.setCenter(new GLatLng(0, 0), 2);
+	    		initMap();
+	    	}
+	    }
 	    
 	    // Update locality, region and country.
 	    function updateAddress(gLatLng) {
@@ -84,80 +108,77 @@ $(document).ready(function() {
 	    		});
     		}
 	    }
-
-	    // Places the marker at the coordinates and updates gcLatLong.
-	    function placeMarker(gLatLng, updateGcLatLong, centerMap) {
-
-	    	if (marker) {
-    	    	map.removeOverlay(marker);
-    	    }
-	    	
-	    	if (centerMap) {
-	    		map.setCenter(gLatLng, 8);
-	    	}
-
-	    	marker = new GMarker(gLatLng, {draggable: true});
-	    	map.addOverlay(marker);
-
-	    	if (updateGcLatLong) {
-	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
-	    		updateAddress(gLatLng);
-	    	}
-
-	    	// The marker is draggable
-	    	GEvent.addListener(marker, "dragend", function(overlay, latlng) {
-	    		var gLatLng = marker.getLatLng();
-	    		gcLatLong = gLatLng.lat() + ' ' + gLatLng.lng();
-	    		updateAddress(gLatLng);
-	    	});
-	    }
-
-	    // If there is already a location, places the marker on it
-	    if (gcLatLng[1]) {
-	    	placeMarker(gPoint, false, false);
-	    }
-
-	    // A click on the map moves the marker and updates gcLatLong.
-	    GEvent.addListener(map,"click", function(overlay, latlng) {
-	    	if (latlng) {
-	    		gPoint = new GLatLng(latlng.lat(), latlng.lng());
-	    		placeMarker(latlng, true, false);
-	    	}
-    	});
 	    
-	    // Geocoder to convert address into coordinates
-		var geocoder = new GClientGeocoder();
-		
-		/* 
-		 * TODO: Geocoding
-		 * http://code.google.com/intl/fr/apis/maps/documentation/services.html#Geocoding
-		 * - location preference
-		 * - retrieve the structured address, and store it
-		 */
-		$('#geocoder').submit(function() {
-			$('#geocoderMessage').html('');
-			$('#loading').css('visibility', 'visible');
-			var address = $('#address').val();
-			geocoder.getLatLng(address, function(point) {
-				$('#loading').css('visibility', 'hidden');
-				if (point) {
-					placeMarker(point, true, true);
-				} else {
-					$('#geocoderMessage').html('<strong>' + address + '</strong> ' + gc_geocoder_msg);
-				}
-			});
-			return false;
-		});
+	    function initMap() {
+	    	// Map controls
+		    map.setUIToDefault();
+		    
+		    // If there is already a location, places the marker on it
+		    if (gcLatLng[1]) {
+		    	placeMarker(gPoint, false, false);
+		    }
 
-		// The remove from map link removes the marker and reset gcLatLong.
-		$('#remove').click(function() {
-			gcLatLong = '';
-			gcCountryCode = '';
-			gcCountryName = '';
-			gcRegion = '';
-			gcLocality = '';
-			map.removeOverlay(marker);
-		});
+		    // A click on the map moves the marker and updates gcLatLong.
+		    GEvent.addListener(map,"click", function(overlay, latlng) {
+		    	if (latlng) {
+		    		gPoint = new GLatLng(latlng.lat(), latlng.lng());
+		    		placeMarker(latlng, true, false);
+		    	}
+	    	});
+		    
+			/* 
+			 * http://code.google.com/intl/fr/apis/maps/documentation/services.html#Geocoding
+			 * - location preference
+			 * - retrieve the structured address, and store it
+			 */
+			$('#geocoder').submit(function() {
+				$('#message').html('');
+				$('#loading').css('visibility', 'visible');
+				var address = $('#address').val();
+				geocoder.getLatLng(address, function(point) {
+					$('#loading').css('visibility', 'hidden');
+					if (point) {
+						placeMarker(point, true, true);
+					} else {
+						$('#message').html('<strong>' + address + '</strong> ' + gc_geocoder_msg);
+					}
+				});
+				return false;
+			});
+
+			// The remove from map link removes the marker and reset gcLatLong.
+			$('#remove').click(function() {
+				gcLatLong = '';
+				gcCountryCode = '';
+				gcCountryName = '';
+				gcRegion = '';
+				gcLocality = '';
+				map.removeOverlay(marker);
+			});
+	    }
+		
+		var map = new GMap2(document.getElementById("map_canvas"));
+		map.setMapType(G_PHYSICAL_MAP);
+		var marker;
+		var geocoder = new GClientGeocoder();
+
+		// Centers the map on the post location or the default location.
+		var gcLatLng = gcLatLong.split(' ');
+		var gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
+		if (gcLatLng[1]) {
+			map.setCenter(gPoint, 2);
+		} else if (gc_default_location_mode == 2 && navigator.geolocation) {
+			$('#loading').css('visibility', 'visible');
+			navigator.geolocation.getCurrentPosition(placeMarkerFromPosition, geolocationHandleError, {maximumAge:600000});
+		} else if (gc_default_location_mode == 1 && gc_blog_latlng.length > 0) {
+			gcLatLng = gc_blog_latlng.split(' ');
+			gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
+			placeMarker(gPoint, true, true);
+		} else {
+			map.setCenter(new GLatLng(0, 0), 2);
+		}
+		
+		initMap();
 	}
 });
 

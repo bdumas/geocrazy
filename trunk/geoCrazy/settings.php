@@ -26,8 +26,11 @@ if (isset($_POST['submitForm'])) {
 	$save_address = $_POST['save_address'];
 	$settings->put('geocrazy_saveaddress',!empty($save_address),'boolean',__('Save address'),true);
 	
-	$overrid_widget_display = $_POST['override_widget_display'];
-	$settings->put('geocrazy_overridewidgetdisplay',!empty($overrid_widget_display),'boolean',__('Override widget display'),true);
+	$override_widget_display = $_POST['override_widget_display'];
+	$settings->put('geocrazy_overridewidgetdisplay',!empty($override_widget_display),'boolean',__('Override widget display'),true);
+	
+	$default_location_mode = $_POST['default_location_mode'];
+	$settings->put('geocrazy_defaultlocationmode',$_POST['default_location_mode'],'integer',__('Default location'),true);
 	
 	# Blog location
 	$blog_location->setLatLong($_POST['blog_latlong']);
@@ -82,6 +85,15 @@ if (isset($_POST['submitForm'])) {
 						<label class="classic"><?php echo form::checkbox('save_address',1,$core->blog->settings->get('geocrazy_saveaddress')).' '.__('Try to save the address of the location (region and locality)') ?></label>
 						<br/>
 						<label class="classic"><?php echo form::checkbox('override_widget_display',1,$core->blog->settings->get('geocrazy_overridewidgetdisplay')).' '.__('Enable override of widget display') ?></label>
+						<br/><br/>
+						<?php echo __('Default location when adding a location to a post:'); ?><br/>
+						<div>
+							<label class="classic"><?php echo form::radio('default_location_mode',0,$core->blog->settings->get('geocrazy_defaultlocationmode') == 0).' '.__('No default location') ?></label>
+							<br/>
+							<label class="classic"><?php echo form::radio('default_location_mode',1,$core->blog->settings->get('geocrazy_defaultlocationmode') == 1).' '.__('Blog location') ?></label>
+							<br/>
+							<label class="classic"><?php echo form::radio('default_location_mode',2,$core->blog->settings->get('geocrazy_defaultlocationmode') == 2).' '.__('Try to locate the author') ?></label>
+						</div>
 					</div>
 					<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 				</fieldset>

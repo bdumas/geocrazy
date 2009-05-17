@@ -5,79 +5,61 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
 #: _admin.php:53
-#: _admin_backup.php:67
 msgid "Location:"
 msgstr "Lieu :"
 
 #: _admin.php:60
 #: _admin.php:64
-#: _admin_backup.php:90
-#: _admin_backup.php:94
-#: settings.php:96
-#: settings.php:99
-#: settings_backup.php:141
-#: settings_backup.php:144
+#: settings.php:108
+#: settings.php:111
 msgid "Add location"
 msgstr "Ajouter un lieu"
 
 #: _admin.php:61
 #: _admin.php:65
-#: _admin_backup.php:91
-#: _admin_backup.php:95
-#: settings.php:97
-#: settings.php:100
-#: settings_backup.php:142
-#: settings_backup.php:145
+#: settings.php:109
+#: settings.php:112
 msgid "Edit location"
 msgstr "Changer le lieu"
 
 #: _admin.php:86
-#: _admin_backup.php:129
 msgid "Override default display"
 msgstr "Paramètres de la carte"
 
 #: _admin.php:98
-#: _admin_backup.php:141
 msgid "Zoom:"
 msgstr "Zoom :"
 
 #: _admin.php:123
-#: _admin_backup.php:166
 #: _widgets.php:69
 #: _widgets.php:70
 msgid "physical"
 msgstr "relief"
 
 #: _admin.php:124
-#: _admin_backup.php:167
 #: _widgets.php:71
 msgid "normal"
 msgstr "plan"
 
 #: _admin.php:125
-#: _admin_backup.php:168
 #: _widgets.php:72
 msgid "satellite"
 msgstr "satellite"
 
 #: _admin.php:126
-#: _admin_backup.php:169
 #: _widgets.php:73
 msgid "hybrid"
 msgstr "mixte"
 
 #: _admin.php:132
-#: _admin_backup.php:180
 msgid "Display address:"
 msgstr "Afficher le lieu :"
 
 #: _admin.php:133
-#: _admin_backup.php:181
 msgid "do not display"
 msgstr "Ne pas afficher"
 
 #: _admin.php:134
-#: _admin_backup.php:182
 msgid "display"
 msgstr "Afficher"
 
@@ -127,32 +109,27 @@ msgid "ID (If you use several GeoCrazy Map widgets, choose a different ID for ea
 msgstr "ID (Si vous placez plusieurs widgets GeoCrazy, choisissez un ID différent pour chacun) :"
 
 #: class.gc.location.php:104
-#: settings_backup.php:37
 msgid "Blog position"
 msgstr "Localisation du blog"
 
 #: class.gc.location.php:110
-#: settings_backup.php:46
 msgid "Blog country code"
 msgstr "Code pays du blog"
 
 #: class.gc.location.php:116
-#: settings_backup.php:49
 msgid "Blog country"
 msgstr "Pays du blog"
 
 #: class.gc.location.php:122
-#: settings_backup.php:52
 msgid "Blog region"
 msgstr "Région du blog"
 
 #: class.gc.location.php:128
-#: settings_backup.php:55
 msgid "Blog locality"
 msgstr "Commune du blog"
 
 #: popup.php:15
-#: popup.php:25
+#: popup.php:34
 msgid "Map your post"
 msgstr "Placez votre billet sur la carte"
 
@@ -160,143 +137,145 @@ msgstr "Placez votre billet sur la carte"
 msgid "was not found."
 msgstr "ne peut pas être localisé."
 
-#: popup.php:27
+#: popup.php:20
+msgid "Your location could not be found."
+msgstr "Votre position n'a pas été trouvée."
+
+#: popup.php:36
 msgid "Find location"
 msgstr "Rechercher un lieu"
 
-#: popup.php:29
+#: popup.php:38
 msgid "Go"
 msgstr "OK"
 
-#: popup.php:33
+#: popup.php:42
 msgid "Remove from map"
 msgstr "Supprimer de la carte"
 
-#: popup.php:37
+#: popup.php:46
 msgid "Save location"
 msgstr "Enregistrer le lieu"
 
 #: settings.php:21
-#: settings_backup.php:20
 msgid "Google Maps API key"
 msgstr "Clé Google Maps API"
 
 #: settings.php:24
-#: settings.php:80
-#: settings_backup.php:23
-#: settings_backup.php:108
+#: settings.php:83
 msgid "Enable multiple widget"
 msgstr "Mode "widget multiple" pour placer plusieurs fois le même widget"
 
 #: settings.php:27
-#: settings_backup.php:26
 msgid "Save address"
 msgstr "Enregistrer l'adresse"
 
 #: settings.php:30
-#: settings_backup.php:29
 msgid "Override widget display"
 msgstr "Surcharge des paramètres du widget"
 
-#: settings.php:66
-#: settings_backup.php:94
+#: settings.php:33
+msgid "Default location"
+msgstr "Lieu par défaut"
+
+#: settings.php:69
 msgid "Configuration"
 msgstr "Configuration"
 
-#: settings.php:69
-#: settings_backup.php:97
+#: settings.php:72
 msgid "Settings"
 msgstr "Paramètres"
 
-#: settings.php:70
-#: settings_backup.php:98
+#: settings.php:73
 msgid "Google Maps API key:"
 msgstr "clé Google Maps API :"
 
-#: settings.php:72
-#: settings_backup.php:100
+#: settings.php:75
 msgid "Get your Google Maps API key"
 msgstr "Demander votre clé Google Maps API"
 
-#: settings.php:76
-#: settings_backup.php:104
+#: settings.php:79
 msgid "Advanced parameters"
 msgstr "Paramètres avancés"
 
-#: settings.php:82
-#: settings_backup.php:110
+#: settings.php:85
 msgid "Try to save the address of the location (region and locality)"
 msgstr "Enregistrer l'adresse du lieu"
 
-#: settings.php:84
-#: settings_backup.php:112
+#: settings.php:87
 msgid "Enable override of widget display"
 msgstr "Permettre le paramétrage du widget par billet"
 
-#: settings.php:90
-#: settings_backup.php:118
+#: settings.php:89
+msgid "Default location when adding a location to a post:"
+msgstr "Lieu par défaut lors de l'ajout d'un lieu :"
+
+#: settings.php:91
+msgid "No default location"
+msgstr "Aucun"
+
+#: settings.php:93
+msgid "Blog location"
+msgstr "Lieu du blog"
+
+#: settings.php:95
+msgid "Try to locate the author"
+msgstr "Essayer de localiser l'auteur"
+
+#: settings.php:102
 msgid "Blog localization"
 msgstr "Localisation du blog"
 
-#: settings.php:114
-#: settings_backup.php:159
+#: settings.php:126
 msgid "GeoRSS feed"
 msgstr "Flux GeoRSS"
 
-#: settings.php:116
-#: settings_backup.php:161
+#: settings.php:128
 msgid "If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map."
 msgstr "Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte."
 
-#: settings.php:120
-#: settings_backup.php:165
+#: settings.php:132
 msgid "My RSS feed:"
 msgstr "Mon flux RSS :"
 
-#: settings.php:121
-#: settings_backup.php:166
+#: settings.php:133
 msgid "My RSS feed displayed in Google Maps:"
 msgstr "Mon flux RSS affiché dans Google Maps :"
 
-#: settings.php:122
-#: settings_backup.php:167
+#: settings.php:134
 msgid "My RSS feed displayed in Live Maps:"
 msgstr "Mon flux RSS affiché dans Live Maps :"
 
-#: settings.php:127
-#: settings_backup.php:172
+#: settings.php:139
 msgid "Geo sitemap"
 msgstr "Sitemap géographique"
 
-#: settings.php:129
-#: settings_backup.php:174
+#: settings.php:141
 msgid "To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap."
 msgstr "Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique."
 
-#: settings.php:131
-#: settings_backup.php:176
+#: settings.php:143
 msgid "My geo sitemap:"
 msgstr "Mon sitemap géographique :"
 
-#: settings.php:140
-#: settings_backup.php:185
+#: settings.php:152
 msgid "About"
 msgstr "A propos"
 
-#: settings.php:142
-#: settings_backup.php:187
+#: settings.php:154
 msgid "GeoCrazy is written by Benjamin Dumas"
 msgstr "GeoCrazy est écrit par Benjamin Dumas"
 
-#: settings.php:143
-#: settings_backup.php:188
+#: settings.php:155
 msgid "For some help, please write a comment on"
 msgstr "Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur"
 
-#: settings.php:143
-#: settings_backup.php:188
+#: settings.php:155
 msgid "the support page of GeoCrazy"
 msgstr "la page support de GeoCrazy"
+
+msgid "Default location when adding a location to a post"
+msgstr "Lieu par défaut lors de l'ajout d'un lieu"
 
 msgid "Blog country name"
 msgstr "Nom du pays du blog"
