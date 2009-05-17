@@ -16,9 +16,17 @@
     <script type="text/javascript" src="index.php?pf=geoCrazy/js/gcpopup.js"></script>
     <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $core->blog->settings->get('geocrazy_googlemapskey'); ?>" type="text/javascript"></script>
     <script type="text/javascript">
-			var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
-			var gc_save_address = "<?php echo $core->blog->settings->get('geocrazy_saveaddress'); ?>";
-			var gc_display_address = "<?php echo $core->blog->settings->get('geocrazy_displayaddress'); ?>";
+      var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
+      var gc_geolocation_msg = "<?php echo __('Your location could not be found.') ?>";
+      var gc_save_address = "<?php echo $core->blog->settings->get('geocrazy_saveaddress'); ?>";
+      var gc_display_address = "<?php echo $core->blog->settings->get('geocrazy_displayaddress'); ?>";
+      var gc_default_location_mode = "<?php echo $core->blog->settings->get('geocrazy_defaultlocationmode'); ?>";
+      <?php
+        if ($core->blog->settings->get('geocrazy_defaultlocationmode') == 1) {
+          $blog_location = new gcLocation($core,'blog');
+          echo "var gc_blog_latlng = \"".$blog_location->getLatLong()."\";";
+        }
+      ?> 
     </script>    
   </head>
   <body>
@@ -30,10 +38,10 @@
       <img id="loading" src="index.php?pf=geoCrazy/images/loading.gif" style="vertical-align: middle; visibility: hidden" alt="" />
     </form>
     <div style="width: 576px">
-    	<a href="#" id="remove" style="float: right; margin-bottom: 1em"><?php echo __('Remove from map')?></a>
-    	<div id="geocoderMessage"></div>
+    	<a href="#" id="remove" style="float: right; margin: 1em 0"><?php echo __('Remove from map')?></a>
+    	<div id="message"></div>
 	    <div id="map_canvas" style="width: 576px; height: 400px; clear: right"></div>
-			<div style="text-align: right; margin-top: 2em">
+			<div style="text-align: right; margin-top: 1em">
 <input type="button" id="save" value="<?php echo __('Save location')?>" style="font-weight: bold; margin-right: 1em" />
 <input type="button" id="cancel" value="<?php echo __('Cancel')?>" style="font-weight: bold" />
 	    </div>
