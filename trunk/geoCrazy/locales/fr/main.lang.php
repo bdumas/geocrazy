@@ -99,7 +99,7 @@ $GLOBALS['__l10n']['Blog region']='Région du blog';
 $GLOBALS['__l10n']['Blog locality']='Commune du blog';
 
 # popup.php:15
-# popup.php:34
+# popup.php:33
 $GLOBALS['__l10n']['Map your post']='Placez votre billet sur la carte';
 
 # popup.php:19
@@ -108,16 +108,16 @@ $GLOBALS['__l10n']['was not found.']='ne peut pas être localisé.';
 # popup.php:20
 $GLOBALS['__l10n']['Your location could not be found.']='Votre position n\'a pas été trouvée.';
 
-# popup.php:36
+# popup.php:35
 $GLOBALS['__l10n']['Find location']='Rechercher un lieu';
 
-# popup.php:38
+# popup.php:37
 $GLOBALS['__l10n']['Go']='OK';
 
-# popup.php:42
+# popup.php:41
 $GLOBALS['__l10n']['Remove from map']='Supprimer de la carte';
 
-# popup.php:46
+# popup.php:45
 $GLOBALS['__l10n']['Save location']='Enregistrer le lieu';
 
 # settings.php:21
