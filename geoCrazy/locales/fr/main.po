@@ -129,7 +129,7 @@ msgid "Blog locality"
 msgstr "Commune du blog"
 
 #: popup.php:15
-#: popup.php:34
+#: popup.php:33
 msgid "Map your post"
 msgstr "Placez votre billet sur la carte"
 
@@ -141,19 +141,19 @@ msgstr "ne peut pas être localisé."
 msgid "Your location could not be found."
 msgstr "Votre position n'a pas été trouvée."
 
-#: popup.php:36
+#: popup.php:35
 msgid "Find location"
 msgstr "Rechercher un lieu"
 
-#: popup.php:38
+#: popup.php:37
 msgid "Go"
 msgstr "OK"
 
-#: popup.php:42
+#: popup.php:41
 msgid "Remove from map"
 msgstr "Supprimer de la carte"
 
-#: popup.php:46
+#: popup.php:45
 msgid "Save location"
 msgstr "Enregistrer le lieu"
 
