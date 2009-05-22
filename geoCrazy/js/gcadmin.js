@@ -9,10 +9,20 @@
  * -- END LICENSE BLOCK ------------------------------------ 
  */
 
-var map;
-var marker;
+/*
+ * This code is used in the post edit page in the dotclear administration.
+ * It handles the display of the map in the sidebar and communication with the 
+ * "select location" popoup.
+ */
 
-// Update the post with the location from the map
+var map;	// the map in the sidemap
+var marker;	// the marker which indicates the location of the post on the map
+
+/*
+ * Update the post with the location from the map.
+ * This function is called when the "select location" popup is closed. It updates 
+ * all hidden fields with the values selected thanks to the popup.
+ */
 function updateLocation(coordinates, countryCode, countryName, region, locality) {
 	$('#gc_latlong').attr('value', coordinates);
 	$('#gc_countrycode').val(countryCode);
@@ -40,7 +50,11 @@ function updateLocation(coordinates, countryCode, countryName, region, locality)
 	}
 }
 
-// Update the map
+/*
+ * Update the map.
+ * This function is called when the default display (defined with the widget) is overriden. 
+ * It updates the display of the map in the sidebar.
+ */ 
 function updateMap(gcLatLong, type, zoom) {
 	if (!map) {
 		map = new GMap2(document.getElementById("map_canvas"));

@@ -9,6 +9,14 @@
  * -- END LICENSE BLOCK ------------------------------------ 
  */
 
+/*
+ * This code is used to display the map of a geotagged post in the blog.
+ */
+
+/*
+ * Displays a map.
+ * This function is called by each GeoCrazy widget in the page.
+ */
 function gcMap(htmlId, mapType, zoomLevel, gcLatLong) {
 	var map = new GMap2(document.getElementById(htmlId));
 	var type = G_PHYSICAL_MAP;

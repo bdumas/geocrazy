@@ -44,8 +44,8 @@
       <wfw:commentRss>{{tpl:BlogFeedURL type="atom"}}/comments/{{tpl:EntryID}}</wfw:commentRss>
     </tpl:EntryIf>
 
-		<tpl:EntryMetaData type="gc_latlong">
-    <georss:point>{{tpl:MetaID}}</georss:point>
+    <tpl:EntryMetaData type="gc_latlong">
+      <georss:point>{{tpl:MetaID}}</georss:point>
     </tpl:EntryMetaData>
   </entry>
   </tpl:Entries>
