@@ -18,7 +18,7 @@ $core->addBehavior('initWidgets',array('gcWidgetBehaviors','initWidgets'));
  */
 class gcWidgetBehaviors
 {
-	
+
 	/**
 	 * Creation and settings of the widget.
 	 * @param $w

@@ -9,6 +9,13 @@
  * -- END LICENSE BLOCK ------------------------------------ 
  */
 
+/*
+ * This code is used in the "select location" popup.
+ * It handles the display of the map, the geocoder (to get the location region and country) 
+ * and the geolocation API to find where the user is.
+ */
+
+// Initialization
 $(document).ready(function() {
 
 	// Geographic coordinates
@@ -108,7 +115,8 @@ $(document).ready(function() {
 	    		});
     		}
 	    }
-	    
+
+	    // Add controls, marker and events handling.
 	    function initMap() {
 	    	// Map controls
 		    map.setUIToDefault();
@@ -182,6 +190,7 @@ $(document).ready(function() {
 	}
 });
 
+// Prevent memory leak
 $(window).unload(function() {
 	GUnload();
 });
