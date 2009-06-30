@@ -126,15 +126,25 @@ class gcAdminBehaviors
 							__('hybrid') => 4),
 							$location->getType())
 					.'</label>';
-			
+					
 			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
-
 				echo '<label>'.__('Display address:').form::combo('gc_widgetaddress',array('' => '',
 							__('do not display') => 2,			
 							__('display') => 1),
 							$location->getDisplayAddress())
 					.'</label>';
 			}
+			
+			if ($core->blog->settings->get('geocrazy_multiplewidget') == 1) {
+				echo '<label>'.__('ID:').form::combo('gc_widgetid',array('0' => 0,
+				        '1' => 1,
+				        '2' => 2,
+				        '3' => 3,
+				        '4' => 4),
+				        $location->getWID())
+				    .'</label>';
+			}
+			
 			echo '</div></p>';
 		}
 
@@ -172,6 +182,10 @@ class gcAdminBehaviors
 				$location->setZoom($_POST['gc_widgetzoom']);
 				$location->setType($_POST['gc_widgettype']);
 				$location->setDisplayAddress($_POST['gc_widgetaddress']);
+
+				if ($core->blog->settings->get('geocrazy_multiplewidget') == 1) {
+				    $location->setWID($_POST['gc_widgetid']);
+				}
 			}
 		}
 		

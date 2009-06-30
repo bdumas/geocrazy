@@ -206,7 +206,12 @@ class publicGcWidget
 		$widget_address = $w->address;
 		
 		# Display parameters override
-		if ($w->object == 1 && $core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+		if ($w->object == 1 
+		  && $core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1
+		  && ($core->blog->settings->get('geocrazy_multiplewidget') != 1 
+		          || $location->getWID() == $w->wid
+		          || $location->getWID() == '' && $w->wid == 0)) {
+
 			if ($location->getTitle() != '') {
 				$widget_title = $location->getTitle();
 			}

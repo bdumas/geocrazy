@@ -27,7 +27,7 @@
           echo "var gc_blog_latlng = \"".$blog_location->getLatLong()."\";";
         }
       ?> 
-    </script>    
+    </script>
   </head>
   <body>
     <h1><?php echo __('Map your post')?></h1>

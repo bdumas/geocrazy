@@ -30,6 +30,7 @@ class gcLocation
 	protected $zoom;
 	protected $type;
 	protected $display_address;
+	protected $wid;
 
 	public function __construct(&$core,$location_object='post',$post_meta=null)
 	{
@@ -59,6 +60,7 @@ class gcLocation
 			$this->zoom = $meta->getMetaStr($post_meta,'gc_widgetzoom');
 			$this->type = $meta->getMetaStr($post_meta,'gc_widgettype');
 			$this->display_address = $meta->getMetaStr($post_meta,'gc_widgetaddress');
+			$this->wid = $meta->getMetaStr($post_meta,'gc_widgetid');
 		}
 	}
 	
@@ -80,6 +82,7 @@ class gcLocation
 			$meta->delPostMeta($post_id,'gc_widgetzoom');
 			$meta->delPostMeta($post_id,'gc_widgettype');
 			$meta->delPostMeta($post_id,'gc_widgetaddress');
+			$meta->delPostMeta($post_id,'gc_widgetid');
 			
 			# Save
 			if ($this->lat_long != '') {
@@ -94,6 +97,7 @@ class gcLocation
 				$meta->setPostMeta($post_id,'gc_widgetzoom',$this->zoom);
 				$meta->setPostMeta($post_id,'gc_widgettype',$this->type);
 				$meta->setPostMeta($post_id,'gc_widgetaddress',$this->display_address);
+				$meta->setPostMeta($post_id,'gc_widgetid',$this->wid);
 			}
 			
 		# Save blog location
@@ -278,6 +282,16 @@ class gcLocation
 	public function setDisplayAddress($display_address)
 	{
 		$this->display_address = $display_address;
+	}
+	
+	public function getWID()
+	{
+		return $this->wid;
+	}
+	
+	public function setWID($wid)
+	{
+        $this->wid = $wid;
 	}
 }
 ?>
