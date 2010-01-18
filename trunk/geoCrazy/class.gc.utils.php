@@ -18,7 +18,8 @@ class gcUtils
 	 * @return string
 	 */
 	public static function getMapProvider(&$core) {
-		return $core->blog->settings->get('geocrazy_mapprovider');
+		$map_provider = $core->blog->settings->get('geocrazy_mapprovider');
+		return isset($map_provider) ? $map_provider : 'google';
 	}
 	
 	/**
@@ -35,6 +36,7 @@ class gcUtils
         	$map_provider = $map_provider_override;
         } else {
         	$map_provider = $core->blog->settings->get('geocrazy_mapprovider');
+        	$map_provider = isset($map_provider) ? $map_provider : 'google';
         }
 
         # We don't use mapstraction for Google
