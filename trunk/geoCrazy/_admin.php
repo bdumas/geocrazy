@@ -35,9 +35,8 @@ class gcAdminBehaviors
 	 */
 	public static function postHeaders()
 	{
-		$gmaps_api_key = $GLOBALS['core']->blog->settings->get('geocrazy_googlemapskey');
-		return '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcadmin.js"></script>
-					  <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>';
+		$map_provider = $GLOBALS['core']->blog->settings->get('geocrazy_mapprovider');
+		return gcUtils::getMapJSLinks($GLOBALS['core'],'admin',NULL);
 	}
 	
 	/**

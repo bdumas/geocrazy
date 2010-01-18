@@ -1,4 +1,3 @@
-<em>This documentation has to be translated into english.</em><br/>
 <style type="text/css">
 h2 {margin-top: 1.5em}
 h3 {margin-top: 1em}
@@ -8,9 +7,9 @@ ul.space li {margin-bottom: 3px}
 <strong>GeoCrazy</strong> est un plugin pour Dotclear 2 qui permet de g&eacute;olocaliser les billets d'un blog, c'est-&agrave;-dire associer des coordonn&eacute;es g&eacute;ographiques &agrave; chaque billet du blog.<br/> 
 Cette g&eacute;olocalisation permet :
 <ul>
-	<li>de transformer les flux RSS et atom de votre blog en flux GeoRSS ;</li>
-	<li>d'afficher pour chaque billet une carte du lieu associ&eacute; ;</li>
-	<li>d'ajouter à chaque billet des métadonnées (Geo et ICBM) sur le lieu associ&eacute;.</li>
+    <li>de transformer les flux RSS et atom de votre blog en flux GeoRSS ;</li>
+    <li>d'afficher pour chaque billet une carte du lieu associ&eacute; ;</li>
+    <li>d'ajouter à chaque billet des métadonnées (Geo et ICBM) sur le lieu associ&eacute;.</li>
 </ul>
 
 
@@ -27,16 +26,17 @@ Lorsque vous avez r&eacute;cup&eacute;r&eacute; votre cl&eacute; Google Maps, re
 <h3>1.3. Param&egrave;tres avanc&eacute;s</h3>
 Ces param&egrave;tres vous permettent d'aller plus loin dans l'utilisation de GeoCrazy. Ils sont d&eacute;sactiv&eacute;s par d&eacute;faut.
 <ul class="space">
-	<li>Widget multiple : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
-	<li>Enregistrer l'adresse du lieu : lorsque cette option est activ&eacute;e, GeoCrazy enregistre, en plus des coordonn&eacute;es g&eacute;ographiques, la commune, la r&eacute;gion et le pays du lieu (lorsque ces informations sont disponibles). L'option "afficher le lieu" est alors disponible dans les param&egrave;tres du widget pour afficher ces informations sous la carte.</li>
-	<li>Permettre le param&eacute;trage du widget par billet : activez cette option pour d&eacute;finir des param&egrave;tres d'affichage de la carte propres &agrave; chaque billet (voir le paragraphe 2.4).</li>
-	<li>Lieu par d&eacute;faut : permet de d&eacute;finir un lieu qui sera pr&eacute;s&eacute;lectionn&eacute; lors de l'ouverture de la popup d'ajout d'un lieu &agrave; un billet. Les valeurs possibles sont les suivantes :
-		<ul>
-			<li>Aucun : aucun lieu n'est pr&eacute;s&eacute;lectionn&eacute;</li>
-			<li>Lieu du blog : le lieu du blog est pr&eacute;s&eacute;lectionn&eacute; par d&eacute;faut</li>
-			<li>Essayer de localiser l'auteur : le lieu o&ugrave; vous vous trouvez est pr&eacute;s&eacute;lectionn&eacute; (cette fonctionnalit&eacute; ne peut &ecirc;tre utilis&eacute;e que si votre navigateur impl&eacute;mente <a href="http://www.w3.org/TR/geolocation-API/">l'API Geolocation</a>)</li>
-		</ul>
-	</li>
+    <li>Widget multiple : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
+    <li>Enregistrer l'adresse du lieu : lorsque cette option est activ&eacute;e, GeoCrazy enregistre, en plus des coordonn&eacute;es g&eacute;ographiques, la commune, la r&eacute;gion et le pays du lieu (lorsque ces informations sont disponibles). L'option "afficher le lieu" est alors disponible dans les param&egrave;tres du widget pour afficher ces informations sous la carte.</li>
+    <li>Permettre le param&eacute;trage du widget par billet : activez cette option pour d&eacute;finir des param&egrave;tres d'affichage de la carte propres &agrave; chaque billet (voir le paragraphe 2.4).</li>
+    <li>Lieu par d&eacute;faut : permet de d&eacute;finir un lieu qui sera pr&eacute;s&eacute;lectionn&eacute; lors de l'ouverture de la popup d'ajout d'un lieu &agrave; un billet. Les valeurs possibles sont les suivantes :
+        <ul>
+            <li>Aucun : aucun lieu n'est pr&eacute;s&eacute;lectionn&eacute;</li>
+            <li>Lieu du blog : le lieu du blog est pr&eacute;s&eacute;lectionn&eacute; par d&eacute;faut</li>
+            <li>Essayer de localiser l'auteur : le lieu o&ugrave; vous vous trouvez est pr&eacute;s&eacute;lectionn&eacute; (cette fonctionnalit&eacute; ne peut &ecirc;tre utilis&eacute;e que si votre navigateur impl&eacute;mente <a href="http://www.w3.org/TR/geolocation-API/">l'API Geolocation</a>)</li>
+        </ul>
+    </li>
+    <li>Fournisseur de carte : permet de choisir entre Google, OpenLayers et Microsoft pour l'affichage des cartes sur le blog. Si vous choisissez Yahoo, une cl&eacute; est n&eacute;cessaire, comme pour Google. Vous pouvez demander votre cl&eacute; Yahoo ici <a href="https://developer.apps.yahoo.com/wsregapp/">https://developer.apps.yahoo.com/wsregapp/</a>. Attention, pour le moment, quel que soit le fournisseur s&eacute;lectionn&eacute;, c'est une carte Google qui est utilis&eacute;e pour la popup de choix de lieu. La cl&eacute; Google est donc obligatoire.</li>
 </ul>
 
 <h3>1.4. Localisation du blog</h3>
@@ -84,13 +84,13 @@ En cliquant sur le signe "+", vous pouvez modifier les param&egrave;tres suivant
       <li>lieu du blog (toutes les pages) : affiche le lieu associ&eacute; au blog sur la page d'accueil et les pages des billets</li>
     </ul>
   </li>
-	<li>Titre : permet d'afficher un titre au-dessus de la carte (peut-&ecirc;tre vide) ;</li>
-	<li>Largeur : largeur de la carte en pixels (si aucune valeur n'est pr&eacute;cis&eacute;e, la carte prendra la plus grande largeur possible) ;</li>
-	<li>Hauteur : hauteur de la carte en pixels (si aucune valeur n'est pr&eacute;cis&eacute;e, la carte aura une hauteur de 200 pixels) ;</li>
-	<li>Zoom : niveau de zoom sur la carte (0 pour afficher la Terre enti&egrave;re, 19 pour zoomer au maximum (attention, certaines zones ne sont pas affichables pour un zoom trop &eacute;lev&eacute;)) ;</li>
-	<li>Type : type de la carte (relief, plan, satellite ou mixte) ;</li>
-	<li>Afficher le lieu (disponible seulement si le param&egrave;tre "Enregistrer l'adresse du lieu" est activ&eacute;) : affiche le nom du lieu (commune, r&eacute;gion et pays si ces informations ont &eacute;t&eacute; enregistr&eacute;es avec le lieu) sous la carte, avec le <a href="http://microformats.org/wiki/adr-fr">microformat adr</a>.</li>
-	<li>ID (disponible seulement si le param&egrave;tre "widget multiple" est activ&eacute;) : n&eacute;cessaire si vous placez plusieurs widgets GeoCrazy sur une page (voir le paragraphe suivant).</li>
+    <li>Titre : permet d'afficher un titre au-dessus de la carte (peut-&ecirc;tre vide) ;</li>
+    <li>Largeur : largeur de la carte en pixels (si aucune valeur n'est pr&eacute;cis&eacute;e, la carte prendra la plus grande largeur possible) ;</li>
+    <li>Hauteur : hauteur de la carte en pixels (si aucune valeur n'est pr&eacute;cis&eacute;e, la carte aura une hauteur de 200 pixels) ;</li>
+    <li>Zoom : niveau de zoom sur la carte (0 pour afficher la Terre enti&egrave;re, 19 pour zoomer au maximum (attention, certaines zones ne sont pas affichables pour un zoom trop &eacute;lev&eacute;)) ;</li>
+    <li>Type : type de la carte (relief, plan, satellite ou mixte) ;</li>
+    <li>Afficher le lieu (disponible seulement si le param&egrave;tre "Enregistrer l'adresse du lieu" est activ&eacute;) : affiche le nom du lieu (commune, r&eacute;gion et pays si ces informations ont &eacute;t&eacute; enregistr&eacute;es avec le lieu) sous la carte, avec le <a href="http://microformats.org/wiki/adr-fr">microformat adr</a>.</li>
+    <li>ID (disponible seulement si le param&egrave;tre "widget multiple" est activ&eacute;) : n&eacute;cessaire si vous placez plusieurs widgets GeoCrazy sur une page (voir le paragraphe suivant).</li>
 </ul>
 
 <h3>3.2. Utilisation de plusieurs widgets (param&egrave;trage avanc&eacute;)</h3>

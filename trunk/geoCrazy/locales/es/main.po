@@ -4,82 +4,86 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
-#: _admin.php:53
+#: _admin.php:52
 msgid "Location:"
 msgstr "Ubicación:"
 
-#: _admin.php:60
-#: _admin.php:64
-#: settings.php:108
-#: settings.php:111
+#: _admin.php:59
+#: _admin.php:63
+#: settings.php:126
+#: settings.php:129
 msgid "Add location"
 msgstr "Añadir ubicación"
 
-#: _admin.php:61
-#: _admin.php:65
-#: settings.php:109
-#: settings.php:112
+#: _admin.php:60
+#: _admin.php:64
+#: settings.php:127
+#: settings.php:130
 msgid "Edit location"
 msgstr "Editar ubicación"
 
-#: _admin.php:86
+#: _admin.php:85
 msgid "Override default display"
 msgstr "Enmendar la visualización por defecto"
 
-#: _admin.php:89
+#: _admin.php:88
 #: _widgets.php:37
 msgid "Title:"
 msgstr "Título:"
 
-#: _admin.php:92
+#: _admin.php:91
 msgid "Width:"
 msgstr "Anchura:"
 
-#: _admin.php:95
+#: _admin.php:94
 msgid "Height:"
 msgstr "Altura:"
 
-#: _admin.php:98
+#: _admin.php:97
 msgid "Zoom:"
 msgstr "Zoom:"
 
-#: _admin.php:121
+#: _admin.php:120
 #: _widgets.php:69
 msgid "Type:"
 msgstr "Tipo::"
 
-#: _admin.php:123
+#: _admin.php:122
 #: _widgets.php:69
 #: _widgets.php:70
 msgid "physical"
 msgstr "relieve"
 
-#: _admin.php:124
+#: _admin.php:123
 #: _widgets.php:71
 msgid "normal"
 msgstr "mapa"
 
-#: _admin.php:125
+#: _admin.php:124
 #: _widgets.php:72
 msgid "satellite"
 msgstr "satélite"
 
-#: _admin.php:126
+#: _admin.php:125
 #: _widgets.php:73
 msgid "hybrid"
 msgstr "mezcla"
 
-#: _admin.php:132
+#: _admin.php:130
 msgid "Display address:"
 msgstr "Exponer la dirección"
 
-#: _admin.php:133
+#: _admin.php:131
 msgid "do not display"
 msgstr "no exponer"
 
-#: _admin.php:134
+#: _admin.php:132
 msgid "display"
 msgstr "exponer"
+
+#: _admin.php:138
+msgid "ID:"
+msgstr "ID:"
 
 #: _widgets.php:28
 msgid "GeoCrazy Map"
@@ -126,185 +130,223 @@ msgstr "Fijar la dirección"
 msgid "ID (If you use several GeoCrazy Map widgets, choose a different ID for each of them):"
 msgstr "ID (si utiliza varios GeoCrazy mapas, elege un ID diferente para cada widget):"
 
-#: class.gc.location.php:104
+#: class.gc.location.php:108
 msgid "Blog position"
 msgstr "Ubicación del blog"
 
-#: class.gc.location.php:110
+#: class.gc.location.php:114
 msgid "Blog country code"
 msgstr "Código del país del blog"
 
-#: class.gc.location.php:116
+#: class.gc.location.php:120
 msgid "Blog country"
 msgstr "País del blog"
 
-#: class.gc.location.php:122
+#: class.gc.location.php:126
 msgid "Blog region"
 msgstr "Región del blog"
 
-#: class.gc.location.php:128
+#: class.gc.location.php:132
 msgid "Blog locality"
 msgstr "Localidad del blog"
 
 #: popup.php:15
-#: popup.php:33
+#: popup.php:32
 msgid "Map your post"
 msgstr "Sitúa el artículo en un mapa"
 
-#: popup.php:19
+#: popup.php:18
 msgid "was not found."
 msgstr "no ha estado encontrado."
 
-#: popup.php:20
+#: popup.php:19
 msgid "Your location could not be found."
 msgstr "Su ubicación no ha podido estar encontrado."
 
-#: popup.php:35
+#: popup.php:34
 msgid "Find location"
 msgstr "Buscar ubicación"
 
-#: popup.php:37
+#: popup.php:36
 msgid "Go"
 msgstr "Ir"
 
-#: popup.php:41
+#: popup.php:40
 msgid "Remove from map"
 msgstr "Eliminar del mapa"
 
-#: popup.php:45
+#: popup.php:44
 msgid "Save location"
 msgstr "Guardar ubicación"
 
-#: popup.php:46
+#: popup.php:45
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: settings.php:21
+#: settings.php:22
+msgid "Map provider"
+msgstr "Proveedor de mapas"
+
+#: settings.php:25
 msgid "Google Maps API key"
 msgstr "Clave de API de Google Maps"
 
-#: settings.php:24
-#: settings.php:83
+#: settings.php:28
+msgid "Yahoo Maps API key"
+msgstr "Clave de API de Yahoo Maps"
+
+#: settings.php:31
+#: settings.php:90
 msgid "Enable multiple widget"
 msgstr "Permitir varios widgets"
 
-#: settings.php:27
+#: settings.php:34
 msgid "Save address"
 msgstr "Guardar la dirección"
 
-#: settings.php:30
+#: settings.php:37
 msgid "Override widget display"
 msgstr "Enmendar la visualización por defecto del widget"
 
-#: settings.php:33
+#: settings.php:40
 msgid "Default location"
 msgstr "Ubicación por defecto"
 
-#: settings.php:64
+#: settings.php:71
 msgid "Settings have been successfully updated."
 msgstr "La configuración ha estado cambiado bien."
 
-#: settings.php:69
+#: settings.php:76
 msgid "Configuration"
 msgstr "Configuración"
 
-#: settings.php:72
+#: settings.php:79
 msgid "Settings"
 msgstr "Configuración"
 
-#: settings.php:73
+#: settings.php:80
 msgid "Google Maps API key:"
 msgstr "Clave de API de Google Maps:"
 
-#: settings.php:75
+#: settings.php:82
 msgid "Get your Google Maps API key"
 msgstr "Consigue su clave de API de Google Maps"
 
-#: settings.php:79
+#: settings.php:86
 msgid "Advanced parameters"
 msgstr "Configuración adelantada"
 
-#: settings.php:85
+#: settings.php:92
 msgid "Try to save the address of the location (region and locality)"
 msgstr "Tratar de registrar la dirección (región y localidad)"
 
-#: settings.php:87
+#: settings.php:94
 msgid "Enable override of widget display"
 msgstr "Permitir de enmendar la visualización por defecto del widget"
 
-#: settings.php:89
+#: settings.php:96
 msgid "Default location when adding a location to a post:"
 msgstr "Ubicación por defecto:"
 
-#: settings.php:91
+#: settings.php:98
 msgid "No default location"
 msgstr "No ubicación por defecto"
 
-#: settings.php:93
+#: settings.php:100
 msgid "Blog location"
 msgstr "Ubicación del blog"
 
-#: settings.php:95
+#: settings.php:102
 msgid "Try to locate the author"
 msgstr "Tratar de localizar el autor"
 
-#: settings.php:98
-#: settings.php:120
+#: settings.php:106
+msgid "Map provider:"
+msgstr "Proveedor de mapas:"
+
+#: settings.php:107
+msgid "Google"
+msgstr "Google"
+
+#: settings.php:108
+msgid "OpenLayers"
+msgstr "OpenLayers"
+
+#: settings.php:109
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#: settings.php:112
+msgid "Yahoo Maps API key:"
+msgstr "Clave de API de Yahoo Maps"
+
+#: settings.php:114
+msgid "Get your Yahoo Maps API key"
+msgstr "Consigue su clave de API de Yahoo Maps"
+
+#: settings.php:116
+#: settings.php:138
 msgid "Save"
 msgstr "Guardar"
 
-#: settings.php:102
+#: settings.php:120
 msgid "Blog localization"
 msgstr "Ubicación del blog"
 
-#: settings.php:126
+#: settings.php:144
 msgid "GeoRSS feed"
 msgstr "Fuente GeoRSS"
 
-#: settings.php:128
+#: settings.php:146
 msgid "If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map."
 msgstr "Si ya ha localizado unos articulos del blog, el fuente RSS (y atom) son GeoRSS, cuales pueden ser visualizado en un mapa."
 
-#: settings.php:132
+#: settings.php:150
 msgid "My RSS feed:"
 msgstr "Mi fuente RSS:"
 
-#: settings.php:133
+#: settings.php:151
 msgid "My RSS feed displayed in Google Maps:"
 msgstr "Mi fuente RSS visualizado en Google Maps:"
 
-#: settings.php:134
+#: settings.php:152
 msgid "My RSS feed displayed in Live Maps:"
 msgstr "Mi fuente RSS visualizado en Live Maps:"
 
-#: settings.php:139
+#: settings.php:157
 msgid "Geo sitemap"
 msgstr "Geo sitemap"
 
-#: settings.php:141
+#: settings.php:159
 msgid "To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap."
 msgstr "Para ayudar motores de búsqueda a indexar sus articulos geoetiquetados, puede someter su geo sitemap."
 
-#: settings.php:143
+#: settings.php:161
 msgid "My geo sitemap:"
 msgstr "Mi geo sitemap:"
 
-#: settings.php:148
+#: settings.php:166
 msgid "Documentation"
 msgstr "Documentación"
 
-#: settings.php:152
+#: settings.php:170
 msgid "About"
 msgstr "Acerca de..."
 
-#: settings.php:154
+#: settings.php:172
 msgid "GeoCrazy is written by Benjamin Dumas"
 msgstr "Geocrazy esta escrito por Benjamin Dumas"
 
-#: settings.php:155
+#: settings.php:173
 msgid "For some help, please write a comment on"
 msgstr "Si necesita ayuda, escribe un comentario en"
 
-#: settings.php:155
+#: settings.php:173
 msgid "the support page of GeoCrazy"
 msgstr "la página web de GeoCrazy"
+
+msgid "Default location when adding a location to a post"
+msgstr "Ubicación por defecto al añadir un ubicación a un billete"
+
+msgid "post"
+msgstr "billete"
