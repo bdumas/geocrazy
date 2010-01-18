@@ -10,4 +10,5 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 $GLOBALS['__autoload']['gcLocation'] = dirname(__FILE__).'/class.gc.location.php';
+$GLOBALS['__autoload']['gcUtils'] = dirname(__FILE__).'/class.gc.utils.php';
 ?>

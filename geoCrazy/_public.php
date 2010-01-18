@@ -300,12 +300,7 @@ class gcPublicBehaviors
 		}
 			
 		# Javascript (TODO: useless when no widget)
-		$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-		$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
-		
-		echo '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>
-			<script type="text/javascript" src="'.$jsUrl.'"></script>';
-		
+		echo gcUtils::getMapJSLinks($core,'widget',NULL);
 	}
 }
 

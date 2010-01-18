@@ -10,6 +10,7 @@
 # -- END LICENSE BLOCK ------------------------------------
 
 $gmaps_api_key = '';
+$ymaps_api_key = '';
 $blog_location = new gcLocation($core,'blog');
 
 # Save the configuration
@@ -17,8 +18,14 @@ if (isset($_POST['submitForm'])) {
 	$settings =& $core->blog->settings;
 	$settings->setNamespace('geocrazy');
 	
+	$map_provider = $_POST['mapprovider'];
+	$settings->put('geocrazy_mapprovider',$map_provider,'string',__('Map provider'),true);
+
 	$gmaps_api_key = $_POST['gmapsapikey'];
 	$settings->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true,true);
+	
+	$ymaps_api_key = $_POST['ymapsapikey'];
+    $settings->put('geocrazy_yahoomapskey',$ymaps_api_key,'string',__('Yahoo Maps API key'),true,true);
 	
 	$multiple_widget = $_POST['multiple_widget'];
 	$settings->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean',__('Enable multiple widget'),true);
@@ -50,6 +57,7 @@ if (isset($_POST['submitForm'])) {
 	$ap = !empty($_GET['ap']);
 	$bl = !empty($_GET['bl']);
 	$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+	$ymaps_api_key = $core->blog->settings->get('geocrazy_yahoomapskey');
 }
 ?>
 
@@ -58,9 +66,8 @@ if (isset($_POST['submitForm'])) {
   	<title>GeoCrazy</title>
 	</head>
 	<body>
-		<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcadmin.js"></script>
-		<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=<?php echo $gmaps_api_key; ?>" type="text/javascript"></script>
-		<?php if (!empty($_GET['up'])) { 
+        <?php echo gcUtils::getMapJSLinks($core,'admin',NULL);
+        if (!empty($_GET['up'])) { 
 			echo '<p class="message">'.__('Settings have been successfully updated.').'</p>';
 		}?>
 		<h2><?php echo html::escapeHTML($core->blog->name); ?> &gt; GeoCrazy</h2>
@@ -94,7 +101,18 @@ if (isset($_POST['submitForm'])) {
 							<br/>
 							<label class="classic"><?php echo form::radio('default_location_mode',2,$core->blog->settings->get('geocrazy_defaultlocationmode') == 2).' '.__('Try to locate the author') ?></label>
 						</div>
-					</div>
+						<br/>
+						<?php 
+                        echo '<label>'.__('Map provider:').form::combo('mapprovider',array(
+                            __('Google') => 'google',          
+                            __('OpenLayers') => 'openlayers',
+                            __('Yahoo') => 'yahoo'),
+                            gcUtils::getMapProvider($core))
+                        .'</label><br/>';
+	                    echo __('Yahoo Maps API key:'); ?> 
+	                    <input type="text" name="ymapsapikey" size="100" maxlength="100" value="<?php echo $ymaps_api_key; ?>" />
+	                    <a href="https://developer.apps.yahoo.com/wsregapp/"><?php echo __('Get your Yahoo Maps API key'); ?></a>
+                    </div>
 					<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 				</fieldset>
 				<br/>
