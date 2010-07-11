@@ -35,7 +35,7 @@ class gcAdminBehaviors
 	 */
 	public static function postHeaders()
 	{
-		$map_provider = $GLOBALS['core']->blog->settings->get('geocrazy_mapprovider');
+		$map_provider = $GLOBALS['core']->blog->settings->geocrazy->get('geocrazy_mapprovider');
 		return gcUtils::getMapJSLinks($GLOBALS['core'],'admin',NULL);
 	}
 	
@@ -72,7 +72,7 @@ class gcAdminBehaviors
 				.form::hidden('gc_locality',$location->getLocality());
 
 		# Widget display override
-		if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+		if ($core->blog->settings->geocrazy->get('geocrazy_overridewidgetdisplay') == 1) {
 			
 			if ($location->getLatLong() != '') {
 				echo '<p id="gcOverrideDiv" style="margin-top: 1em">';
@@ -126,7 +126,7 @@ class gcAdminBehaviors
 							$location->getType())
 					.'</label>';
 					
-			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
+			if ($core->blog->settings->geocrazy->get('geocrazy_saveaddress') == 1) {
 				echo '<label>'.__('Display address:').form::combo('gc_widgetaddress',array('' => '',
 							__('do not display') => 2,			
 							__('display') => 1),
@@ -134,7 +134,7 @@ class gcAdminBehaviors
 					.'</label>';
 			}
 			
-			if ($core->blog->settings->get('geocrazy_multiplewidget') == 1) {
+			if ($core->blog->settings->geocrazy->get('geocrazy_multiplewidget') == 1) {
 				echo '<label>'.__('ID:').form::combo('gc_widgetid',array('0' => 0,
 				        '1' => 1,
 				        '2' => 2,
@@ -166,7 +166,7 @@ class gcAdminBehaviors
 		if (!empty($_POST['gc_latlong'])) {
 			$location->setLatLong($_POST['gc_latlong']);
 			
-			if ($core->blog->settings->get('geocrazy_saveaddress') == 1) {
+			if ($core->blog->settings->geocrazy->get('geocrazy_saveaddress') == 1) {
 				$location->setCountryCode($_POST['gc_countrycode']);
 				$location->setCountryName($_POST['gc_countryname']);
 				$location->setRegion($_POST['gc_region']);
@@ -174,7 +174,7 @@ class gcAdminBehaviors
 			}
 			
 			# Save the post specific display parameters
-			if ($core->blog->settings->get('geocrazy_overridewidgetdisplay') == 1) {
+			if ($core->blog->settings->geocrazy->get('geocrazy_overridewidgetdisplay') == 1) {
 				$location->setTitle($_POST['gc_widgettitle']);
 				$location->setWidth($_POST['gc_widgetwidth']);
 				$location->setHeight($_POST['gc_widgetheight']);
@@ -182,7 +182,7 @@ class gcAdminBehaviors
 				$location->setType($_POST['gc_widgettype']);
 				$location->setDisplayAddress($_POST['gc_widgetaddress']);
 
-				if ($core->blog->settings->get('geocrazy_multiplewidget') == 1) {
+				if ($core->blog->settings->geocrazy->get('geocrazy_multiplewidget') == 1) {
 				    $location->setWID($_POST['gc_widgetid']);
 				}
 			}

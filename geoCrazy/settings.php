@@ -16,28 +16,28 @@ $blog_location = new gcLocation($core,'blog');
 # Save the configuration
 if (isset($_POST['submitForm'])) {
 	$settings =& $core->blog->settings;
-	$settings->setNamespace('geocrazy');
+	$settings->addNamespace('geocrazy');
 	
 	$map_provider = $_POST['mapprovider'];
-	$settings->put('geocrazy_mapprovider',$map_provider,'string',__('Map provider'),true);
+	$settings->geocrazy->put('geocrazy_mapprovider',$map_provider,'string',__('Map provider'),true);
 
 	$gmaps_api_key = $_POST['gmapsapikey'];
-	$settings->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true,true);
+	$settings->geocrazy->put('geocrazy_googlemapskey',$gmaps_api_key,'string',__('Google Maps API key'),true,true);
 	
 	$ymaps_api_key = $_POST['ymapsapikey'];
-    $settings->put('geocrazy_yahoomapskey',$ymaps_api_key,'string',__('Yahoo Maps API key'),true,true);
+	$settings->geocrazy->put('geocrazy_yahoomapskey',$ymaps_api_key,'string',__('Yahoo Maps API key'),true,true);
 	
 	$multiple_widget = $_POST['multiple_widget'];
-	$settings->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean',__('Enable multiple widget'),true);
+	$settings->geocrazy->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean',__('Enable multiple widget'),true);
 	
 	$save_address = $_POST['save_address'];
-	$settings->put('geocrazy_saveaddress',!empty($save_address),'boolean',__('Save address'),true);
+	$settings->geocrazy->put('geocrazy_saveaddress',!empty($save_address),'boolean',__('Save address'),true);
 	
 	$override_widget_display = $_POST['override_widget_display'];
-	$settings->put('geocrazy_overridewidgetdisplay',!empty($override_widget_display),'boolean',__('Override widget display'),true);
+	$settings->geocrazy->put('geocrazy_overridewidgetdisplay',!empty($override_widget_display),'boolean',__('Override widget display'),true);
 	
 	$default_location_mode = $_POST['default_location_mode'];
-	$settings->put('geocrazy_defaultlocationmode',$_POST['default_location_mode'],'integer',__('Default location'),true);
+	$settings->geocrazy->put('geocrazy_defaultlocationmode',$_POST['default_location_mode'],'integer',__('Default location'),true);
 	
 	# Blog location
 	$blog_location->setLatLong($_POST['blog_latlong']);
@@ -56,8 +56,8 @@ if (isset($_POST['submitForm'])) {
 } else {
 	$ap = !empty($_GET['ap']);
 	$bl = !empty($_GET['bl']);
-	$gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
-	$ymaps_api_key = $core->blog->settings->get('geocrazy_yahoomapskey');
+	$gmaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_googlemapskey');
+	$ymaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_yahoomapskey');
 }
 ?>
 
@@ -87,19 +87,19 @@ if (isset($_POST['submitForm'])) {
 					<div id="advancedParameters" <?php if (!$ap) echo 'style="display: none;"' ?>">
 						<input id="advancedParamVisible" type="hidden" name="advancedParamVisible" value="<?php if ($ap) echo 'true'; else echo 'false'; ?>" />
 						<br/>
-						<label class="classic"><?php echo form::checkbox('multiple_widget',1,$core->blog->settings->get('geocrazy_multiplewidget')).' '.__('Enable multiple widget') ?></label>
+						<label class="classic"><?php echo form::checkbox('multiple_widget',1,$core->blog->settings->geocrazy->get('geocrazy_multiplewidget')).' '.__('Enable multiple widget') ?></label>
 						<br/>
-						<label class="classic"><?php echo form::checkbox('save_address',1,$core->blog->settings->get('geocrazy_saveaddress')).' '.__('Try to save the address of the location (region and locality)') ?></label>
+						<label class="classic"><?php echo form::checkbox('save_address',1,$core->blog->settings->geocrazy->get('geocrazy_saveaddress')).' '.__('Try to save the address of the location (region and locality)') ?></label>
 						<br/>
-						<label class="classic"><?php echo form::checkbox('override_widget_display',1,$core->blog->settings->get('geocrazy_overridewidgetdisplay')).' '.__('Enable override of widget display') ?></label>
+						<label class="classic"><?php echo form::checkbox('override_widget_display',1,$core->blog->settings->geocrazy->get('geocrazy_overridewidgetdisplay')).' '.__('Enable override of widget display') ?></label>
 						<br/><br/>
 						<?php echo __('Default location when adding a location to a post:'); ?><br/>
 						<div>
-							<label class="classic"><?php echo form::radio('default_location_mode',0,$core->blog->settings->get('geocrazy_defaultlocationmode') == 0).' '.__('No default location') ?></label>
+							<label class="classic"><?php echo form::radio('default_location_mode',0,$core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode') == 0).' '.__('No default location') ?></label>
 							<br/>
-							<label class="classic"><?php echo form::radio('default_location_mode',1,$core->blog->settings->get('geocrazy_defaultlocationmode') == 1).' '.__('Blog location') ?></label>
+							<label class="classic"><?php echo form::radio('default_location_mode',1,$core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode') == 1).' '.__('Blog location') ?></label>
 							<br/>
-							<label class="classic"><?php echo form::radio('default_location_mode',2,$core->blog->settings->get('geocrazy_defaultlocationmode') == 2).' '.__('Try to locate the author') ?></label>
+							<label class="classic"><?php echo form::radio('default_location_mode',2,$core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode') == 2).' '.__('Try to locate the author') ?></label>
 						</div>
 						<br/>
 						<?php 

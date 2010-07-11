@@ -17,11 +17,11 @@
     <script type="text/javascript">
       var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
       var gc_geolocation_msg = "<?php echo __('Your location could not be found.') ?>";
-      var gc_save_address = "<?php echo $core->blog->settings->get('geocrazy_saveaddress'); ?>";
-      var gc_display_address = "<?php echo $core->blog->settings->get('geocrazy_displayaddress'); ?>";
-      var gc_default_location_mode = "<?php echo $core->blog->settings->get('geocrazy_defaultlocationmode'); ?>";
+      var gc_save_address = "<?php echo $core->blog->settings->geocrazy->get('geocrazy_saveaddress'); ?>";
+      var gc_display_address = "<?php echo $core->blog->settings->geocrazy->get('geocrazy_displayaddress'); ?>";
+      var gc_default_location_mode = "<?php echo $core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode'); ?>";
       <?php
-        if ($core->blog->settings->get('geocrazy_defaultlocationmode') == 1) {
+        if ($core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode') == 1) {
           $blog_location = new gcLocation($core,'blog');
           echo "var gc_blog_latlng = \"".$blog_location->getLatLong()."\";";
         }
