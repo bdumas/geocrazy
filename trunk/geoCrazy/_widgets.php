@@ -73,12 +73,12 @@ class gcWidgetBehaviors
 						__('hybrid') => 4));
 						
 		# If the save address option is enabled, display the name of the location under the map
-		if ($GLOBALS['core']->blog->settings->get('geocrazy_saveaddress') == 1) {
+		if ($GLOBALS['core']->blog->settings->geocrazy->get('geocrazy_saveaddress') == 1) {
 			$w->gcWidget->setting('address',__('Display address'),0,'check');
 		}
 		
 		# If multiple widget is enabled, the 'ID' field is useful to place the same widget more than once.
-		if ($GLOBALS['core']->blog->settings->get('geocrazy_multiplewidget') == 1) {	
+		if ($GLOBALS['core']->blog->settings->geocrazy->get('geocrazy_multiplewidget') == 1) {	
 			$w->gcWidget->setting('wid',__('ID (If you use several GeoCrazy Map widgets, choose a different ID for each of them):'),'0','combo',
 				array('0' => 0, 
 							'1' => 1, 

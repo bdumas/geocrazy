@@ -38,13 +38,13 @@ class gcLocation
 		
 		if ($this->location_object == 'blog') {
 			$settings =& $core->blog->settings;
-			$settings->setNamespace('geocrazy');
+			$settings->addNamespace('geocrazy');
 			
-			$this->lat_long = $settings->get('geocrazy_bloglatlong'); // TODO: utiliser constante
-			$this->country_code = $settings->get('geocrazy_blogcountrycode');
-			$this->country_name = $settings->get('geocrazy_blogcountryname');
-			$this->region = $settings->get('geocrazy_blogregion');
-			$this->locality = $settings->get('geocrazy_bloglocality');
+			$this->lat_long = $settings->geocrazy->get('geocrazy_bloglatlong'); // TODO: utiliser constante
+			$this->country_code = $settings->geocrazy->get('geocrazy_blogcountrycode');
+			$this->country_name = $settings->geocrazy->get('geocrazy_blogcountryname');
+			$this->region = $settings->geocrazy->get('geocrazy_blogregion');
+			$this->locality = $settings->geocrazy->get('geocrazy_bloglocality');
 			
 		} else if (isset($post_meta)) {
 			$meta = new dcMeta($core);
@@ -102,36 +102,36 @@ class gcLocation
 			
 		# Save blog location
 		} else {
-			$settings =& $core->blog->settings;
+			$settings =& $core->blog->settings ;
 			
 			if ($this->lat_long != '') {
-				$settings->put('geocrazy_bloglatlong',$this->lat_long,'string',__('Blog position'),true);
+				$settings->geocrazy->put('geocrazy_bloglatlong',$this->lat_long,'string',__('Blog position'),true);
 			} else {
-				$settings->drop('geocrazy_bloglatlong');
+				$settings->geocrazy->drop('geocrazy_bloglatlong');
 			}
 			
 			if ($this->country_code != '') {
-				$settings->put('geocrazy_blogcountrycode',$this->country_code,'string',__('Blog country code'),true);
+				$settings->geocrazy->put('geocrazy_blogcountrycode',$this->country_code,'string',__('Blog country code'),true);
 			} else {
-				$settings->drop('geocrazy_blogcountrycode');
+				$settings->geocrazy->drop('geocrazy_blogcountrycode');
 			}
 			
 			if ($this->country_name != '') {
-				$settings->put('geocrazy_blogcountryname',$this->country_name,'string',__('Blog country'),true);
+				$settings->geocrazy->put('geocrazy_blogcountryname',$this->country_name,'string',__('Blog country'),true);
 			} else {
-				$settings->drop('geocrazy_blogcountryname');
+				$settings->geocrazy->drop('geocrazy_blogcountryname');
 			}
 			
 			if ($this->region != '') {
-				$settings->put('geocrazy_blogregion',$this->region,'string',__('Blog region'),true);
+				$settings->geocrazy->put('geocrazy_blogregion',$this->region,'string',__('Blog region'),true);
 			} else {
-				$settings->drop('geocrazy_blogregion');
+				$settings->geocrazy->drop('geocrazy_blogregion');
 			}
 			
 			if ($this->locality != '') {
-				$settings->put('geocrazy_bloglocality',$this->locality,'string',__('Blog locality'),true);
+				$settings->geocrazy->put('geocrazy_bloglocality',$this->locality,'string',__('Blog locality'),true);
 			} else {
-				$settings->drop('geocrazy_bloglocality');
+				$settings->geocrazy->drop('geocrazy_bloglocality');
 			}
 		}
 	}

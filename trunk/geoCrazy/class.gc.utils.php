@@ -18,7 +18,7 @@ class gcUtils
 	 * @return string
 	 */
 	public static function getMapProvider(&$core) {
-		$map_provider = $core->blog->settings->get('geocrazy_mapprovider');
+		$map_provider = $core->blog->settings->geocrazy->get('geocrazy_mapprovider');
 		return isset($map_provider) ? $map_provider : 'google';
 	}
 	
@@ -35,13 +35,13 @@ class gcUtils
         if (isset($map_provider_override)) {
         	$map_provider = $map_provider_override;
         } else {
-        	$map_provider = $core->blog->settings->get('geocrazy_mapprovider');
+        	$map_provider = $core->blog->settings->geocrazy->get('geocrazy_mapprovider');
         	$map_provider = isset($map_provider) ? $map_provider : 'google';
         }
 
         # We don't use mapstraction for Google
         if ($map_provider == 'google') {
-            $gmaps_api_key = $core->blog->settings->get('geocrazy_googlemapskey');
+            $gmaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_googlemapskey');
             $result .= '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>';
 
             if ($jsFile == 'widget') {
@@ -58,7 +58,7 @@ class gcUtils
         	if ($map_provider == 'openlayers') {
                 $result .= '<script src="http://openlayers.org/api/OpenLayers.js"></script>';
         	} else if ($map_provider == 'yahoo') {
-            	$ymaps_api_key = $core->blog->settings->get('geocrazy_yahoomapskey');
+            	$ymaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_yahoomapskey');
             	$result .= '<script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid='.$ymaps_api_key.'"></script>';
             }
 	        $result .= '<script type="text/javascript" charset="utf-8" src="index.php?pf=geoCrazy/js/mapstraction/mxn.js"></script>
