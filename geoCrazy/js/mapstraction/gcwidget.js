@@ -21,6 +21,9 @@ function gcMap(htmlId, mapType, zoomLevel, gcLatLong) {
 	var map = new mxn.Mapstraction(document.getElementById(htmlId),gc_map_provider);
 	type = mxn.Mapstraction.ROAD;
 	switch(mapType) {
+	case 1: // physical
+		type = mxn.Mapstraction.PHYSICAL;
+		break;
 	case 3: // satellite
 		type = mxn.Mapstraction.SATELLITE;
 		break;

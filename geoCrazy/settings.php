@@ -11,6 +11,7 @@
 
 $gmaps_api_key = '';
 $ymaps_api_key = '';
+$multimap_api_key = '';
 $blog_location = new gcLocation($core,'blog');
 
 # Save the configuration
@@ -26,6 +27,9 @@ if (isset($_POST['submitForm'])) {
 	
 	$ymaps_api_key = $_POST['ymapsapikey'];
 	$settings->geocrazy->put('geocrazy_yahoomapskey',$ymaps_api_key,'string',__('Yahoo Maps API key'),true,true);
+	
+	$multimap_api_key = $_POST['multimapapikey'];
+    $settings->geocrazy->put('geocrazy_multimapkey',$multimap_api_key,'string',__('Multimap API key'),true,true);
 	
 	$multiple_widget = $_POST['multiple_widget'];
 	$settings->geocrazy->put('geocrazy_multiplewidget',!empty($multiple_widget),'boolean',__('Enable multiple widget'),true);
@@ -58,6 +62,7 @@ if (isset($_POST['submitForm'])) {
 	$bl = !empty($_GET['bl']);
 	$gmaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_googlemapskey');
 	$ymaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_yahoomapskey');
+	$multimap_api_key = $core->blog->settings->geocrazy->get('geocrazy_multimapkey');
 }
 ?>
 
@@ -104,14 +109,38 @@ if (isset($_POST['submitForm'])) {
 						<br/>
 						<?php 
                         echo '<label>'.__('Map provider:').form::combo('mapprovider',array(
-                            __('Google') => 'google',          
+                            __('Google') => 'google', 
+                            __('Multimap') => 'multimap',          
                             __('OpenLayers') => 'openlayers',
                             __('Yahoo') => 'yahoo'),
                             gcUtils::getMapProvider($core))
-                        .'</label><br/>';
-	                    echo __('Yahoo Maps API key:'); ?> 
-	                    <input type="text" name="ymapsapikey" size="100" maxlength="100" value="<?php echo $ymaps_api_key; ?>" />
-	                    <a href="https://developer.apps.yahoo.com/wsregapp/"><?php echo __('Get your Yahoo Maps API key'); ?></a>
+                        .'</label><br/>';?>
+                        <div id="yahooApiKey">
+		                    <?php echo __('Yahoo Maps API key:'); ?> 
+		                    <input type="text" name="ymapsapikey" size="100" maxlength="100" value="<?php echo $ymaps_api_key; ?>" />
+		                    <a href="https://developer.apps.yahoo.com/wsregapp/"><?php echo __('Get your Yahoo Maps API key'); ?></a>
+		                </div>
+		                <div id="multimapApiKey">
+		                    <?php echo __('Multimap API key:'); ?> 
+	                        <input type="text" name="multimapapikey" size="100" maxlength="100" value="<?php echo $multimap_api_key; ?>" />
+	                        <a href="http://www.multimap.com/openapi/"><?php echo __('Get your Multimap API key'); ?></a>
+	                    </div>
+	                    <script type="text/javascript">
+	                        function showApiKeyField() {
+	                            if ($("#mapprovider").val() == 'multimap') {
+	                                $("#yahooApiKey").hide();
+	                                $("#multimapApiKey").show();
+	                            } else if ($("#mapprovider").val() == 'yahoo') {
+	                            	$("#multimapApiKey").hide();
+	                            	$("#yahooApiKey").show();
+	                            } else {
+	                            	$("#yahooApiKey").hide();
+	                            	$("#multimapApiKey").hide();
+	                            }
+	                        }
+	                        showApiKeyField();
+	                        $("#mapprovider").change(showApiKeyField);
+				        </script>
                     </div>
 					<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 				</fieldset>

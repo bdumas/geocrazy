@@ -70,7 +70,8 @@ $(document).ready(function() {
 	    // Places the marker at the position and updates gcLatLong.
 	    function placeMarkerFromPosition(position) {
 	    	$('#loading').css('visibility', 'hidden');
-	    	var gPosition = new GLatLng(position.coords.latitude, position.coords.longitude);
+	    	var coords = position.coords;
+	    	var gPosition = new GLatLng(coords.latitude, coords.longitude);
 	    	placeMarker(gPosition, true, true);
 	    	initMap();
 	    }
@@ -99,15 +100,17 @@ $(document).ready(function() {
 	    				var place = response.Placemark[0].AddressDetails.Country;
 	    				gcCountryCode = place.CountryNameCode;
 	    				gcCountryName = place.CountryName;
-	    				if (place.AdministrativeArea) {
-	    					var administrativeArea = place.AdministrativeArea;
+	    				var administrativeArea = place.AdministrativeArea;
+    					if (administrativeArea) {
 	    					gcRegion = administrativeArea.AdministrativeAreaName;
-	    					if (administrativeArea.Locality) {
-	    						gcLocality = administrativeArea.Locality.LocalityName;
-	    					} else if (administrativeArea.SubAdministrativeArea) {
-	    						var subAdministrativeArea = administrativeArea.SubAdministrativeArea;
-	    						if (subAdministrativeArea.Locality) {
-	    							gcLocality = subAdministrativeArea.Locality.LocalityName;
+	    					var locality = administrativeArea.Locality;
+	    					var subAdministrativeArea = administrativeArea.SubAdministrativeArea;
+	    					if (locality) {
+	    						gcLocality = locality.LocalityName;
+	    					} else if (subAdministrativeArea) {
+	    						locality = subAdministrativeArea.Locality;
+	    						if (locality) {
+	    							gcLocality = locality.LocalityName;
 	    						}
 	    					}
 	    				}

@@ -49,7 +49,7 @@ $(document).ready(function() {
     	}
 
     	marker = new mxn.Marker(gLatLng);
-    	map.addMarker(marker,{draggable:true});
+    	map.addMarker(marker,false);
 
     	if (updateGcLatLong) {
     		gcLatLong = gLatLng.lat + ' ' + gLatLng.lon;
@@ -67,7 +67,8 @@ $(document).ready(function() {
     // Places the marker at the position and updates gcLatLong.
     function placeMarkerFromPosition(position) {
     	$('#loading').css('visibility', 'hidden');
-    	var gPosition = new GLatLng(position.coords.latitude, position.coords.longitude);
+    	var coords = position.coords;
+    	var gPosition = new GLatLng(coords.latitude, coords.longitude);
     	placeMarker(gPosition, true, true);
     	initMap();
     }
@@ -128,11 +129,18 @@ $(document).ready(function() {
 	    }
 
 	    // A click on the map moves the marker and updates gcLatLong. TODO: a remplacer
-	    map.addEventListener('click',
-		    function(p) {
-	    		gPoint = p;
-	    		placeMarker(p, true, false);
-		    });
+//	    map.addEventListener('click',
+//		    function(p) {
+//	    		gPoint = p;
+//	    		placeMarker(p, true, false);
+//		    });
+	    
+	    
+	    map.click.addHandler(function(event_name, event_source, event_args) {
+	    	gPoint = event_args.location;
+	    	placeMarker(gPoint, true, false);
+	    });
+	    
 	    
 		/* 
 		 * http://code.google.com/intl/fr/apis/maps/documentation/services.html#Geocoding
@@ -167,7 +175,7 @@ $(document).ready(function() {
 	
 	map = new mxn.Mapstraction('map_canvas',gc_map_provider);
 	try {
-		map.setMapType(mxn.Mapstraction.ROAD);
+		map.setMapType(mxn.Mapstraction.PHYSICAL);
 	} catch (e) {
 		// not implemented yet in mapstraction
 	}

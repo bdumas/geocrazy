@@ -63,6 +63,9 @@ function updateMap(gcLatLong, type, zoom) {
 	var gcType = mxn.Mapstraction.ROAD;
 	if (type) {
 		switch (parseInt(type, 10)) {
+		case 1: // physical
+			gcType = mxn.Mapstraction.PHYSICAL;
+			break;
 		case 3: // satellite
 			gcType = mxn.Mapstraction.SATELLITE;
 			break;
