@@ -60,6 +60,9 @@ class gcUtils
         	} else if ($map_provider == 'yahoo') {
             	$ymaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_yahoomapskey');
             	$result .= '<script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid='.$ymaps_api_key.'"></script>';
+            } else if ($map_provider == 'multimap') {
+            	$multimap_api_key = $core->blog->settings->geocrazy->get('geocrazy_multimapkey');
+            	$result .= '<script src="http://developer.multimap.com/API/maps/1.2/'.$multimap_api_key.'"></script>';
             }
 	        $result .= '<script type="text/javascript" charset="utf-8" src="index.php?pf=geoCrazy/js/mapstraction/mxn.js"></script>
 	              <script type="text/javascript" charset="utf-8" src="index.php?pf=geoCrazy/js/mapstraction/mxn.core.js"></script>

@@ -13,7 +13,9 @@
 <html>
   <head>
     <title><?php echo __('Map your post') ?></title>
-    <?php echo gcUtils::getMapJSLinks($core,'popup','google'); ?>
+    <?php echo gcUtils::getMapJSLinks($core,'popup','google'); 
+        //echo gcUtils::getMapJSLinks($core,'popup',NULL);
+    ?>
     <script type="text/javascript">
       var gc_geocoder_msg = "<?php echo __('was not found.') ?>";
       var gc_geolocation_msg = "<?php echo __('Your location could not be found.') ?>";
