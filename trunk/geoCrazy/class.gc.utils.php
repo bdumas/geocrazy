@@ -41,8 +41,7 @@ class gcUtils
 
         # We don't use mapstraction for Google
         if ($map_provider == 'google') {
-            $gmaps_api_key = $core->blog->settings->geocrazy->get('geocrazy_googlemapskey');
-            $result .= '<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key='.$gmaps_api_key.'" type="text/javascript"></script>';
+            $result .= '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>';
 
             if ($jsFile == 'widget') {
             	$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';

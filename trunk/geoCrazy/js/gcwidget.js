@@ -18,28 +18,33 @@
  * This function is called by each GeoCrazy widget in the page.
  */
 function gcMap(htmlId, mapType, zoomLevel, gcLatLong) {
-	var map = new GMap2(document.getElementById(htmlId));
-	var type = G_PHYSICAL_MAP;
+	var type = google.maps.MapTypeId.TERRAIN;
 	switch(mapType) {
-	case 1:
-		type = G_PHYSICAL_MAP;
-		break;
-	case 2:
-		type = G_NORMAL_MAP;
-		break;
-	case 3:
-		type = G_SATELLITE_MAP;
-		break;
-	case 4:
-		type = G_HYBRID_MAP;
-		break;
+		case 1:
+			type = google.maps.MapTypeId.TERRAIN;
+			break;
+		case 2:
+			type = google.maps.MapTypeId.ROADMAP;
+			break;
+		case 3:
+			type = google.maps.MapTypeId.SATELLITE;
+			break;
+		case 4:
+			type = google.maps.MapTypeId.HYBRID;
+			break;
 	}
-	map.setMapType(type);
+	
 	var gcLatLng = gcLatLong.split(' ');
-	var gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
-	map.setCenter(gPoint, zoomLevel);
-	map.addControl(new GSmallZoomControl3D());
-	var marker = new GMarker(gPoint);
-	map.addOverlay(marker);
+	
+	var gPoint = new google.maps.LatLng(gcLatLng[0], gcLatLng[1]);
+	var mapOptions = {
+	  zoom: zoomLevel,
+	  center: gPoint,
+	  mapTypeControl: false,
+	  mapTypeId: type
+	};
+	var map = new google.maps.Map(document.getElementById(htmlId), mapOptions);
+	
+	var marker = new google.maps.Marker({position: gPoint, map: map});
 	return false;
 };

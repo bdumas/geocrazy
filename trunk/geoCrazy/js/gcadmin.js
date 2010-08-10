@@ -56,41 +56,40 @@ function updateLocation(coordinates, countryCode, countryName, region, locality)
  * It updates the display of the map in the sidebar.
  */ 
 function updateMap(gcLatLong, type, zoom) {
-	if (!map) {
-		map = new GMap2(document.getElementById("map_canvas"));
-	}
-	
-	var gcType = G_PHYSICAL_MAP;
+	var gcType = google.maps.MapTypeId.TERRAIN;
 	if (type) {
 		switch(parseInt(type, 10)) {
 		case 1:
-			gcType = G_PHYSICAL_MAP;
+			gcType = google.maps.MapTypeId.TERRAIN;
 			break;
 		case 2:
-			gcType = G_NORMAL_MAP;
+			gcType = google.maps.MapTypeId.ROADMAP;
 			break;
 		case 3:
-			gcType = G_SATELLITE_MAP;
+			gcType = google.maps.MapTypeId.SATELLITE;
 			break;
 		case 4:
-			gcType = G_HYBRID_MAP;
+			gcType = google.maps.MapTypeId.HYBRID;
 			break;
 		}
 	}
-	map.setMapType(gcType);
 	
 	var gcLatLng = gcLatLong.split(' ');
-	var gPoint = new GLatLng(gcLatLng[0], gcLatLng[1]);
-	map.setCenter(gPoint, zoom ? parseInt(zoom, 10) : 10);
+	var gPoint = new google.maps.LatLng(gcLatLng[0], gcLatLng[1]);
+	var mapOptions = {
+	  zoom: zoom ? parseInt(zoom, 10) : 10,
+	  center: gPoint,
+	  mapTypeControl: false,
+	  mapTypeId: gcType
+	};
 	
-	map.addControl(new GSmallZoomControl3D());
+	if (!map) {
+		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	} else {
+		map.setOptions(mapOptions);
+	}
 	
-	if (marker) {
-    	map.removeOverlay(marker);
-    }
-	
-	marker = new GMarker(gPoint);
-	map.addOverlay(marker);
+	marker = new google.maps.Marker({position: gPoint, map: map});
 }
 
 // Initialization
