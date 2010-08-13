@@ -23,7 +23,7 @@ class gcWidgetBehaviors
 	 * Creation and settings of the widget.
 	 * @param $w
 	 */
-	public static function initWidgets(&$w)
+	public static function initWidgets($w)
 	{
 		$w->create('gcWidget',__('GeoCrazy Map'),array('publicGcWidget','gcWidget'));
 	 

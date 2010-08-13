@@ -43,7 +43,7 @@ class gcAdminBehaviors
 	 * Display the fields in the post form sidebar.
 	 * @param $post
 	 */
-	public static function locationField(&$post)
+	public static function locationField($post)
 	{
 		$core = $GLOBALS['core'];
 		$location = new gcLocation($core,'post',($post) ? $post->post_meta : null);
@@ -155,7 +155,7 @@ class gcAdminBehaviors
 	 * @param $cur
 	 * @param $post_id
 	 */
-	public static function setLocation(&$cur,&$post_id)
+	public static function setLocation($cur,$post_id)
 	{
 		$core = $GLOBALS['core'];
 		
