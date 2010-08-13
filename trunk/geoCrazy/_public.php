@@ -34,6 +34,7 @@ class gcUrlHandlers extends dcUrlHandlers
 {
 	/**
 	 * Return the GeoRSS feed.
+	 * FIXME: copy/paste from lib.urlhandlers.php
 	 * @param $args
 	 */
 	public static function feed($args)
@@ -57,7 +58,9 @@ class gcUrlHandlers extends dcUrlHandlers
 			$_ctx->langs = $core->blog->getLangs($params);
 		
 			if ($_ctx->langs->isEmpty()) {
+				# The specified language does not exist.
 				self::p404();
+				return;
 			} else {
 				$_ctx->cur_lang = $m[1];
 			}
@@ -67,7 +70,7 @@ class gcUrlHandlers extends dcUrlHandlers
 		{
 			# RSS XSLT stylesheet
 			self::serveDocument('rss2.xsl','text/xml');
-			exit;
+			return;
 		}
 		elseif (preg_match('#^(atom|rss2)/comments/([0-9]+)$#',$args,$m))
 		{
@@ -87,7 +90,9 @@ class gcUrlHandlers extends dcUrlHandlers
 		}
 		else
 		{
-			self::p404();
+			# The specified Feed URL is malformed.
+            self::p404();
+            return;
 		}
 		
 		if ($cat_url)
@@ -97,7 +102,9 @@ class gcUrlHandlers extends dcUrlHandlers
 			$_ctx->categories = $core->blog->getCategories($params);
 			
 			if ($_ctx->categories->isEmpty()) {
-				self::p404();
+				# The specified category does no exist.
+                self::p404();
+                return;
 			}
 			
 			$subtitle = ' - '.$_ctx->categories->cat_title;
@@ -109,7 +116,9 @@ class gcUrlHandlers extends dcUrlHandlers
 			$_ctx->posts = $core->blog->getPosts($params);
 			
 			if ($_ctx->posts->isEmpty()) {
-				self::p404();
+				# The specified post does not exist.
+                self::p404();
+                return;
 			}
 			
 			$subtitle = ' - '.$_ctx->posts->post_title;
@@ -118,11 +127,11 @@ class gcUrlHandlers extends dcUrlHandlers
 		$tpl = $type;
 		if ($comments) {
 			$tpl .= '-comments';
-			$_ctx->nb_comment_per_page = $core->blog->settings->nb_comment_per_feed;
+			$_ctx->nb_comment_per_page = $core->blog->settings->system->nb_comment_per_feed;
 		} else {
-			$tpl .= '-geo';
-			$_ctx->nb_entry_per_page = $core->blog->settings->nb_post_per_feed;
-			$_ctx->short_feed_items = $core->blog->settings->short_feed_items;
+			$tpl .= '-geo'; // Modification GeoCrazy
+			$_ctx->nb_entry_per_page = $core->blog->settings->system->nb_post_per_feed;
+            $_ctx->short_feed_items = $core->blog->settings->system->short_feed_items;
 		}
 		$tpl .= '.xml';
 		
@@ -132,19 +141,18 @@ class gcUrlHandlers extends dcUrlHandlers
 		
 		$_ctx->feed_subtitle = $subtitle;
 		
-		header('X-Robots-Tag: '.context::robotsPolicy($core->blog->settings->robots_policy,''));
+		header('X-Robots-Tag: '.context::robotsPolicy($core->blog->settings->system->robots_policy,''));
 		self::serveDocument($tpl,$mime);
 		if (!$comments && !$cat_url) {
 			$core->blog->publishScheduledEntries();
 		}
-		exit;
 	}
 
 	/**
 	 * Return the geographic sitemap.
 	 * @param $args
 	 */
-  public static function sitemapGeo($args)
+    public static function sitemapGeo($args)
 	{
 		self::serveDocument('sitemap-geo.xml','text/xml');
 		exit;
@@ -161,7 +169,7 @@ class publicGcWidget
 	 * Returns the HTML code of the widget.
 	 * @param $w
 	 */
-	public static function gcWidget(&$w)
+	public static function gcWidget($w)
 	{
 		global $core;
 		
@@ -271,7 +279,7 @@ class gcPublicBehaviors
 	 * Inserts meta tags and javascript in HTML head content.
 	 * @param $core
 	 */
-	public static function publicHeadContent(&$core)
+	public static function publicHeadContent($core)
 	{
 		# Post page
 		if ($core->url->type == 'post' || $core->url->type == 'preview') {

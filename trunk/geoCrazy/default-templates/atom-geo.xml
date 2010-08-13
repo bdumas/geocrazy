@@ -15,7 +15,7 @@
     <name>{{tpl:BlogEditor encode_xml="1"}}</name>
   </author>
   <id>{{tpl:BlogFeedID}}</id>
-  <generator uri="http://www.dotclear.net/">Dotclear</generator>
+  <generator uri="http://www.dotclear.org/">Dotclear</generator>
   
   <tpl:Entries>
   
@@ -24,12 +24,13 @@
     <link href="{{tpl:EntryURL}}" rel="alternate" type="text/html"
     title="{{tpl:EntryTitle encode_xml="1"}}" />
     <id>{{tpl:EntryFeedID}}</id>
-    <updated>{{tpl:EntryDate iso8601="1"}}</updated>
+    <published>{{tpl:EntryDate iso8601="1"}}</published>
+    <updated>{{tpl:EntryDate iso8601="1" upddt="1"}}</updated>
     <author><name>{{tpl:EntryAuthorCommonName encode_xml="1"}}</name></author>
     <tpl:EntryIf has_category="1">
     <dc:subject>{{tpl:EntryCategory encode_html="1"}}</dc:subject>
     </tpl:EntryIf>
-    <tpl:EntryMetaData><dc:subject>{{tpl:MetaID}}</dc:subject></tpl:EntryMetaData>
+    <tpl:EntryTags><dc:subject>{{tpl:TagID}}</dc:subject></tpl:EntryTags>
 
     <content type="html">{{tpl:EntryExcerpt absolute_urls="1" encode_xml="1"}}
     {{tpl:EntryContent absolute_urls="1" encode_xml="1"}}</content>
