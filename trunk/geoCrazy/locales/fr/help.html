@@ -16,30 +16,27 @@ Cette g&eacute;olocalisation permet :
 <h2>1. Configuration</h2>
 
 <h3>1.1. Pr&eacute;requis</h3>
-Le plugin "metadata" (tags) est n&eacute;cessaire au fonctionnement du plugin GeoCrazy. Ce plugin, notamment utilis&eacute; pour le syst&egrave;me de tags, est livr&eacute; par d&eacute;faut avec Dotclear 2, donc vous devez probablement d&eacute;j&agrave; l'avoir.
+Avec Dotclear 2.1, le plugin "metadata" (tags) &eacute;tait n&eacute;cessaire au fonctionnement du plugin GeoCrazy. Ce plugin, notamment utilis&eacute; pour le syst&egrave;me de tags, &eacute;tait livr&eacute; par d&eacute;faut avec Dotclear 2, donc vous deviez probablement d&eacute;j&agrave; l'avoir. 
+Depuis Dotclear 2.2, ce plugin a &eacute;t&eacute; int&eacute;gr&eacute; au coeur de Dotclear. C'est donc tout bon !
 
-<h3>1.2. Cl&eacute; d'API Google Maps</h3>
-GeoCrazy utilise l'API Google Maps pour g&eacute;n&eacute;rer des cartes. Pour cela, une cl&eacute; diff&eacute;rente est n&eacute;cessaire pour chaque site. Vous pouvez demander gratuitement une cl&eacute; &agrave; Google en vous rendant &agrave; l'adresse suivante : <a href="http://code.google.com/intl/fr/apis/maps/signup.html">http://code.google.com/intl/fr/apis/maps/signup.html</a>.
-<br/>
-Lorsque vous avez r&eacute;cup&eacute;r&eacute; votre cl&eacute; Google Maps, rendez-vous dans l'onglet "Configuration", collez la cl&eacute; dans le champ texte et cliquez sur "Enregistrer".
-
-<h3>1.3. Param&egrave;tres avanc&eacute;s</h3>
+<h3>1.2. Param&egrave;tres</h3>
 Ces param&egrave;tres vous permettent d'aller plus loin dans l'utilisation de GeoCrazy. Ils sont d&eacute;sactiv&eacute;s par d&eacute;faut.
 <ul class="space">
-	<li>Widget multiple : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
-	<li>Enregistrer l'adresse du lieu : lorsque cette option est activ&eacute;e, GeoCrazy enregistre, en plus des coordonn&eacute;es g&eacute;ographiques, la commune, la r&eacute;gion et le pays du lieu (lorsque ces informations sont disponibles). L'option "afficher le lieu" est alors disponible dans les param&egrave;tres du widget pour afficher ces informations sous la carte.</li>
-	<li>Permettre le param&eacute;trage du widget par billet : activez cette option pour d&eacute;finir des param&egrave;tres d'affichage de la carte propres &agrave; chaque billet (voir le paragraphe 2.4).</li>
-	<li>Lieu par d&eacute;faut : permet de d&eacute;finir un lieu qui sera pr&eacute;s&eacute;lectionn&eacute; lors de l'ouverture de la popup d'ajout d'un lieu &agrave; un billet. Les valeurs possibles sont les suivantes :
+    <li><strong>Fournisseur de carte</strong> : permet de choisir entre Google, Multimap, OpenLayers et Microsoft pour l'affichage des cartes sur le blog. Si vous choisissez Yahoo ou Multimap, une cl&eacute; est n&eacute;cessaire. Vous pouvez demander votre cl&eacute; Yahoo ici <a href="https://developer.apps.yahoo.com/wsregapp/">https://developer.apps.yahoo.com/wsregapp/</a> et votre cl&eacute; Multimap l&agrave; <a href="http://www.multimap.com/openapi/">http://www.multimap.com/openapi/</a>. Attention, pour le moment, quel que soit le fournisseur s&eacute;lectionn&eacute;, c'est une carte Google qui est utilis&eacute;e pour la popup de choix de lieu</li>
+	<li><strong>Widget multiple</strong> : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
+	<li><strong>Enregistrer l'adresse du lieu</strong> : lorsque cette option est activ&eacute;e, GeoCrazy enregistre, en plus des coordonn&eacute;es g&eacute;ographiques, la commune, la r&eacute;gion et le pays du lieu (lorsque ces informations sont disponibles). L'option "afficher le lieu" est alors disponible dans les param&egrave;tres du widget pour afficher ces informations sous la carte.</li>
+	<li><strong>Permettre le param&eacute;trage du widget par billet</strong> : activez cette option pour d&eacute;finir des param&egrave;tres d'affichage de la carte propres &agrave; chaque billet (voir le paragraphe 2.4).</li>
+	<li><strong>Carte statique (seulement avec les cartes Google)</strong> : les cartes du site (pas celles de l'administration) sont de simples images et ne n&eacute;cessitent pas javascript. Cette option permet d'afficher les cartes plus rapidement. En contrepartie, l'utilisateur ne peut pas se d&eacute;placer ou zoomer sur les cartes.</li>
+	<li><strong>Lieu par d&eacute;faut</strong> : permet de d&eacute;finir un lieu qui sera pr&eacute;s&eacute;lectionn&eacute; lors de l'ouverture de la popup d'ajout d'un lieu &agrave; un billet. Les valeurs possibles sont les suivantes :
 		<ul>
 			<li>Aucun : aucun lieu n'est pr&eacute;s&eacute;lectionn&eacute;</li>
 			<li>Lieu du blog : le lieu du blog est pr&eacute;s&eacute;lectionn&eacute; par d&eacute;faut</li>
 			<li>Essayer de localiser l'auteur : le lieu o&ugrave; vous vous trouvez est pr&eacute;s&eacute;lectionn&eacute; (cette fonctionnalit&eacute; ne peut &ecirc;tre utilis&eacute;e que si votre navigateur impl&eacute;mente <a href="http://www.w3.org/TR/geolocation-API/">l'API Geolocation</a>)</li>
 		</ul>
 	</li>
-	<li>Fournisseur de carte : permet de choisir entre Google, OpenLayers et Microsoft pour l'affichage des cartes sur le blog. Si vous choisissez Yahoo, une cl&eacute; est n&eacute;cessaire, comme pour Google. Vous pouvez demander votre cl&eacute; Yahoo ici <a href="https://developer.apps.yahoo.com/wsregapp/">https://developer.apps.yahoo.com/wsregapp/</a>. Attention, pour le moment, quel que soit le fournisseur s&eacute;lectionn&eacute;, c'est une carte Google qui est utilis&eacute;e pour la popup de choix de lieu. La cl&eacute; Google est donc obligatoire.</li>
 </ul>
 
-<h3>1.4. Localisation du blog</h3>
+<h3>1.3. Localisation du blog</h3>
 Ce menu permet d'associer un lieu au blog, de la m&ecirc;me mani&egrave;re qu'on associe un lieu &agrave; un billet (voir le paragraphe 2).
 Lorsqu'un lieu est associ&eacute; au blog, les m&eacute;tadonn&eacute;es Geo et ICBM sont ajout&eacute;es &agrave; la page d'accueil.<br/>
 Vous pouvez en plus choisir d'afficher le lieu du blog dans une carte en ajoutant un widget avec le param&egrave;tre "sujet de la carte" positionn&eacute; &agrave; "lieu du blog".
