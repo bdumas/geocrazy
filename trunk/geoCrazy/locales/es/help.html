@@ -20,7 +20,6 @@ Avec Dotclear 2.1, le plugin "metadata" (tags) &eacute;tait n&eacute;cessaire au
 Depuis Dotclear 2.2, ce plugin a &eacute;t&eacute; int&eacute;gr&eacute; au coeur de Dotclear. C'est donc tout bon !
 
 <h3>1.2. Param&egrave;tres</h3>
-Ces param&egrave;tres vous permettent d'aller plus loin dans l'utilisation de GeoCrazy. Ils sont d&eacute;sactiv&eacute;s par d&eacute;faut.
 <ul class="space">
     <li><strong>Fournisseur de carte</strong> : permet de choisir entre Google, Multimap, OpenLayers et Microsoft pour l'affichage des cartes sur le blog. Si vous choisissez Yahoo ou Multimap, une cl&eacute; est n&eacute;cessaire. Vous pouvez demander votre cl&eacute; Yahoo ici <a href="https://developer.apps.yahoo.com/wsregapp/">https://developer.apps.yahoo.com/wsregapp/</a> et votre cl&eacute; Multimap l&agrave; <a href="http://www.multimap.com/openapi/">http://www.multimap.com/openapi/</a>. Attention, pour le moment, quel que soit le fournisseur s&eacute;lectionn&eacute;, c'est une carte Google qui est utilis&eacute;e pour la popup de choix de lieu</li>
     <li><strong>Widget multiple</strong> : permet d'utiliser plusieurs widgets GeoCrazy carte sur une m&ecirc;me page (voir le paragraphe 3.2) gr&acirc;ce au champ suppl&eacute;mentaire "ID" (n'oubliez pas de mettre &agrave; jour les bandeaux dans la rubrique "Widgets de pr&eacute;sentation").</li>
@@ -60,7 +59,7 @@ Pour supprimer le lieu associ&eacute; &agrave; un billet, et ne pas le remplacer
 Validez le changement sur la popup et enregistrez le billet.
 
 <h3>2.4. Param&egrave;tres de la carte (param&egrave;trage avanc&eacute;)</h3>
-Cette option n'est disponible que si vous avez activ&eacute; le param&egrave;tre avanc&eacute; "Permettre le param&eacute;trage du widget par billet". 
+Cette option n'est disponible que si vous avez activ&eacute; le param&egrave;tre "Permettre le param&eacute;trage du widget par billet". 
 On y retrouve les champs du widget (paragraphe 3.1).<br/>
 Pour que la carte du widget s'affiche selon le param&eacute;trage d&eacute;fini dans le widget, laissez les champs vides.<br/>
 Si vous affectez une valeur &agrave; un ou plusieurs champs, alors la carte du billet s'affichera selon les param&egrave;tres d&eacute;finis au niveau du billet. Les param&egrave;tres non renseign&eacute;s au niveau du billet prendront les valeurs d&eacute;finies au niveau du widget.<br/>
@@ -99,7 +98,4 @@ Dans ce cas, pour des raisons techniques, vous devez affecter une valeur au cham
 <h2>4. Flux GeoRSS, sitemap et m&eacute;tadonn&eacute;es g&eacute;ographiques</h2>
 <p>GeoCrazy transforme les flux de votre blog (Atom et RSS) en flux GeoRSS. <a href="http://fr.wikipedia.org/wiki/GeoRSS">GeoRSS</a> est une extension des formats de syndication qui permet d'associer des coordonn&eacute;es g&eacute;ographiques &agrave;ux entr&eacute;es du flux. Les billets non localis&eacute;s restent bien s&ucirc;r pr&eacute;sents dans les flux.</p>
 <p>En plus d'&ecirc;tre consultables dans un agr&eacute;gateur classique, les billets de votre blog peuvent maintenant &ecirc;tre affich&eacute;s dans une carte. Copiez-collez donc l'URL de votre flux RSS dans le champ "recherche" de <a href="http://maps.google.fr/">Google Maps</a> pour essayer. Vos billets g&eacute;olocalis&eacute;s s'affichent sur la carte. Sympa non ? Et cette manipulation n'est pas limit&eacute;e qu'&agrave; Google Maps, vous pouvez par exemple faire la m&ecirc;me chose avec <a href="http://maps.live.fr">Live Maps</a>.</p>
-<p>Un autre avantage du format GeoRSS est l'indexation des contenus en fonction de crit&egrave;res g&eacute;ographiques. Les contenus peuvent alors &ecirc;tre restitu&eacute;s lors d'une recherche locale. 
-Pour aider les moteurs de recherche &agrave; indexer vos contenus g&eacute;olocalis&eacute;s, GeoCrazy g&eacute;n&egrave;re un <a href="http://www.google.com/support/webmasters/bin/answer.py?hl=fr&answer=94554">sitemap g&eacute;ographique</a> (&agrave; l'adresse indiqu&eacute;e dans l'onglet "Configuration") que vous n'avez plus qu'&agrave; <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=34575">soumettre aux moteurs de recherche</a>.
-</p>
 <p>Enfin, chaque page billet pour lequel un lieu a &eacute;t&eacute; associ&eacute; contient des balises m&eacute;ta aux formats <a href="http://geotags.com/geo/geotags2.html">Geo</a> et <a href="http://wikitravel.org/en/Wikitravel:Geographical_data_and_metadata">ICBM</a> renseignant sur le lieu associ&eacute;. Si un lieu est associ&eacute; au blog, la page d'accueil poss&egrave;de aussi ces balises meta. Ces informations sont exploitables avec des outils tels que l'extension Minimap pour Firefox.</p>

@@ -178,7 +178,7 @@ if (isset($_POST['submitForm'])) {
 					echo '<br/>'.__('My RSS feed displayed in Live Maps:').' <a href="'.$atom_in_lmaps.'">'.$atom_in_lmaps.'</a>';
 				?>
 			</fieldset>
-			<br/>
+			<!-- <br/>
 			<fieldset>
 				<legend><?php echo __('Geo sitemap') ?></legend>
 				<?php
@@ -186,7 +186,7 @@ if (isset($_POST['submitForm'])) {
 					$geo_sitemap = $core->blog->url.'sitemap-geo.xml';
 					echo '<br/>'.__('My geo sitemap:').' <a href="'.$geo_sitemap.'">'.$geo_sitemap.'</a>';
 				?>
-			</fieldset>
+			</fieldset>-->
 		</div>
 
 		<div class="multi-part" id="doc" title="<?php echo __('Documentation'); ?>">
