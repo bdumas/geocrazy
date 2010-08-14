@@ -10,15 +10,15 @@ msgstr "Lieu :"
 
 #: _admin.php:59
 #: _admin.php:63
-#: settings.php:126
-#: settings.php:129
+#: settings.php:152
+#: settings.php:155
 msgid "Add location"
 msgstr "Ajouter un lieu"
 
 #: _admin.php:60
 #: _admin.php:64
-#: settings.php:127
-#: settings.php:130
+#: settings.php:153
+#: settings.php:156
 msgid "Edit location"
 msgstr "Changer le lieu"
 
@@ -133,31 +133,31 @@ msgid "Blog locality"
 msgstr "Commune du blog"
 
 #: popup.php:15
-#: popup.php:32
+#: popup.php:34
 msgid "Map your post"
 msgstr "Placez votre billet sur la carte"
 
-#: popup.php:18
+#: popup.php:20
 msgid "was not found."
 msgstr "ne peut pas être localisé."
 
-#: popup.php:19
+#: popup.php:21
 msgid "Your location could not be found."
 msgstr "Votre position n'a pas été trouvée."
 
-#: popup.php:34
+#: popup.php:36
 msgid "Find location"
 msgstr "Rechercher un lieu"
 
-#: popup.php:36
+#: popup.php:38
 msgid "Go"
 msgstr "OK"
 
-#: popup.php:40
+#: popup.php:42
 msgid "Remove from map"
 msgstr "Supprimer de la carte"
 
-#: popup.php:44
+#: popup.php:46
 msgid "Save location"
 msgstr "Enregistrer le lieu"
 
@@ -166,15 +166,15 @@ msgid "Map provider"
 msgstr "Fournisseur de carte"
 
 #: settings.php:25
-msgid "Google Maps API key"
-msgstr "Clé Google Maps API"
-
-#: settings.php:28
 msgid "Yahoo Maps API key"
 msgstr "Clé Yahoo Maps API"
 
+#: settings.php:28
+msgid "Multimap API key"
+msgstr "Clé Multimap API"
+
 #: settings.php:31
-#: settings.php:90
+#: settings.php:125
 msgid "Enable multiple widget"
 msgstr "Mode "widget multiple" pour placer plusieurs fois le même widget"
 
@@ -190,125 +190,142 @@ msgstr "Surcharge des paramètres du widget"
 msgid "Default location"
 msgstr "Lieu par défaut"
 
-#: settings.php:76
+#: settings.php:43
+#: settings.php:131
+msgid "Static map"
+msgstr "Carte statique"
+
+#: settings.php:78
 msgid "Configuration"
 msgstr "Configuration"
 
-#: settings.php:79
+#: settings.php:81
 msgid "Settings"
 msgstr "Paramètres"
 
-#: settings.php:80
-msgid "Google Maps API key:"
-msgstr "Clé Google Maps API :"
-
-#: settings.php:82
-msgid "Get your Google Maps API key"
-msgstr "Demander votre clé Google Maps API"
-
-#: settings.php:86
-msgid "Advanced parameters"
-msgstr "Paramètres avancés"
-
-#: settings.php:92
-msgid "Try to save the address of the location (region and locality)"
-msgstr "Enregistrer l'adresse du lieu"
-
-#: settings.php:94
-msgid "Enable override of widget display"
-msgstr "Permettre le paramétrage du widget par billet"
-
-#: settings.php:96
-msgid "Default location when adding a location to a post:"
-msgstr "Lieu par défaut lors de l'ajout d'un lieu :"
-
-#: settings.php:98
-msgid "No default location"
-msgstr "Aucun"
-
-#: settings.php:100
-msgid "Blog location"
-msgstr "Lieu du blog"
-
-#: settings.php:102
-msgid "Try to locate the author"
-msgstr "Essayer de localiser l'auteur"
-
-#: settings.php:106
+#: settings.php:83
 msgid "Map provider:"
 msgstr "Fournisseur de carte :"
 
-#: settings.php:107
+#: settings.php:84
 msgid "Google"
 msgstr "Google"
 
-#: settings.php:108
+#: settings.php:85
+msgid "Multimap"
+msgstr "Multimap"
+
+#: settings.php:86
 msgid "OpenLayers"
 msgstr "OpenLayers"
 
-#: settings.php:109
+#: settings.php:87
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: settings.php:112
+#: settings.php:92
 msgid "Yahoo Maps API key:"
 msgstr "Clé Yahoo Maps API :"
 
-#: settings.php:114
+#: settings.php:94
 msgid "Get your Yahoo Maps API key"
 msgstr "Demander votre clé Yahoo Maps API"
 
-#: settings.php:120
+#: settings.php:97
+msgid "Multimap API key:"
+msgstr "Clé Multimap API"
+
+#: settings.php:99
+msgid "Get your Multimap API key"
+msgstr "Demander votre clé Multimap API"
+
+#: settings.php:127
+msgid "Try to save the address of the location (region and locality)"
+msgstr "Enregistrer l'adresse du lieu"
+
+#: settings.php:129
+msgid "Enable override of widget display"
+msgstr "Permettre le paramétrage du widget par billet"
+
+#: settings.php:134
+msgid "Default location when adding a location to a post:"
+msgstr "Lieu par défaut lors de l'ajout d'un lieu :"
+
+#: settings.php:136
+msgid "No default location"
+msgstr "Aucun"
+
+#: settings.php:138
+msgid "Blog location"
+msgstr "Lieu du blog"
+
+#: settings.php:140
+msgid "Try to locate the author"
+msgstr "Essayer de localiser l'auteur"
+
+#: settings.php:146
 msgid "Blog localization"
 msgstr "Localisation du blog"
 
-#: settings.php:144
+#: settings.php:170
 msgid "GeoRSS feed"
 msgstr "Flux GeoRSS"
 
-#: settings.php:146
+#: settings.php:172
 msgid "If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map."
 msgstr "Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte."
 
-#: settings.php:150
+#: settings.php:176
 msgid "My RSS feed:"
 msgstr "Mon flux RSS :"
 
-#: settings.php:151
+#: settings.php:177
 msgid "My RSS feed displayed in Google Maps:"
 msgstr "Mon flux RSS affiché dans Google Maps :"
 
-#: settings.php:152
+#: settings.php:178
 msgid "My RSS feed displayed in Live Maps:"
 msgstr "Mon flux RSS affiché dans Live Maps :"
 
-#: settings.php:157
+#: settings.php:183
 msgid "Geo sitemap"
 msgstr "Sitemap géographique"
 
-#: settings.php:159
+#: settings.php:185
 msgid "To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap."
 msgstr "Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique."
 
-#: settings.php:161
+#: settings.php:187
 msgid "My geo sitemap:"
 msgstr "Mon sitemap géographique :"
 
-#: settings.php:170
+#: settings.php:196
 msgid "About"
 msgstr "A propos"
 
-#: settings.php:172
+#: settings.php:198
 msgid "GeoCrazy is written by Benjamin Dumas"
 msgstr "GeoCrazy est écrit par Benjamin Dumas"
 
-#: settings.php:173
+#: settings.php:199
 msgid "For some help, please write a comment on"
 msgstr "Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur"
 
-#: settings.php:173
+#: settings.php:199
 msgid "the support page of GeoCrazy"
 msgstr "la page support de GeoCrazy"
+
+msgid "Google Maps API key"
+msgstr "Clé Google Maps API"
+
+msgid "Google Maps API key:"
+msgstr "Clé Google Maps API :"
+
+msgid "Get your Google Maps API key"
+msgstr "Demander votre clé Google Maps API"
+
+msgid "Advanced parameters"
+msgstr "Paramètres avancés"
 
 msgid "Default location when adding a location to a post"
 msgstr "Lieu par défaut lors de l'ajout d'un lieu"

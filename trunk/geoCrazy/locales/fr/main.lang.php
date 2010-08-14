@@ -7,14 +7,14 @@ $GLOBALS['__l10n']['Location:']='Lieu :';
 
 # _admin.php:59
 # _admin.php:63
-# settings.php:126
-# settings.php:129
+# settings.php:152
+# settings.php:155
 $GLOBALS['__l10n']['Add location']='Ajouter un lieu';
 
 # _admin.php:60
 # _admin.php:64
-# settings.php:127
-# settings.php:130
+# settings.php:153
+# settings.php:156
 $GLOBALS['__l10n']['Edit location']='Changer le lieu';
 
 # _admin.php:85
@@ -102,38 +102,38 @@ $GLOBALS['__l10n']['Blog region']='Région du blog';
 $GLOBALS['__l10n']['Blog locality']='Commune du blog';
 
 # popup.php:15
-# popup.php:32
+# popup.php:34
 $GLOBALS['__l10n']['Map your post']='Placez votre billet sur la carte';
 
-# popup.php:18
+# popup.php:20
 $GLOBALS['__l10n']['was not found.']='ne peut pas être localisé.';
 
-# popup.php:19
+# popup.php:21
 $GLOBALS['__l10n']['Your location could not be found.']='Votre position n\'a pas été trouvée.';
 
-# popup.php:34
+# popup.php:36
 $GLOBALS['__l10n']['Find location']='Rechercher un lieu';
 
-# popup.php:36
+# popup.php:38
 $GLOBALS['__l10n']['Go']='OK';
 
-# popup.php:40
+# popup.php:42
 $GLOBALS['__l10n']['Remove from map']='Supprimer de la carte';
 
-# popup.php:44
+# popup.php:46
 $GLOBALS['__l10n']['Save location']='Enregistrer le lieu';
 
 # settings.php:22
 $GLOBALS['__l10n']['Map provider']='Fournisseur de carte';
 
 # settings.php:25
-$GLOBALS['__l10n']['Google Maps API key']='Clé Google Maps API';
-
-# settings.php:28
 $GLOBALS['__l10n']['Yahoo Maps API key']='Clé Yahoo Maps API';
 
+# settings.php:28
+$GLOBALS['__l10n']['Multimap API key']='Clé Multimap API';
+
 # settings.php:31
-# settings.php:90
+# settings.php:125
 $GLOBALS['__l10n']['Enable multiple widget']='Mode "widget multiple" pour placer plusieurs fois le même widget';
 
 # settings.php:34
@@ -145,95 +145,107 @@ $GLOBALS['__l10n']['Override widget display']='Surcharge des paramètres du widg
 # settings.php:40
 $GLOBALS['__l10n']['Default location']='Lieu par défaut';
 
-# settings.php:76
+# settings.php:43
+# settings.php:131
+$GLOBALS['__l10n']['Static map']='Carte statique';
+
+# settings.php:78
 $GLOBALS['__l10n']['Configuration']='Configuration';
 
-# settings.php:79
+# settings.php:81
 $GLOBALS['__l10n']['Settings']='Paramètres';
 
-# settings.php:80
-$GLOBALS['__l10n']['Google Maps API key:']='Clé Google Maps API :';
-
-# settings.php:82
-$GLOBALS['__l10n']['Get your Google Maps API key']='Demander votre clé Google Maps API';
-
-# settings.php:86
-$GLOBALS['__l10n']['Advanced parameters']='Paramètres avancés';
-
-# settings.php:92
-$GLOBALS['__l10n']['Try to save the address of the location (region and locality)']='Enregistrer l\'adresse du lieu';
-
-# settings.php:94
-$GLOBALS['__l10n']['Enable override of widget display']='Permettre le paramétrage du widget par billet';
-
-# settings.php:96
-$GLOBALS['__l10n']['Default location when adding a location to a post:']='Lieu par défaut lors de l\'ajout d\'un lieu :';
-
-# settings.php:98
-$GLOBALS['__l10n']['No default location']='Aucun';
-
-# settings.php:100
-$GLOBALS['__l10n']['Blog location']='Lieu du blog';
-
-# settings.php:102
-$GLOBALS['__l10n']['Try to locate the author']='Essayer de localiser l\'auteur';
-
-# settings.php:106
+# settings.php:83
 $GLOBALS['__l10n']['Map provider:']='Fournisseur de carte :';
 
-# settings.php:107
+# settings.php:84
 $GLOBALS['__l10n']['Google']='Google';
 
-# settings.php:108
+# settings.php:85
+$GLOBALS['__l10n']['Multimap']='Multimap';
+
+# settings.php:86
 $GLOBALS['__l10n']['OpenLayers']='OpenLayers';
 
-# settings.php:109
+# settings.php:87
 $GLOBALS['__l10n']['Yahoo']='Yahoo';
 
-# settings.php:112
+# settings.php:92
 $GLOBALS['__l10n']['Yahoo Maps API key:']='Clé Yahoo Maps API :';
 
-# settings.php:114
+# settings.php:94
 $GLOBALS['__l10n']['Get your Yahoo Maps API key']='Demander votre clé Yahoo Maps API';
 
-# settings.php:120
-$GLOBALS['__l10n']['Blog localization']='Localisation du blog';
+# settings.php:97
+$GLOBALS['__l10n']['Multimap API key:']='Clé Multimap API';
 
-# settings.php:144
-$GLOBALS['__l10n']['GeoRSS feed']='Flux GeoRSS';
+# settings.php:99
+$GLOBALS['__l10n']['Get your Multimap API key']='Demander votre clé Multimap API';
+
+# settings.php:127
+$GLOBALS['__l10n']['Try to save the address of the location (region and locality)']='Enregistrer l\'adresse du lieu';
+
+# settings.php:129
+$GLOBALS['__l10n']['Enable override of widget display']='Permettre le paramétrage du widget par billet';
+
+# settings.php:134
+$GLOBALS['__l10n']['Default location when adding a location to a post:']='Lieu par défaut lors de l\'ajout d\'un lieu :';
+
+# settings.php:136
+$GLOBALS['__l10n']['No default location']='Aucun';
+
+# settings.php:138
+$GLOBALS['__l10n']['Blog location']='Lieu du blog';
+
+# settings.php:140
+$GLOBALS['__l10n']['Try to locate the author']='Essayer de localiser l\'auteur';
 
 # settings.php:146
-$GLOBALS['__l10n']['If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map.']='Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte.';
-
-# settings.php:150
-$GLOBALS['__l10n']['My RSS feed:']='Mon flux RSS :';
-
-# settings.php:151
-$GLOBALS['__l10n']['My RSS feed displayed in Google Maps:']='Mon flux RSS affiché dans Google Maps :';
-
-# settings.php:152
-$GLOBALS['__l10n']['My RSS feed displayed in Live Maps:']='Mon flux RSS affiché dans Live Maps :';
-
-# settings.php:157
-$GLOBALS['__l10n']['Geo sitemap']='Sitemap géographique';
-
-# settings.php:159
-$GLOBALS['__l10n']['To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap.']='Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique.';
-
-# settings.php:161
-$GLOBALS['__l10n']['My geo sitemap:']='Mon sitemap géographique :';
+$GLOBALS['__l10n']['Blog localization']='Localisation du blog';
 
 # settings.php:170
-$GLOBALS['__l10n']['About']='A propos';
+$GLOBALS['__l10n']['GeoRSS feed']='Flux GeoRSS';
 
 # settings.php:172
+$GLOBALS['__l10n']['If you have already localized some posts of your blog, the RSS (and atom) feeds are now GeoRSS feeds which can be displayed on a map.']='Si vous avez déjà géolocalisé des billets, les flux RSS (ou Atom) sont maintenant des flux GeoRSS qui peuvent être affichés sur une carte.';
+
+# settings.php:176
+$GLOBALS['__l10n']['My RSS feed:']='Mon flux RSS :';
+
+# settings.php:177
+$GLOBALS['__l10n']['My RSS feed displayed in Google Maps:']='Mon flux RSS affiché dans Google Maps :';
+
+# settings.php:178
+$GLOBALS['__l10n']['My RSS feed displayed in Live Maps:']='Mon flux RSS affiché dans Live Maps :';
+
+# settings.php:183
+$GLOBALS['__l10n']['Geo sitemap']='Sitemap géographique';
+
+# settings.php:185
+$GLOBALS['__l10n']['To help web search engines to index your geolocalised contents, you can submit to them your geo sitemap.']='Pour aider les moteurs de recherche à indexer vos contenus géolocalisé, vous pouvez leur soumettre votre sitemap géographique.';
+
+# settings.php:187
+$GLOBALS['__l10n']['My geo sitemap:']='Mon sitemap géographique :';
+
+# settings.php:196
+$GLOBALS['__l10n']['About']='A propos';
+
+# settings.php:198
 $GLOBALS['__l10n']['GeoCrazy is written by Benjamin Dumas']='GeoCrazy est écrit par Benjamin Dumas';
 
-# settings.php:173
+# settings.php:199
 $GLOBALS['__l10n']['For some help, please write a comment on']='Pour toute question, suggestion, remarque, témoignage... veuillez laisser un commentaire sur';
 
-# settings.php:173
+# settings.php:199
 $GLOBALS['__l10n']['the support page of GeoCrazy']='la page support de GeoCrazy';
+
+$GLOBALS['__l10n']['Google Maps API key']='Clé Google Maps API';
+
+$GLOBALS['__l10n']['Google Maps API key:']='Clé Google Maps API :';
+
+$GLOBALS['__l10n']['Get your Google Maps API key']='Demander votre clé Google Maps API';
+
+$GLOBALS['__l10n']['Advanced parameters']='Paramètres avancés';
 
 $GLOBALS['__l10n']['Default location when adding a location to a post']='Lieu par défaut lors de l\'ajout d\'un lieu';
 
