@@ -153,6 +153,11 @@ class gcLocation
 		return str_replace(' ',';',$this->lat_long);
 	}
 	
+	public function getCommaLatLong()
+	{
+		return str_replace(' ',',',$this->lat_long);
+	}
+	
 	public function getMicroformatAdr() {
 		$html = '<div id="placename" class="adr">';
 		if ($this->locality != '') {
@@ -173,6 +178,39 @@ class gcLocation
 		$html .= '</div>';
 		return $html;
 	}
+	
+    /**
+     * Returns the <img> tag for displaying a Google Static Map for the location.
+     */
+    public function getGoogleStaticMap() 
+    {
+        $maptype;
+        switch($this->type) {
+        	default:
+	        case 1:
+	            $maptype = 'terrain';
+	            break;
+	        case 2:
+	            $maptype = 'roadmap';
+	            break;
+	        case 3:
+	            $maptype = 'satellite';
+	            break;
+	        case 4:
+	            $maptype = 'hybrid';
+	            break;
+        }
+        
+        $heightPx = ($this->height != '') ? $this->height : '200';
+        $widthPx = ($this->width != '') ? $this->width : $heightPx;
+        
+        $url = 'http://maps.google.com/maps/api/staticmap?center='.$this->getCommaLatLong();
+        $url .= '&maptype='.$maptype.'&zoom='.$this->zoom.'&size='.$widthPx.'x'.$heightPx;
+        $url .= '&markers='.$this->getCommaLatLong().'&sensor=false';
+        
+        $tag = '<img border="0" alt="'.$this->getPlaceName().'" src="'.$url.'" />';
+        return $tag;
+    }
 	
 	public function getLatLong()
 	{

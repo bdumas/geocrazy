@@ -253,7 +253,14 @@ class publicGcWidget
 		# Map (the Widget ID enables to differentiate several maps)
 		$width = $widget_width != '' ? $widget_width.'px' : '100%';
 		$height = $widget_height != '' ? $widget_height.'px' : '200px';
-		$widget_html .= '<div id="gc_post_widget_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
+		$static_map = ($core->blog->settings->geocrazy->get('geocrazy_staticmap') == 1);
+		if ($static_map) {
+			$location->setType($widget_type);
+			$location->setZoom($widget_zoom);
+			$widget_html .= $location->getGoogleStaticMap();
+		} else {
+            $widget_html .= '<div id="gc_post_widget_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
+		}
 
 		# Locality, region, country
 		if ($widget_address == 1) {
@@ -261,7 +268,9 @@ class publicGcWidget
 		}
 		
 		# Javascript
-		$widget_html .= '<script type="text/javascript">gcMap("gc_post_widget_map_canvas_'.$w->wid.'",'.$widget_type.','.$widget_zoom.',"'.$location->getLatLong().'");</script>';
+		if (!$static_map) {
+            $widget_html .= '<script type="text/javascript">gcMap("gc_post_widget_map_canvas_'.$w->wid.'",'.$widget_type.','.$widget_zoom.',"'.$location->getLatLong().'");</script>';
+		}
 
 		$widget_html .= '</div>';
 		

@@ -35,22 +35,25 @@ class gcUtils
         if (isset($map_provider_override)) {
         	$map_provider = $map_provider_override;
         } else {
-        	$map_provider = $core->blog->settings->geocrazy->get('geocrazy_mapprovider');
-        	$map_provider = isset($map_provider) ? $map_provider : 'google';
+        	$map_provider = gcUtils::getMapProvider($core);
         }
 
         # We don't use mapstraction for Google
         if ($map_provider == 'google') {
-            $result .= '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>';
-
-            if ($jsFile == 'widget') {
-            	$jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
-                $result .= '<script type="text/javascript" src="'.$jsUrl.'"></script>';
+        	$result .= '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>';
+            
+        	if ($jsFile == 'widget') {
+        		if ($core->blog->settings->geocrazy->get('geocrazy_staticmap') == 1) {
+                    $result = '';
+        		} else {
+                    $jsUrl = $core->blog->url.(($core->blog->settings->url_scan == 'path_info') ? '?' : '').'pf=geoCrazy/js/gcwidget.js';
+                    $result .= '<script type="text/javascript" src="'.$jsUrl.'"></script>';	
+        		}
             } else if ($jsFile == 'admin') {
-	            $result .= '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcadmin.js"></script>';
-	        } else if ($jsFile == 'popup') {
-	        	$result .= '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcpopup.js"></script>';
-	        }
+                $result .= '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcadmin.js"></script>';
+            } else if ($jsFile == 'popup') {
+                $result .= '<script type="text/javascript" src="index.php?pf=geoCrazy/js/gcpopup.js"></script>';
+            }
             
         # For the other providers, we use mapstraction
         } else {
