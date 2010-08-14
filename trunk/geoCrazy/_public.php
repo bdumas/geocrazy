@@ -251,14 +251,12 @@ class publicGcWidget
 		}
 		
 		# Map (the Widget ID enables to differentiate several maps)
-		$width = $widget_width != '' ? $widget_width.'px' : '100%';
-		$height = $widget_height != '' ? $widget_height.'px' : '200px';
 		$static_map = ($core->blog->settings->geocrazy->get('geocrazy_staticmap') == 1);
 		if ($static_map) {
-			$location->setType($widget_type);
-			$location->setZoom($widget_zoom);
-			$widget_html .= $location->getGoogleStaticMap();
+			$widget_html .= publicGcWidget::getGoogleStaticMap($widget_type,$widget_zoom,$widget_width,$widget_height,$location);
 		} else {
+			$width = $widget_width != '' ? $widget_width.'px' : '100%';
+            $height = $widget_height != '' ? $widget_height.'px' : '200px';
             $widget_html .= '<div id="gc_post_widget_map_canvas_'.$w->wid.'" style="overflow: hidden; width: '.$width.'; height: '.$height.'"></div>';
 		}
 
@@ -275,6 +273,46 @@ class publicGcWidget
 		$widget_html .= '</div>';
 		
 		return $widget_html;
+	}
+	
+	/**
+     * Returns the <img> tag for displaying a Google Static Map for the location.
+     * 
+     * @param $type
+     * @param $zoom 
+     * @param $width
+     * @param $height
+     * @param $location
+     * 
+     * @return the <img> tag in HTML
+     */
+    private static function getGoogleStaticMap($type,$zoom,$width,$height,$location) {
+		$maptype;
+        switch($type) {
+        	default:
+            case 1:
+                $maptype = 'terrain';
+                break;
+            case 2:
+                $maptype = 'roadmap';
+                break;
+            case 3:
+                $maptype = 'satellite';
+                break;
+            case 4:
+                $maptype = 'hybrid';
+                break;
+        }
+        
+        $heightPx = ($height != '') ? $height : '200';
+        $widthPx = ($width != '') ? $width : $heightPx;
+        
+        $url = 'http://maps.google.com/maps/api/staticmap?center='.$location->getCommaLatLong();
+        $url .= '&maptype='.$maptype.'&zoom='.$zoom.'&size='.$widthPx.'x'.$heightPx;
+        $url .= '&markers='.$location->getCommaLatLong().'&sensor=false';
+        
+        $tag = '<img border="0" alt="'.$location->getPlaceName().'" src="'.$url.'" />';
+        return $tag;
 	}
 }
 
