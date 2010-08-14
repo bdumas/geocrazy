@@ -37,7 +37,10 @@ if (isset($_POST['submitForm'])) {
 	$settings->geocrazy->put('geocrazy_overridewidgetdisplay',!empty($override_widget_display),'boolean',__('Override widget display'),true);
 	
 	$default_location_mode = $_POST['default_location_mode'];
-	$settings->geocrazy->put('geocrazy_defaultlocationmode',$_POST['default_location_mode'],'integer',__('Default location'),true);
+	$settings->geocrazy->put('geocrazy_defaultlocationmode',$default_location_mode,'integer',__('Default location'),true);
+	
+	$static_map = ($map_provider == 'google') ? $_POST['static_map'] : 0;
+	$settings->geocrazy->put('geocrazy_staticmap',!empty($static_map),'boolean',__('Static map'),true);
 	
 	# Blog location
 	$blog_location->setLatLong($_POST['blog_latlong']);
@@ -76,11 +79,57 @@ if (isset($_POST['submitForm'])) {
 			<form method="post" action="plugin.php?p=geoCrazy&settings=1">
 				<fieldset>
 					<legend><?php echo __('Settings') ?></legend>
+					<?php 
+                        echo '<label>'.__('Map provider:').form::combo('mapprovider',array(
+                            __('Google') => 'google', 
+                            __('Multimap') => 'multimap',          
+                            __('OpenLayers') => 'openlayers',
+                            __('Yahoo') => 'yahoo'),
+                            gcUtils::getMapProvider($core))
+                        .'</label><br/>';
+                    ?>
+                    <div id="yahooApiKey">
+                        <?php echo __('Yahoo Maps API key:'); ?> 
+                        <input type="text" name="ymapsapikey" size="100" maxlength="100" value="<?php echo $ymaps_api_key; ?>" />
+                        <a href="https://developer.apps.yahoo.com/wsregapp/"><?php echo __('Get your Yahoo Maps API key'); ?></a>
+                    </div>
+                    <div id="multimapApiKey">
+                        <?php echo __('Multimap API key:'); ?> 
+                        <input type="text" name="multimapapikey" size="100" maxlength="100" value="<?php echo $multimap_api_key; ?>" />
+                        <a href="http://www.multimap.com/openapi/"><?php echo __('Get your Multimap API key'); ?></a>
+                    </div>
+                    <script type="text/javascript">
+                        function showFieldsByMapProvider() {
+                            if ($("#mapprovider").val() == 'google') {
+                                $("#yahooApiKey").hide();
+                                $("#multimapApiKey").hide();
+                                $("#staticMap").show();
+                            } else if ($("#mapprovider").val() == 'multimap') {
+                                $("#yahooApiKey").hide();
+                                $("#multimapApiKey").show();
+                                $("#staticMap").hide();
+                            } else if ($("#mapprovider").val() == 'yahoo') {
+                                $("#multimapApiKey").hide();
+                                $("#yahooApiKey").show();
+                                $("#staticMap").hide();
+                            } else {
+                                $("#yahooApiKey").hide();
+                                $("#multimapApiKey").hide();
+                                $("#staticMap").hide();
+                            }
+                        }
+                        showFieldsByMapProvider();
+                        $("#mapprovider").change(showFieldsByMapProvider);
+                    </script>
+                    <br/>
 					<label class="classic"><?php echo form::checkbox('multiple_widget',1,$core->blog->settings->geocrazy->get('geocrazy_multiplewidget')).' '.__('Enable multiple widget') ?></label>
 					<br/>
 					<label class="classic"><?php echo form::checkbox('save_address',1,$core->blog->settings->geocrazy->get('geocrazy_saveaddress')).' '.__('Try to save the address of the location (region and locality)') ?></label>
 					<br/>
 					<label class="classic"><?php echo form::checkbox('override_widget_display',1,$core->blog->settings->geocrazy->get('geocrazy_overridewidgetdisplay')).' '.__('Enable override of widget display') ?></label>
+					<div id="staticMap">
+					    <label class="classic"><?php echo form::checkbox('static_map',1,$core->blog->settings->geocrazy->get('geocrazy_staticmap')).' '.__('Static map') ?></label>
+                    </div>
 					<br/><br/>
 					<?php echo __('Default location when adding a location to a post:'); ?><br/>
 					<div>
@@ -90,42 +139,7 @@ if (isset($_POST['submitForm'])) {
 						<br/>
 						<label class="classic"><?php echo form::radio('default_location_mode',2,$core->blog->settings->geocrazy->get('geocrazy_defaultlocationmode') == 2).' '.__('Try to locate the author') ?></label>
 					</div>
-					<br/>
-					<?php 
-                        echo '<label>'.__('Map provider:').form::combo('mapprovider',array(
-                            __('Google') => 'google', 
-                            __('Multimap') => 'multimap',          
-                            __('OpenLayers') => 'openlayers',
-                            __('Yahoo') => 'yahoo'),
-                            gcUtils::getMapProvider($core))
-                        .'</label><br/>';?>
-                        <div id="yahooApiKey">
-	                    <?php echo __('Yahoo Maps API key:'); ?> 
-	                    <input type="text" name="ymapsapikey" size="100" maxlength="100" value="<?php echo $ymaps_api_key; ?>" />
-	                    <a href="https://developer.apps.yahoo.com/wsregapp/"><?php echo __('Get your Yahoo Maps API key'); ?></a>
-	                </div>
-	                <div id="multimapApiKey">
-	                    <?php echo __('Multimap API key:'); ?> 
-                        <input type="text" name="multimapapikey" size="100" maxlength="100" value="<?php echo $multimap_api_key; ?>" />
-                        <a href="http://www.multimap.com/openapi/"><?php echo __('Get your Multimap API key'); ?></a>
-                    </div>
-                    <script type="text/javascript">
-                        function showApiKeyField() {
-                            if ($("#mapprovider").val() == 'multimap') {
-                                $("#yahooApiKey").hide();
-                                $("#multimapApiKey").show();
-                            } else if ($("#mapprovider").val() == 'yahoo') {
-                            	$("#multimapApiKey").hide();
-                            	$("#yahooApiKey").show();
-                            } else {
-                            	$("#yahooApiKey").hide();
-                            	$("#multimapApiKey").hide();
-                            }
-                        }
-                        showApiKeyField();
-                        $("#mapprovider").change(showApiKeyField);
-			        </script>
-					<br/><br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
+					<br/><input type="submit" name="submitForm" value="<?php echo __('Save'); ?>"/>
 				</fieldset>
 				<br/>
 				<fieldset>
