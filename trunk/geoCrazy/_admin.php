@@ -25,6 +25,11 @@ $core->addBehavior('adminAfterPostCreate',array('gcAdminBehaviors','setLocation'
 $core->addBehavior('adminPostHeaders',array('gcAdminBehaviors','postHeaders'));
 $core->addBehavior('adminRelatedHeaders',array('gcAdminBehaviors','postHeaders'));
 
+# Initialization if the plugin is installed but not configured
+if (!property_exists($core->blog->settings,'geocrazy')) {
+	$core->blog->settings->addNamespace('geocrazy');
+}
+
 /**
  * Admin behaviors for the GeoCrazy plugin.
  */

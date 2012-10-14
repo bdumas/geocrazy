@@ -42,6 +42,9 @@ if (isset($_POST['submitForm'])) {
 	$static_map = ($map_provider == 'google') ? $_POST['static_map'] : 0;
 	$settings->geocrazy->put('geocrazy_staticmap',!empty($static_map),'boolean',__('Static map'),true);
 	
+	$map_link = $_POST['map_link'];
+	$settings->geocrazy->put('geocrazy_maplink',!empty($map_link),'boolean',__('Link to a bigger map'),true);
+	
 	# Blog location
 	$blog_location->setLatLong($_POST['blog_latlong']);
 	$blog_location->setCountryCode($_POST['blog_countrycode']);
@@ -129,6 +132,7 @@ if (isset($_POST['submitForm'])) {
 					<label class="classic"><?php echo form::checkbox('override_widget_display',1,$core->blog->settings->geocrazy->get('geocrazy_overridewidgetdisplay')).' '.__('Enable override of widget display') ?></label>
 					<div id="staticMap">
 					    <label class="classic"><?php echo form::checkbox('static_map',1,$core->blog->settings->geocrazy->get('geocrazy_staticmap')).' '.__('Static map') ?></label>
+					    <label class="classic"><?php echo form::checkbox('map_link',1,$core->blog->settings->geocrazy->get('geocrazy_maplink')).' '.__('Link to a bigger map') ?></label>
                     </div>
 					<br/><br/>
 					<?php echo __('Default location when adding a location to a post:'); ?><br/>
