@@ -25,6 +25,11 @@ class gcWidgetBehaviors
 	 */
 	public static function initWidgets($w)
 	{
+		# Initialization if the plugin is installed but not configured
+		if (!property_exists($GLOBALS['core']->blog->settings,'geocrazy')) {
+			$GLOBALS['core']->blog->settings->addNamespace('geocrazy');
+		}
+		
 		$w->create('gcWidget',__('GeoCrazy Map'),array('publicGcWidget','gcWidget'));
 	 
 		# Object of the map
@@ -75,6 +80,11 @@ class gcWidgetBehaviors
 		# If the save address option is enabled, display the name of the location under the map
 		if ($GLOBALS['core']->blog->settings->geocrazy->get('geocrazy_saveaddress') == 1) {
 			$w->gcWidget->setting('address',__('Display address'),0,'check');
+		}
+		
+		# Link to display a bigger map (static map only)
+		if ($GLOBALS['core']->blog->settings->geocrazy->get('geocrazy_maplink') == 1) {
+			$w->gcWidget->setting('link',__('Show on a bigger map'),'http://maps.google.com/','text');
 		}
 		
 		# If multiple widget is enabled, the 'ID' field is useful to place the same widget more than once.

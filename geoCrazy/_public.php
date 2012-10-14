@@ -21,8 +21,14 @@ $core->tpl->setPath($core->tpl->getPath(),dirname(__FILE__).'/default-templates'
 # Override the feed url handler
 $core->url->register('feed','feed','^feed/(.+)$',array('gcUrlHandlers','feed'));
 
+# Feed with all geotagged posts
+$core->url->register('feedgc','feedgc','^feedgc/(.+)$',array('gcUrlHandlers','feedgc'));
+
 # sitemap-geo url handler
 $core->url->register('sitemapGeo','sitemap-geo','^sitemap-geo[_\.]xml$',array('gcUrlHandlers','sitemapGeo'));
+
+# Tags
+$core->tpl->addBlock('GCEntries', array('gcTpl','GCEntries'));
 
 # Add javascript in head content
 $core->addBehavior('publicHeadContent',array('gcPublicBehaviors','publicHeadContent'));
@@ -43,7 +49,6 @@ class gcUrlHandlers extends dcUrlHandlers
 		$comments = false;
 		$cat_url = false;
 		$post_id = null;
-		$params = array();
 		$subtitle = '';
 		
 		$mime = 'application/xml';
@@ -52,11 +57,14 @@ class gcUrlHandlers extends dcUrlHandlers
 		$core =& $GLOBALS['core'];
 		
 		if (preg_match('!^([a-z]{2}(-[a-z]{2})?)/(.*)$!',$args,$m)) {
-			$params['lang'] = $m[1];
+			$params = new ArrayObject(array('lang' => $m[1]));
+				
 			$args = $m[3];
-	
+				
+			$core->callBehavior('publicFeedBeforeGetLangs',$params,$args);
+				
 			$_ctx->langs = $core->blog->getLangs($params);
-		
+				
 			if ($_ctx->langs->isEmpty()) {
 				# The specified language does not exist.
 				self::p404();
@@ -65,7 +73,7 @@ class gcUrlHandlers extends dcUrlHandlers
 				$_ctx->cur_lang = $m[1];
 			}
 		}
-	
+		
 		if (preg_match('#^rss2/xslt$#',$args,$m))
 		{
 			# RSS XSLT stylesheet
@@ -91,39 +99,47 @@ class gcUrlHandlers extends dcUrlHandlers
 		else
 		{
 			# The specified Feed URL is malformed.
-            self::p404();
-            return;
+			self::p404();
+			return;
 		}
 		
 		if ($cat_url)
 		{
-			$params['cat_url'] = $cat_url;
-			$params['post_type'] = 'post';
+			$params = new ArrayObject(array(
+				'cat_url' => $cat_url,
+				'post_type' => 'post'));
+					
+			$core->callBehavior('publicFeedBeforeGetCategories',$params,$args);
+				
 			$_ctx->categories = $core->blog->getCategories($params);
-			
+				
 			if ($_ctx->categories->isEmpty()) {
 				# The specified category does no exist.
-                self::p404();
-                return;
+				self::p404();
+				return;
 			}
-			
+					
 			$subtitle = ' - '.$_ctx->categories->cat_title;
 		}
 		elseif ($post_id)
 		{
-			$params['post_id'] = $post_id;
-			$params['post_type'] = '';
+			$params = new ArrayObject(array(
+			'post_id' => $post_id,
+			'post_type' => ''));
+	
+			$core->callBehavior('publicFeedBeforeGetPosts',$params,$args);
+						
 			$_ctx->posts = $core->blog->getPosts($params);
-			
+				
 			if ($_ctx->posts->isEmpty()) {
 				# The specified post does not exist.
-                self::p404();
-                return;
+				self::p404();
+				return;
 			}
-			
+				
 			$subtitle = ' - '.$_ctx->posts->post_title;
 		}
-		
+	
 		$tpl = $type;
 		if ($comments) {
 			$tpl .= '-comments';
@@ -131,8 +147,128 @@ class gcUrlHandlers extends dcUrlHandlers
 		} else {
 			$tpl .= '-geo'; // Modification GeoCrazy
 			$_ctx->nb_entry_per_page = $core->blog->settings->system->nb_post_per_feed;
-            $_ctx->short_feed_items = $core->blog->settings->system->short_feed_items;
+			$_ctx->short_feed_items = $core->blog->settings->system->short_feed_items;
 		}
+		$tpl .= '.xml';
+
+		if ($type == 'atom') {
+			$mime = 'application/atom+xml';
+		}
+	
+		$_ctx->feed_subtitle = $subtitle;
+	
+		header('X-Robots-Tag: '.context::robotsPolicy($core->blog->settings->system->robots_policy,''));
+		self::serveDocument($tpl,$mime);
+		if (!$comments && !$cat_url) {
+			$core->blog->publishScheduledEntries();
+		}
+	}
+	
+	/**
+	 * Return a feed with all geotagged posts.
+	 * @param $args
+	 */
+	public static function feedgc($args)
+	{
+		$type = null;
+		$comments = false;
+		$cat_url = false;
+		$post_id = null;
+		$subtitle = '';
+		
+		$mime = 'application/xml';
+		
+		$_ctx =& $GLOBALS['_ctx'];
+		$core =& $GLOBALS['core'];
+		
+		if (preg_match('!^([a-z]{2}(-[a-z]{2})?)/(.*)$!',$args,$m)) {
+			$params = new ArrayObject(array('lang' => $m[1]));
+		
+			$args = $m[3];
+		
+			$core->callBehavior('publicFeedBeforeGetLangs',$params,$args);
+		
+			$_ctx->langs = $core->blog->getLangs($params);
+		
+			if ($_ctx->langs->isEmpty()) {
+				# The specified language does not exist.
+				self::p404();
+				return;
+			} else {
+				$_ctx->cur_lang = $m[1];
+			}
+		}
+		
+		if (preg_match('#^rss2/xslt$#',$args,$m))
+		{
+		# RSS XSLT stylesheet
+		self::serveDocument('rss2.xsl','text/xml');
+				return;
+		}
+		elseif (preg_match('#^(atom|rss2)/comments/([0-9]+)$#',$args,$m))
+		{
+				# Post comments feed
+			$type = $m[1];
+		$comments = true;
+		$post_id = (integer) $m[2];
+		}
+		elseif (preg_match('#^(?:category/(.+)/)?(atom|rss2)(/comments)?$#',$args,$m))
+		{
+				# All posts or comments feed
+				$type = $m[2];
+				$comments = !empty($m[3]);
+				if (!empty($m[1])) {
+					$cat_url = $m[1];
+				}
+		}
+		else
+		{
+			# The specified Feed URL is malformed.
+			self::p404();
+			return;
+		}
+
+		if ($cat_url)
+		{
+			$params = new ArrayObject(array(
+			'cat_url' => $cat_url,
+			'post_type' => 'post'));
+				
+			$core->callBehavior('publicFeedBeforeGetCategories',$params,$args);
+
+			$_ctx->categories = $core->blog->getCategories($params);
+
+			if ($_ctx->categories->isEmpty()) {
+				# The specified category does no exist.
+				self::p404();
+				return;
+			}
+				
+			$subtitle = ' - '.$_ctx->categories->cat_title;
+		}
+		elseif ($post_id)
+		{
+			$params = new ArrayObject(array(
+			'post_id' => $post_id,
+			'post_type' => ''));
+
+			$core->callBehavior('publicFeedBeforeGetPosts',$params,$args);
+
+			$_ctx->posts = $core->blog->getPosts($params);
+
+			if ($_ctx->posts->isEmpty()) {
+			# The specified post does not exist.
+				self::p404();
+				return;
+			}
+
+			$subtitle = ' - '.$_ctx->posts->post_title;
+		}
+		
+		$tpl = $type;
+		$tpl .= '-all-geo'; // Modification GeoCrazy
+		//$_ctx->nb_entry_per_page = $core->blog->settings->system->nb_post_per_feed;
+		$_ctx->short_feed_items = $core->blog->settings->system->short_feed_items;
 		$tpl .= '.xml';
 		
 		if ($type == 'atom') {
@@ -212,6 +348,7 @@ class publicGcWidget
 		$widget_zoom = $w->zoom;
 		$widget_type = $w->type;
 		$widget_address = $w->address;
+		$widget_link = $w->link != '' ? $w->link : 'http://maps.google.com/';
 		
 		# Display parameters override
 		if ($w->object == 1 
@@ -253,7 +390,8 @@ class publicGcWidget
 		# Map (the Widget ID enables to differentiate several maps)
 		$static_map = ($core->blog->settings->geocrazy->get('geocrazy_staticmap') == 1);
 		if ($static_map) {
-			$widget_html .= publicGcWidget::getGoogleStaticMap($widget_type,$widget_zoom,$widget_width,$widget_height,$location);
+			$map_link = ($core->blog->settings->geocrazy->get('geocrazy_maplink') == 1);
+			$widget_html .= publicGcWidget::getGoogleStaticMap($widget_type,$widget_zoom,$widget_width,$widget_height,$location,$map_link,$widget_link);
 		} else {
 			$width = $widget_width != '' ? $widget_width.'px' : '100%';
             $height = $widget_height != '' ? $widget_height.'px' : '200px';
@@ -276,17 +414,19 @@ class publicGcWidget
 	}
 	
 	/**
-     * Returns the <img> tag for displaying a Google Static Map for the location.
+     * Returns the <img> tag for displaying a Google Static Map of the location.
      * 
-     * @param $type
-     * @param $zoom 
-     * @param $width
-     * @param $height
-     * @param $location
+     * @param $type the type of map
+     * @param $zoom the zoom level
+     * @param $width the width of the map
+     * @param $height the height of the map
+     * @param $location the coordinates of the place
+     * @param $map_link true if there the map must contain a link
+     * @param $link the value of the link
      * 
      * @return the <img> tag in HTML
      */
-    private static function getGoogleStaticMap($type,$zoom,$width,$height,$location) {
+    private static function getGoogleStaticMap($type,$zoom,$width,$height,$location,$map_link,$link) {
 		$maptype;
         switch($type) {
         	default:
@@ -311,7 +451,17 @@ class publicGcWidget
         $url .= '&maptype='.$maptype.'&zoom='.$zoom.'&size='.$widthPx.'x'.$heightPx;
         $url .= '&markers='.$location->getCommaLatLong().'&sensor=false';
         
-        $tag = '<img border="0" alt="'.$location->getPlaceName().'" src="'.$url.'" />';
+        $tag = '';
+
+        if ($map_link) {
+        	$tag .= '<a href="'.$link.'?ll='.$location->getCommaLatLong().'" title="'.__('Show on a bigger map').'">';
+        }
+        
+        $tag .= '<img alt="'.$location->getPlaceName().'" src="'.$url.'" width="'.$widthPx.'" height="'.$heightPx.'" />';
+        
+        if ($map_link) {
+        	$tag .= '</a>';
+        }
         return $tag;
 	}
 }
@@ -357,6 +507,101 @@ class gcPublicBehaviors
 		# Javascript (TODO: useless when no widget)
 		echo gcUtils::getMapJSLinks($core,'widget',NULL);
 	}
+}
+
+/**
+ * Tpl tags
+ */
+class gcTpl
+{
+	/**
+	 * Generates RSS/Atom entries of geolocalized posts.
+	 * @param $attr
+	 * @param $content
+	 */
+	public static function GCEntries($attr,$content)
+	{
+		$p = 'if (!isset($_page_number)) { $_page_number = 1; }'."\n";
+		
+		if (isset($attr['author'])) {
+			$p .= "\$params['user_id'] = '".addslashes($attr['author'])."';\n";
+		}
+		
+		if (isset($attr['category'])) {
+			$p .= "\$params['cat_url'] = '".addslashes($attr['category'])."';\n";
+			$p .= "context::categoryPostParam(\$params);\n";
+		}
+		
+		if (isset($attr['no_category']) && $attr['no_category']) {
+			$p .= "@\$params['sql'] .= ' AND P.cat_id IS NULL ';\n";
+			$p .= "unset(\$params['cat_url']);\n";
+		}
+		
+		if (!empty($attr['type'])) {
+			$p .= "\$params['post_type'] = preg_split('/\s*,\s*/','".addslashes($attr['type'])."',-1,PREG_SPLIT_NO_EMPTY);\n";
+		}
+		
+		if (!empty($attr['url'])) {
+			$p .= "\$params['post_url'] = '".addslashes($attr['url'])."';\n";
+		}
+		
+		if (empty($attr['no_context']))
+		{
+			$p .=
+			'if ($_ctx->exists("users")) { '.
+				"\$params['user_id'] = \$_ctx->users->user_id; ".
+			"}\n";
+			
+			$p .=
+			'if ($_ctx->exists("categories")) { '.
+				"\$params['cat_id'] = \$_ctx->categories->cat_id; ".
+			"}\n";
+			
+			$p .=
+			'if ($_ctx->exists("archives")) { '.
+				"\$params['post_year'] = \$_ctx->archives->year(); ".
+				"\$params['post_month'] = \$_ctx->archives->month(); ";
+			if (!isset($attr['lastn'])) {
+				$p .= "unset(\$params['limit']); ";
+			}
+			$p .=
+			"}\n";
+			
+			$p .=
+			'if ($_ctx->exists("langs")) { '.
+				"\$params['post_lang'] = \$_ctx->langs->post_lang; ".
+			"}\n";
+			
+			$p .=
+			'if (isset($_search)) { '.
+				"\$params['search'] = \$_search; ".
+			"}\n";
+		}
+		
+		if (isset($attr['no_content']) && $attr['no_content']) {
+			$p .= "\$params['no_content'] = true;\n";
+		}
+		
+		if (isset($attr['selected'])) {
+			$p .= "\$params['post_selected'] = ".(integer) (boolean) $attr['selected'].";";
+		}
+		
+		# Only geotagged posts
+		$p .= "\$params['from'] = \", \".\$core->blog->prefix.\"meta META \";";
+		$p .= "\$params['sql'] = \" AND META.post_id = P.post_id AND META.meta_type = 'gc_latlong' \";";
+
+		$res = "<?php\n";
+		$res .= $p;
+		$res .= '$_ctx->post_params = $params;'."\n";
+		$res .= '$_ctx->posts = $core->blog->getPosts($params); unset($params);'."\n";
+		$res .= "?>\n";
+		
+		$res .=
+		'<?php while ($_ctx->posts->fetch()) : ?>'.$content.'<?php endwhile; '.
+		'$_ctx->posts = null; $_ctx->post_params = null; ?>';
+		
+		return $res;
+    }
 }
 
 ?>
