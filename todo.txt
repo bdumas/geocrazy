@@ -1,0 +1,42 @@
+A valider pour la version 0.6
+- mises ‡ jour faites depuis la 0.5
+- mises ‡ jours flux rss
+- validation derniËre version de DotClear
+
+TODO
+- pas de include js si pas de widget sur la page (http://www.mygarageisgood4bricolage.com/post/2010/08/14/GeoCrazy-0.5#c242)
+- administration avec un autre provider que google
+- lien vers Google Maps (ou autre provider) lorsqu'on clique sur le pointeur de la carte (+ lightbox (voir flickr))
+- carte d'une cat√©gorie (avec lien vers Google Maps ou autre)
+- carte du blog (tous les billets g√©opositionn√©s)
+- sur la carte du blog : syst√®me multipoints selon l'√©chelle (http://www.mygarageisgood4bricolage.com/pages/GeoCrazy#c202)
+- sitemap geo
+- paypal
+- todo √† g√©rer
+- template carte
+- surcharger le nom du lieu
+- ins√©rer une carte dans le billet
+- placer les scripts js en fin de page
+- carte pour des pages en plus des billets
+- bug si changement de lieu en admin
+- optimisation perf lorsque plugin installÈ mais pas utilisÈ
+- mise ‡ jour fournie par ???
+- enlever l'icone streetview sur la vue google
+- empÍcher le zoom molette
+
+CHANGELOG
+
+Maj 0.5.1 sur benontherun.com
+
+0.5 => 0.5.1
+- correction bug installation du plugin sans paramÈtrage (dans widgets.php et admin.php)
+- possibilitÈ de crÈer un lien sur une carte statique
+- flux avec tous les posts gÈotagguÈs ? feedgc ? => adresse du blog/feedgc/atom ou rss2
+ 
+
+0.4.1 => 0.5 :
+- provider multimap
+- utilisation de google maps api V3 (cl√© google inutile)
+- php 5.3 (merci Pierre)
+- petites adaptations pour Dotclear 2.2
+- cartes statiques
