@@ -80,6 +80,7 @@ function updateMap(gcLatLong, type, zoom) {
 	  zoom: zoom ? parseInt(zoom, 10) : 10,
 	  center: gPoint,
 	  mapTypeControl: false,
+	  streetViewControl: false,
 	  mapTypeId: gcType
 	};
 	

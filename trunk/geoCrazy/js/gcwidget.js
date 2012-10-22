@@ -41,6 +41,7 @@ function gcMap(htmlId, mapType, zoomLevel, gcLatLong) {
 	  zoom: zoomLevel,
 	  center: gPoint,
 	  mapTypeControl: false,
+	  streetViewControl: false,
 	  mapTypeId: type
 	};
 	var map = new google.maps.Map(document.getElementById(htmlId), mapOptions);
