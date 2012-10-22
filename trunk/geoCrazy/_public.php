@@ -502,11 +502,13 @@ class gcPublicBehaviors
 			if ($place_name != '') {
 				echo '<meta name="geo.placename" content="'.$place_name.'" />'."\n";
 			}
+
+			# Javascript (TODO: Asynchronously Loading the API only when needed ?)
+			echo gcUtils::getMapJSLinks($core,'widget',NULL);
 		}
-			
-		# Javascript (TODO: useless when no widget)
-		echo gcUtils::getMapJSLinks($core,'widget',NULL);
 	}
+	
+
 }
 
 /**
