@@ -21,7 +21,7 @@ class gcUtils
 		$map_provider = $core->blog->settings->geocrazy->get('geocrazy_mapprovider');
 		return isset($map_provider) ? $map_provider : 'google';
 	}
-	
+
 	/**
      * Returns the <script> html tags for javascript files inclusion related to the maps libraries.
      * @param $core

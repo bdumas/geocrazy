@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */          "GeoCrazy",
 	/* Description*/    "Geolocalize your posts",
 	/* Author */        "Benjamin Dumas",
-	/* Version */       '0.5.1',
+	/* Version */       '0.6',
 	/* Permissions */   'usage,contentadmin'
 );
 ?>

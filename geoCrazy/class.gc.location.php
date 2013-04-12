@@ -159,21 +159,21 @@ class gcLocation
 	}
 	
 	public function getMicroformatAdr() {
-		$html = '<div id="placename" class="adr">';
+		$html = '<div id="placename" class="adr" itemscope itemtype="http://schema.org/PostalAddress">';
 		if ($this->locality != '') {
-			$html .= '<span class="locality">'.$this->locality.'</span>';
+			$html .= '<span class="locality" itemprop="addressLocality">'.$this->locality.'</span>';
 			if ($this->region != '') {
 				$html .= ', ';
 			}
 		}
 		if ($this->region != '') {
-			$html .= '<span class="region">'.$this->region.'</span>';
+			$html .= '<span class="region" itemprop="addressRegion">'.$this->region.'</span>';
 			if ($this->country_name != '') {
 				$html .= ', ';
 			}
 		}
 		if ($this->country_name != '') {
-			$html .= '<span class="country-name">'.$this->country_name.'</span>';
+			$html .= '<span class="country-name" itemprop="addressCountry">'.$this->country_name.'</span>';
 		}
 		$html .= '</div>';
 		return $html;
