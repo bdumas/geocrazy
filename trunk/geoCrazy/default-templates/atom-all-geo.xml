@@ -16,30 +16,38 @@
   </author>
   <id>{{tpl:BlogFeedID}}</id>
   <generator uri="http://www.dotclear.org/">Dotclear</generator>
-  
-  <tpl:GCEntries no_content="true">
-  
+
+  <tpl:Entries no_content="true" lastn="10000">
+
   <entry>
     <title>{{tpl:EntryTitle encode_xml="1"}}</title>
     <link href="{{tpl:EntryURL}}" rel="alternate" type="text/html"
     title="{{tpl:EntryTitle encode_xml="1"}}" />
     <id>{{tpl:EntryFeedID}}</id>
     <published>{{tpl:EntryDate iso8601="1"}}</published>
+    <tpl:EntryIf republished="1">
+      <updated>{{tpl:EntryDate iso8601="1" upddt="1"}}</updated>
+    </tpl:EntryIf>
+    <tpl:EntryIf republished="0">
+      <updated>{{tpl:EntryDate iso8601="1"}}</updated>
+    </tpl:EntryIf>
     <author><name>{{tpl:EntryAuthorCommonName encode_xml="1"}}</name></author>
     <tpl:EntryIf has_category="1">
     <dc:subject>{{tpl:EntryCategory encode_html="1"}}</dc:subject>
     </tpl:EntryIf>
     <tpl:EntryTags><dc:subject>{{tpl:TagID}}</dc:subject></tpl:EntryTags>
 
-    <content type="html">{{tpl:EntryExcerpt absolute_urls="1" encode_xml="1"}}
-    {{tpl:EntryDate}}&lt;br/&gt;
+    <content type="html">
+    {{tpl:EntryDate}}
+    {{tpl:EntryExcerpt absolute_urls="1" encode_xml="1"}}
     &lt;a href=&quot;{{tpl:EntryURL absolute_urls="1" encode_xml="1"}}&quot;&gt;Voir le billet&lt;/a&gt;</content>
 
     <tpl:Attachments>
       <link rel="enclosure" href="{{tpl:AttachmentURL}}"
       length="{{tpl:AttachmentSize full="1"}}" type="{{tpl:AttachmentMimeType}}" />
     </tpl:Attachments>
-    
+
+
     <tpl:EntryIf comments_active="1">
       <wfw:comment>{{tpl:EntryURL}}#comment-form</wfw:comment>
       <wfw:commentRss>{{tpl:BlogFeedURL type="atom"}}/comments/{{tpl:EntryID}}</wfw:commentRss>
@@ -49,6 +57,6 @@
       <georss:point>{{tpl:MetaID}}</georss:point>
     </tpl:EntryMetaData>
   </entry>
-  </tpl:GCEntries>
+  </tpl:Entries>
 
 </feed>
