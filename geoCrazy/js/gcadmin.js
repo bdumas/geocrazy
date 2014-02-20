@@ -90,6 +90,9 @@ function updateMap(gcLatLong, type, zoom) {
 		map.setOptions(mapOptions);
 	}
 	
+	if (marker) {
+	    marker.setMap(null);
+	}
 	marker = new google.maps.Marker({position: gPoint, map: map});
 }
 
