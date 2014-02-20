@@ -9,6 +9,8 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
+if (!defined('DC_CONTEXT_ADMIN')) { return; }
+
 # Popup to select a place on the map
 if ($_GET['popup'] == '1') {
 	include 'popup.php';

@@ -9,6 +9,8 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 # -- END LICENSE BLOCK ------------------------------------
 
+if (!defined('DC_RC_PATH')) { return; }
+
 $GLOBALS['__autoload']['gcLocation'] = dirname(__FILE__).'/class.gc.location.php';
 $GLOBALS['__autoload']['gcUtils'] = dirname(__FILE__).'/class.gc.utils.php';
 ?>
