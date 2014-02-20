@@ -2,7 +2,7 @@
 # -- BEGIN LICENSE BLOCK ----------------------------------
 # This file is part of GeoCrazy, a plugin for Dotclear.
 # 
-# Copyright (c) 2009 Benjamin Dumas and contributors
+# Copyright (c) 2009-2014 Benjamin Dumas and contributors
 # 
 # Licensed under the GPL version 2.0 license.
 # A copy of this license is available in LICENSE file or at
