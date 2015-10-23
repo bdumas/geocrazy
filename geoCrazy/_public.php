@@ -470,8 +470,8 @@ class publicGcWidget
         $widthPx = ($width != '') ? $width : $heightPx;
         
         $url = 'http://maps.google.com/maps/api/staticmap?center='.$location->getCommaLatLong();
-        $url .= '&maptype='.$maptype.'&zoom='.$zoom.'&size='.$widthPx.'x'.$heightPx;
-        $url .= '&markers='.$location->getCommaLatLong().'&sensor=false';
+        $url .= '&amp;maptype='.$maptype.'&amp;zoom='.$zoom.'&amp;size='.$widthPx.'x'.$heightPx;
+        $url .= '&amp;markers='.$location->getCommaLatLong().'&amp;sensor=false';
         
         $tag = '';
 
