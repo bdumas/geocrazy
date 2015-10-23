@@ -479,7 +479,7 @@ class publicGcWidget
         	$tag .= '<a href="'.$link.'?ll='.$location->getCommaLatLong().'" title="'.__('Show on a bigger map').'">';
         }
         
-        $tag .= '<img border="0" alt="'.$location->getPlaceName().'" src="'.$url.'" width="'.$widthPx.'" height="'.$heightPx.'" />';
+        $tag .= '<img alt="'.$location->getPlaceName().'" src="'.$url.'" width="'.$widthPx.'" height="'.$heightPx.'" />';
         
         if ($map_link) {
         	$tag .= '</a>';
